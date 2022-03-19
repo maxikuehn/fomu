@@ -40,7 +40,7 @@ export default defineConfig({
             dark: true,
             // compact: true,
           }),
-          "@primary-color": "#285e94",
+          // "@primary-color": "#285e94",
           // "@text-color": "#0F0",
         },
         javascriptEnabled: true,

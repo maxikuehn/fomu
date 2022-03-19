@@ -1,4 +1,4 @@
-import { InfoCircleOutlined, InfoOutlined } from "@ant-design/icons"
+import { InfoOutlined } from "@ant-design/icons"
 import { Button, Image, Space, Tooltip, Typography } from "antd"
 import { useState } from "react"
 const { Text, Title } = Typography
@@ -29,12 +29,22 @@ const Playlist = ({ name, id, tracks, owner, images }) => {
 
 const PlaylistIn = ({ userPlaylists }) => {
   return (
-    <div className="m-8 max-h-[80vh] flex flex-col ">
+    <div className="m-8 max-h-[80vh] flex flex-col select-none">
       <Space>
         <Title level={3} className="px-2">
           Wähle Playlists aus
         </Title>
-        <Tooltip title="folge Playlists damit sie hier erscheinen">
+        <Tooltip
+          placement="rightBottom"
+          title={
+            <div>
+              Folge Playlists, damit sie hier erscheinen
+              <Button type="link" onClick={() => location.reload()}>
+                neuladen
+              </Button>
+            </div>
+          }
+        >
           <Button shape="circle" size="small" icon={<InfoOutlined />} />
         </Tooltip>
       </Space>

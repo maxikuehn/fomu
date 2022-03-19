@@ -12,6 +12,7 @@ import { useEffect, useState } from "react"
 import ConfiguratorLayout from "./views/ConfiguratorLayout"
 import TopBar from "./components/TopBar"
 import currentUserProfileState from "./recoil/currentUserState"
+import LoadingPage from "./views/LoadingPage"
 
 const dev = !process.env.NODE_ENV || process.env.NODE_ENV === "development"
 
@@ -32,11 +33,10 @@ function App() {
   }, [loggedIn])
 
   return (
-    <div className="w-screen h-screen">
-      {/* bg-background"> */}
+    <div className="w-screen h-screen bg-background">
       {loggedIn ? (
         appLoading ? (
-          <div className="text-lime-500">Loadinf</div>
+          <LoadingPage />
         ) : (
           <div className="flex flex-col h-full">
             <TopBar />

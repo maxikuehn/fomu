@@ -1,40 +1,46 @@
+import { DownOutlined } from "@ant-design/icons"
 import { Avatar, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
+import { useState } from "react"
 import { useRecoilValue, useResetRecoilState } from "recoil"
 import currentUserProfileState from "../recoil/currentUserState"
 import spotifyAuthState from "../recoil/spotifyAuthState"
 
-import Button from "./Button"
-
-const menu = () => (
-  <Menu>
-    <Menu.Item key="logout">logout</Menu.Item>
-  </Menu>
-)
+const ProfileMenu = () => {
+  const handleLogout = useResetRecoilState(spotifyAuthState)
+  return (
+    <Menu className="rounded-lg">
+      <Menu.Item onClick={handleLogout} key="logout2">
+        Logout
+      </Menu.Item>
+    </Menu>
+  )
+}
 
 const TopBar = (props) => {
-  const handleLogout = useResetRecoilState(spotifyAuthState)
   const currentUserProfile = useRecoilValue(currentUserProfileState)
+  const [open, setOpen] = useState(0)
 
   if (!currentUserProfile) return <div />
 
   return (
     <div
       id="topbar"
-      className="bg-green-500 w-full h-16 flex justify-evenly items-center"
+      className="border-green-500 border-0 p-4 w-full  flex justify-between items-center"
     >
-      <Button handleClick={handleLogout} label="Logout" />
+      <div />
       <Dropdown
-        overlay={menu}
-        trigger="click"
+        overlay={<ProfileMenu />}
+        onVisibleChange={setOpen}
         placement="bottomRight"
         className="bg-primary-active rounded-full select-none"
       >
         <div>
-          <Avatar size={50} src={currentUserProfile.images[0].url} />
-          <Text strong className="pl-2 pr-4">
+          <Avatar size={45} src={currentUserProfile.images[0].url} />
+          <Text strong underline className="p-2">
             {currentUserProfile.display_name}
           </Text>
+          <DownOutlined size={"lg"} rotate={open ? 180 : 0} className="p-2" />
         </div>
       </Dropdown>
     </div>
