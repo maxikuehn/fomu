@@ -1,15 +1,15 @@
 import axios from "axios"
 import createAuthRefreshInterceptor from "axios-auth-refresh"
+import _ from "lodash"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
-import spotifyAuthState from "../recoil/spotifyAuthState"
+import { spotifyAuthState } from "../recoil"
 import scopes from "../service/Scopes"
 
 const BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_URI = "http://localhost:3000/callback"
 const CLIENT_ID = "0ed7c8cbcdf74e53b7bb0f3f11231171"
 const CLIENT_SECRET = "1a9bfd2ede0b4719ab02608486b7a54c"
-const SPOT_AUTH = "spotify-authentication"
 
 const authHeader = () => {
   const spotifyAuth = getRecoil(spotifyAuthState)
@@ -21,6 +21,36 @@ const authHeader = () => {
 const spotifyFetcher = axios.create({
   baseURL: BASE_URL,
   timeout: 1000,
+})
+
+spotifyFetcher.interceptors.response.use(null, (error) => {
+  if (error.config && error.response && error.response.status >= 500) {
+    // console.log("error.config", error.config)
+    return spotifyFetcher.request({
+      method: error.config.method,
+      url: error.config.url,
+      headers: authHeader(),
+      params: error.config.params,
+      data: error.config.data,
+    })
+  }
+  if (error.config && error.response && error.response.status === 429) {
+    _.delay(() => {
+      // console.log(
+      //   "error.response.headers['retry-after']",
+      //   error.response.headers,
+      //   error.response.headers["retry-after"] * 1000
+      // )
+      return spotifyFetcher.request({
+        method: error.config.method,
+        url: error.config.url,
+        headers: authHeader(),
+        params: error.config.params,
+        data: error.config.data,
+      })
+    }, error.response.headers["retry-after"] * 1000 ?? 3000)
+  }
+  return Promise.reject(error)
 })
 
 export const requestRefreshedAccessToken = async (failedRequest) => {
@@ -45,11 +75,13 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
         spotifyAuthState,
         Object.assign({}, getRecoil(spotifyAuthState), resp.data)
       )
-      if (failedRequest)
+      if (failedRequest) {
         failedRequest.response.config.headers[
           "Authorization"
         ] = `Bearer ${resp.data.access_token}`
-      return
+        // console.log("failedRequest", failedRequest.response)
+      }
+      return Promise.resolve()
     })
     .catch((error) => {
       console.log("error", error.message)
@@ -58,7 +90,10 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
 }
 
 createAuthRefreshInterceptor(axios, requestRefreshedAccessToken)
-createAuthRefreshInterceptor(spotifyFetcher, requestRefreshedAccessToken)
+createAuthRefreshInterceptor(spotifyFetcher, requestRefreshedAccessToken, {
+  statusCodes: [401],
+  // pauseInstanceWhileRefreshing: true,
+})
 
 export const fetchCurrentUserPlaylist = async () => {
   return spotifyFetcher
@@ -73,8 +108,60 @@ export const fetchCurrentUserPlaylist = async () => {
     .catch((error) => console.log("error", error))
 }
 
-export const fetchPlaylistItems = (playlits_id) => {
-  axios.get(`${BASE_URL}/playlists/${playlits_id}/tracks`, {})
+export const fetchPlaylistItemUris = async (playlits_id, offset = 0) => {
+  const limit = 50
+  var request = await spotifyFetcher
+    .get(`playlists/${playlits_id}/tracks`, {
+      params: { limit, offset },
+      headers: authHeader(),
+    })
+    .then((response) => response.data)
+    .catch((error) => {
+      // console.log("error", error)
+      return
+    })
+  let tracks = request.items.map((t) => t.track.uri)
+  if (offset > 0) return tracks
+  if (request.total === 0) return []
+
+  let tracksLeft = request.total - (limit + offset)
+  let length = Math.ceil(tracksLeft / 50)
+  // console.log("total:", request.total, "done:", offset, "length:", length)
+  let promises = Array(length)
+    .fill(0)
+    .map((_, i) => fetchPlaylistItemUris(playlits_id, (i + 1) * limit))
+  let tracks2 = (await Promise.all(promises)).flat()
+  return tracks.concat(tracks2)
+}
+
+export const postItemsInPlaylist = async (playlits_id, uris) => {
+  return spotifyFetcher
+    .post(
+      `playlists/${playlits_id}/tracks`,
+      { uris },
+      {
+        headers: authHeader(),
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const combineTracks = async (destinationId, sourceId) => {
+  const tracks = (
+    await Promise.all(
+      sourceId.map((playlist) => fetchPlaylistItemUris(playlist))
+    )
+  ).flat()
+
+  const existingTracks = await fetchPlaylistItemUris(destinationId)
+  _.pullAll(tracks, existingTracks)
+  console.log("new tracks in destPlaylist:", tracks.length)
+
+  let chunks = _.chunk(tracks, 100)
+  return await Promise.all(
+    chunks.map((tr) => postItemsInPlaylist(destinationId, tr))
+  )
 }
 
 export const fetchCurrentUserProfile = async () => {
@@ -84,6 +171,19 @@ export const fetchCurrentUserProfile = async () => {
     })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
+}
+
+export const createPlaylist = async (userId, name) => {
+  return spotifyFetcher
+    .post(
+      `users/${userId}/playlists`,
+      { name, description: "Created by spotinderfy.ai :)", public: false },
+      { headers: authHeader() }
+    )
+    .then((response) => response.data)
+    .catch((error) => {
+      return { error }
+    })
 }
 
 export const requestUserAuthorization = () => {

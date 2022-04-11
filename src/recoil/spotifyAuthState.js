@@ -1,26 +1,8 @@
 import { atom } from "recoil"
+import localStorageEffect from "./localSorageEffect"
 
-const SPOT_AUTH = "spotify-authentication"
-
-const localStorageEffect =
-  (key) =>
-  ({ setSelf, onSet }) => {
-    const savedValue = localStorage.getItem(key)
-    if (savedValue != null) {
-      setSelf(JSON.parse(savedValue))
-    }
-
-    onSet((newValue, oldValue, isReset) => {
-      isReset
-        ? localStorage.removeItem(key)
-        : localStorage.setItem(key, JSON.stringify(newValue))
-    })
-  }
-
-const spotifyAuthState = atom({
+export const spotifyAuthState = atom({
   key: "spotifyAuthState",
   default: null,
-  effects: [localStorageEffect(SPOT_AUTH)],
+  effects: [localStorageEffect("spotify-authentication")],
 })
-
-export default spotifyAuthState

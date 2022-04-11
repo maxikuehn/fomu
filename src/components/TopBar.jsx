@@ -3,11 +3,33 @@ import { Avatar, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilValue, useResetRecoilState } from "recoil"
-import currentUserProfileState from "../recoil/currentUserState"
-import spotifyAuthState from "../recoil/spotifyAuthState"
+import {
+  appState,
+  currentUserState,
+  deleteTracksState,
+  inputPlaylistState,
+  joinPlaylistState,
+  outputPlaylistState,
+  spotifyAuthState,
+} from "../recoil"
 
 const ProfileMenu = () => {
-  const handleLogout = useResetRecoilState(spotifyAuthState)
+  const resetJoin = useResetRecoilState(joinPlaylistState)
+  const resetDelete = useResetRecoilState(deleteTracksState)
+  const resetApp = useResetRecoilState(appState)
+  const resetInput = useResetRecoilState(inputPlaylistState)
+  const resetOutput = useResetRecoilState(outputPlaylistState)
+  const resetAuth = useResetRecoilState(spotifyAuthState)
+
+  const handleLogout = () => {
+    resetJoin()
+    resetDelete()
+    resetApp()
+    resetInput()
+    resetOutput()
+    resetAuth()
+    localStorage.clear()
+  }
   return (
     <Menu className="rounded-lg">
       <Menu.Item onClick={handleLogout} key="logout2">
@@ -17,8 +39,8 @@ const ProfileMenu = () => {
   )
 }
 
-const TopBar = (props) => {
-  const currentUserProfile = useRecoilValue(currentUserProfileState)
+const TopBar = () => {
+  const currentUserProfile = useRecoilValue(currentUserState)
   const [open, setOpen] = useState(0)
 
   if (!currentUserProfile) return <div />
@@ -32,8 +54,9 @@ const TopBar = (props) => {
       <Dropdown
         overlay={<ProfileMenu />}
         onVisibleChange={setOpen}
+        trigger="click"
         placement="bottomRight"
-        className="bg-primary-active rounded-full select-none"
+        className="bg-primary-active rounded-full select-none cursor-pointer"
       >
         <div>
           <Avatar size={45} src={currentUserProfile.images[0].url} />

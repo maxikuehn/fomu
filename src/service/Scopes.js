@@ -49,8 +49,15 @@ export const allScopes = (() => {
 const scopes = (() => [
   scopesList.userReadCurrentlyPlaying,
   scopesList.playlistReadPrivate,
+  scopesList.playlistModifyPrivate,
+  scopesList.playlistModifyPublic,
   scopesList.userReadPrivate,
   scopesList.userReadEmail,
+  scopesList.userReadPlaybackState,
+  scopesList.userModifyPlaybackState,
+  scopesList.userReadCurrentlyPlaying,
 ])()
+
+let x = scopes
 
 export default scopes

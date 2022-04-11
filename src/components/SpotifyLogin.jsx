@@ -1,5 +1,4 @@
-import { useEffect } from "react"
-import Button from "./Button"
+import { Button } from "antd"
 import { requestUserAuthorization } from "../api/spotify"
 
 const SpotifyLogin = (props) => {
@@ -8,9 +7,9 @@ const SpotifyLogin = (props) => {
   }
 
   return (
-    <div>
-      <Button handleClick={handleClick} label="Login" />
-    </div>
+    <Button onClick={handleClick} type="primary">
+      Login
+    </Button>
   )
 }
 export default SpotifyLogin
