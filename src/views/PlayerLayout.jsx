@@ -1,4 +1,4 @@
-import Player from "../components/player/player"
+import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
 
 const PlayerLayout = () => {
   return (
@@ -7,10 +7,10 @@ const PlayerLayout = () => {
         verlauf
       </div>
 
-      <div id="right" className="bg-yellow-400 flex-auto flex flex-col">
+      <div id="right" className=" flex-auto flex flex-col">
         <div id="player" className="flex-auto flex">
-          <Player />
-          <div className="bg-blue-600 basis-80">playlistAdd</div>
+          <PlyrPlayer />
+          <PlyrPlaylistAdd />
         </div>
       </div>
     </div>

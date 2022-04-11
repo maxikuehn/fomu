@@ -47,7 +47,7 @@ const Playlist = ({ name, id, tracks, images }) => {
   )
 }
 
-const ConfDestination = () => {
+const CnfDestination = () => {
   const ownedPlaylists = useRecoilValue(currentUserOwnedPlaylistState)
   const currentUser = useRecoilValue(currentUserState)
   const outputPlaylists = useRecoilValue(outputPlaylistState)
@@ -72,7 +72,7 @@ const ConfDestination = () => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-4 border-primary-active rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="p-2 border-4 border-primary-500 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
         <Input.Group compact className="w-full">
           <Input
             placeholder="neue Playlist"
@@ -89,4 +89,4 @@ const ConfDestination = () => {
     </div>
   )
 }
-export default ConfDestination
+export default CnfDestination

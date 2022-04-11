@@ -56,7 +56,7 @@ const TopBar = () => {
         onVisibleChange={setOpen}
         trigger="click"
         placement="bottomRight"
-        className="bg-primary-active rounded-full select-none cursor-pointer"
+        className="bg-primary-400 rounded-full select-none cursor-pointer"
       >
         <div>
           <Avatar size={45} src={currentUserProfile.images[0].url} />

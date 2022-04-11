@@ -3,8 +3,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#285e94",
-        "primary-active": "#18406e",
+        primary: {
+          0: "#156DC4",
+          300: "#357CC4",
+          400: "#285e94",
+          500: "#18406E",
+          600: "#123053",
+          700: "#0E2642",
+        },
         background: "#0d1117",
         "spotify-green": "#1fdf64",
       },

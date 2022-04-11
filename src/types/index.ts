@@ -4,6 +4,7 @@ export enum EAppState {
   Configuration,
   Player,
 }
+
 export interface sp_image {
   url: string
   height: number

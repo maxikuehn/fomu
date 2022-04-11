@@ -36,7 +36,7 @@ const Playlist = ({ name, id, tracks, owner, images }) => {
   )
 }
 
-const ConfPlaylistList = () => {
+const CnfPlaylistList = () => {
   const userPlaylists = useRecoilValue(currentUserPlaylistsState)
   const inputPlaylists = useRecoilValue(inputPlaylistState)
 
@@ -64,10 +64,10 @@ const ConfPlaylistList = () => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-4 border-primary-active rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="p-2 border-4 border-primary-500 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
         {userPlaylists.map(Playlist)}
       </div>
     </div>
   )
 }
-export default ConfPlaylistList
+export default CnfPlaylistList

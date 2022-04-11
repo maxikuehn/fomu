@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import {
   fetchCurrentUserPlaylist,
   fetchCurrentUserProfile,
+  fetchPlayer,
 } from "./api/spotify"
 import { useEffect, useState } from "react"
 import ConfiguratorLayout from "./views/ConfiguratorLayout"
@@ -15,6 +16,7 @@ import {
   appState,
   currentUserPlaylistsState,
   currentUserState,
+  playerState,
   spotifyAuthState,
 } from "./recoil"
 
@@ -25,14 +27,14 @@ function App() {
   const [app, setApp] = useRecoilState(appState)
   const setCurrentUserPlaylists = useSetRecoilState(currentUserPlaylistsState)
   const setCurrentUserProfile = useSetRecoilState(currentUserState)
+  const setPlayer = useSetRecoilState(playerState)
   let loggedIn = !!useRecoilValue(spotifyAuthState)
 
   const initFetch = async () => {
     setAppLoading(true)
-    const currentUserPlaylists = await fetchCurrentUserPlaylist()
-    setCurrentUserPlaylists(currentUserPlaylists.items)
-    const currentUserProfile = await fetchCurrentUserProfile()
-    setCurrentUserProfile(currentUserProfile)
+    setCurrentUserPlaylists((await fetchCurrentUserPlaylist()).items)
+    setCurrentUserProfile(await fetchCurrentUserProfile())
+    setPlayer(await fetchPlayer())
     setAppLoading(false)
   }
 

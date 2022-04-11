@@ -186,7 +186,96 @@ export const createPlaylist = async (userId, name) => {
     })
 }
 
-export const requestUserAuthorization = () => {
+export const fetchPlayer = async () => {
+  return spotifyFetcher
+    .get("me/player", { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerSkipToNext = async () => {
+  return spotifyFetcher
+    .post("me/player/next", { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerSkipToPrevious = async () => {
+  return spotifyFetcher
+    .post("me/player/previous", { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerPause = async () => {
+  return spotifyFetcher
+    .put("me/player/pause", { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerPlay = async () => {
+  return spotifyFetcher
+    .put("me/player/play", { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+/**
+ *
+ * @param {number} position_ms - duration in seconds
+ */
+export const playerSeek = async (position_ms) => {
+  return spotifyFetcher
+    .put(
+      "me/player/seek",
+      { headers: authHeader() },
+      { params: { position_ms } }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+/**
+ * Spotify Web API - Set Volume
+ * @param {number} volume_percent - The volume to set. Must be a value from 0 to 100 inclusive.
+ *
+ */
+export const playerSetVolume = async (volume_percent) => {
+  return spotifyFetcher
+    .put(
+      "me/player/volume",
+      { headers: authHeader() },
+      { params: { volume_percent } }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+/**
+ * Spotify Web API - Set Shuffle Mode
+ * @param {Boolean} state - true or false
+ * @return {Object} - the new shuffle mode
+ */
+export const playerSetShuffle = async (state) => {
+  return spotifyFetcher
+    .put("me/player/shuffle", { headers: authHeader() }, { params: { state } })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+/**
+ *  Spotify Web API - Set Repeat Mode
+ *  @param {string} state - one of 'track', 'context', 'off'
+ */
+export const playerSetRepeat = async (state) => {
+  return spotifyFetcher
+    .put("me/player/repeat", { headers: authHeader() }, { params: { state } })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const requestUserAuthorization = async () => {
   const _url = new URL("https://accounts.spotify.com/authorize")
   _url.searchParams.append("client_id", CLIENT_ID)
   _url.searchParams.append("response_type", "code")

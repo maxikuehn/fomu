@@ -16,7 +16,7 @@ import {
 } from "../../recoil"
 import { EAppState } from "../../types"
 
-const ConfSettings = () => {
+const CnfSettings = () => {
   const ownedSelectdPlaylists = useRecoilValue(
     currentUserOwnedSelectedPlaylistState
   )
@@ -52,7 +52,7 @@ const ConfSettings = () => {
   }
 
   return (
-    <div className="p-2 m-8 w-80 h-min self-center border-4 border-primary-active rounded-lg flex flex-col gap-2">
+    <div className="p-2 m-8 w-80 h-min self-center border-4 border-primary-500 rounded-lg flex flex-col gap-2">
       <Text>Zusammenführen in:</Text>
 
       <Select
@@ -92,4 +92,4 @@ const ConfSettings = () => {
     </div>
   )
 }
-export default ConfSettings
+export default CnfSettings

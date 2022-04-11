@@ -10,6 +10,7 @@ import { deleteTracksState } from "./deleteTracksState"
 import { joinPlaylistState } from "./joinPlaylistState"
 import { inputPlaylistState } from "./inputPlaylistState"
 import { outputPlaylistState } from "./outputPlaylistState"
+import { playerState } from "./playerState"
 import { spotifyAuthState } from "./spotifyAuthState"
 
 export {
@@ -23,5 +24,6 @@ export {
   deleteTracksState,
   inputPlaylistState,
   outputPlaylistState,
+  playerState,
   spotifyAuthState,
 }
