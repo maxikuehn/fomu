@@ -41,7 +41,7 @@ function App() {
   useEffect(() => {
     if (!loggedIn) return
     initFetch()
-  }, [loggedIn])
+  }, [loggedIn, app])
 
   const renderSwitch = () => {
     switch (app) {

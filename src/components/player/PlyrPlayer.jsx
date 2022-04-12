@@ -3,20 +3,22 @@ import { useEffect, useState } from "react"
 import {
   useRecoilRefresher_UNSTABLE,
   useRecoilState,
-  useRecoilValueLoadable,
+  useRecoilValue,
 } from "recoil"
 import { fetchPlayer } from "../../api/spotify"
-import { playerState } from "../../recoil"
+import { contextState, playerState } from "../../recoil"
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 
 function PlyrPlayer() {
   const [player, setPlayer] = useRecoilState(playerState)
-  console.log("player", player)
+  // console.log("player", player)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetchPlayer().then((response) => setPlayer(response))
+      fetchPlayer().then((response) => {
+        setPlayer(response)
+      })
     }, 2000)
     return () => clearInterval(interval)
   }, [])
@@ -29,7 +31,7 @@ function PlyrPlayer() {
 
   return (
     <div className="flex-auto flex justify-center py-5">
-      <Space direction="vertical" size={"large"}>
+      <div className="flex flex-col gap-12">
         <PlyrTrack track={item} />
         <PlyrControlls
           isPlaying={is_playing}
@@ -38,7 +40,7 @@ function PlyrPlayer() {
           repeatState={repeat_state}
           shuffleState={shuffle_state}
         />
-      </Space>
+      </div>
     </div>
   )
 }

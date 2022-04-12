@@ -1,6 +1,7 @@
 import { atom, selector } from "recoil"
 import { currentUserState } from "./currentUserState"
 import { inputPlaylistState } from "./inputPlaylistState"
+import { outputPlaylistState } from "./outputPlaylistState"
 
 export const currentUserPlaylistsState = atom({
   key: "currentUserPlaylistsState",
@@ -22,6 +23,16 @@ export const currentUserOwnedSelectedPlaylistState = selector({
   key: "currentUserOwnedSelectedPlaylistState",
   get: ({ get }) => {
     const selected = get(inputPlaylistState)
+    return get(currentUserOwnedPlaylistState).filter((p) =>
+      selected.includes(p.id)
+    )
+  },
+})
+
+export const fullOutputPlaylistState = selector({
+  key: "fullOutputPlaylistState",
+  get: ({ get }) => {
+    const selected = get(outputPlaylistState)
     return get(currentUserOwnedPlaylistState).filter((p) =>
       selected.includes(p.id)
     )

@@ -1,11 +1,13 @@
 import { DoubleRightOutlined } from "@ant-design/icons"
 import { Button, Checkbox, Select } from "antd"
 import Text from "antd/lib/typography/Text"
+import _, { filter } from "lodash"
 import { useEffect, useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { combineTracks, createPlaylist } from "../../api/spotify"
 import {
   appState,
+  contextState,
   currentUserOwnedSelectedPlaylistState,
   currentUserPlaylistsState,
   currentUserState,
@@ -22,12 +24,22 @@ const CnfSettings = () => {
   )
   const [deleteTracks, setDeleteTracks] = useRecoilState(deleteTracksState)
   const [joinPlaylist, setJoinPlaylist] = useRecoilState(joinPlaylistState)
-  const inputPlaylists = useRecoilValue(inputPlaylistState)
-  const outputPlaylist = useRecoilValue(outputPlaylistState)
+  const [inputPlaylists, setInputPlaylists] = useRecoilState(inputPlaylistState)
+  const [outputPlaylists, setOutputPlaylists] =
+    useRecoilState(outputPlaylistState)
   const allPlaylists = useRecoilValue(currentUserPlaylistsState)
   const currentUser = useRecoilValue(currentUserState)
   const setApp = useSetRecoilState(appState)
+  const setContext = useSetRecoilState(contextState)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const filterIDs = (input) => {
+      return _.filter(input, (id) => _.find(allPlaylists, { id }))
+    }
+    setInputPlaylists(filterIDs)
+    setOutputPlaylists(filterIDs)
+  }, [])
 
   useEffect(() => {
     if (joinPlaylist === "new") return
@@ -36,17 +48,24 @@ const CnfSettings = () => {
 
   const handleClickGooo = async () => {
     setLoading(true)
-    let newPlaylist = joinPlaylist
+    let newPlaylistID = joinPlaylist
+
     if (joinPlaylist === "new") {
-      newPlaylist = (await createPlaylist(currentUser.id, "NEUEEE")).id
-      setJoinPlaylist(newPlaylist)
-      if (!newPlaylist) return
+      const newPlaylist = await createPlaylist(currentUser.id, "SPOTINDERFY")
+      newPlaylistID = newPlaylist.id
+      setJoinPlaylist(newPlaylistID)
+      setContext(newPlaylist.uri)
+      setInputPlaylists([newPlaylistID])
+      if (!newPlaylistID) return
+    } else {
+      setContext(_.find(allPlaylists, { id: joinPlaylist }).uri)
     }
+
     const tracks = allPlaylists
-      .filter((p) => inputPlaylists.includes(p.id) && p.id !== newPlaylist)
+      .filter((p) => inputPlaylists.includes(p.id) && p.id !== newPlaylistID)
       .map((p) => p.id)
 
-    await combineTracks(newPlaylist, tracks).then((d) => console.log("d", d))
+    await combineTracks(newPlaylistID, tracks)
     setApp(EAppState.Player)
     setLoading(false)
   }
@@ -81,7 +100,7 @@ const CnfSettings = () => {
         disabled={
           joinPlaylist === null ||
           inputPlaylists.length === 0 ||
-          outputPlaylist.length === 0
+          outputPlaylists.length === 0
         }
         icon={<DoubleRightOutlined />}
         loading={loading}

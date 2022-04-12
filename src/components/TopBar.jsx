@@ -1,10 +1,17 @@
-import { DownOutlined } from "@ant-design/icons"
-import { Avatar, Dropdown, Menu } from "antd"
+import { DownOutlined, LeftOutlined, SearchOutlined } from "@ant-design/icons"
+import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
-import { useRecoilValue, useResetRecoilState } from "recoil"
+import { ChevronLeft } from "react-feather"
+import {
+  useRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+  useSetRecoilState,
+} from "recoil"
 import {
   appState,
+  contextState,
   currentUserState,
   deleteTracksState,
   inputPlaylistState,
@@ -12,6 +19,7 @@ import {
   outputPlaylistState,
   spotifyAuthState,
 } from "../recoil"
+import { EAppState } from "../types"
 
 const ProfileMenu = () => {
   const resetJoin = useResetRecoilState(joinPlaylistState)
@@ -20,6 +28,7 @@ const ProfileMenu = () => {
   const resetInput = useResetRecoilState(inputPlaylistState)
   const resetOutput = useResetRecoilState(outputPlaylistState)
   const resetAuth = useResetRecoilState(spotifyAuthState)
+  const resetContext = useResetRecoilState(contextState)
 
   const handleLogout = () => {
     resetJoin()
@@ -28,6 +37,7 @@ const ProfileMenu = () => {
     resetInput()
     resetOutput()
     resetAuth()
+    resetContext()
     localStorage.clear()
   }
   return (
@@ -41,6 +51,7 @@ const ProfileMenu = () => {
 
 const TopBar = () => {
   const currentUserProfile = useRecoilValue(currentUserState)
+  const [app, setApp] = useRecoilState(appState)
   const [open, setOpen] = useState(0)
 
   if (!currentUserProfile) return <div />
@@ -48,8 +59,16 @@ const TopBar = () => {
   return (
     <div
       id="topbar"
-      className="border-green-500 border-0 p-4 w-full  flex justify-between items-center"
+      className="border-green-500 border- p-4 w-full flex justify-between items-center z-10"
     >
+      {app === EAppState.Player && (
+        <Button
+          icon={<LeftOutlined />}
+          onClick={() => setApp(EAppState.Configuration)}
+        >
+          Einstellungen
+        </Button>
+      )}
       <div />
       <Dropdown
         overlay={<ProfileMenu />}

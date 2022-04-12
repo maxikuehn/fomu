@@ -147,6 +147,17 @@ export const postItemsInPlaylist = async (playlits_id, uris) => {
     .catch((error) => console.log("error", error))
 }
 
+/**
+ * Adds Track to Playlist if not allready in Playlist
+ * @param {string} playlist_id
+ * @param {string} track_id
+ */
+export const addTrackToPlaylist = async (playlist_id, track_id) => {
+  const existingTracks = await fetchPlaylistItemUris(playlist_id)
+  if (existingTracks.includes(track_id)) return
+  return postItemsInPlaylist(playlist_id, [track_id])
+}
+
 export const combineTracks = async (destinationId, sourceId) => {
   const tracks = (
     await Promise.all(
@@ -162,6 +173,21 @@ export const combineTracks = async (destinationId, sourceId) => {
   return await Promise.all(
     chunks.map((tr) => postItemsInPlaylist(destinationId, tr))
   )
+}
+
+/**
+ * Removes Track from Playlist
+ * @param {string} playlist_id
+ * @param {string[]} tracks
+ */
+export const removeTracksFromPlaylist = async (playlist_id, tracks) => {
+  return spotifyFetcher
+    .delete(`playlists/${playlist_id}/tracks`, {
+      data: { tracks: tracks.map((t) => ({ uri: t })) },
+      headers: authHeader(),
+    })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
 }
 
 export const fetchCurrentUserProfile = async () => {
@@ -214,9 +240,16 @@ export const playerPause = async () => {
     .catch((error) => console.log("error", error))
 }
 
-export const playerPlay = async () => {
+export const playerPlay = async (context_uri = null, device_id = null) => {
   return spotifyFetcher
-    .put("me/player/play", { headers: authHeader() })
+    .put(
+      "me/player/play",
+      {
+        headers: authHeader(),
+        context_uri,
+      },
+      { params: { device_id } }
+    )
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
@@ -271,6 +304,13 @@ export const playerSetShuffle = async (state) => {
 export const playerSetRepeat = async (state) => {
   return spotifyFetcher
     .put("me/player/repeat", { headers: authHeader() }, { params: { state } })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const fetchAvailableDevices = async () => {
+  return spotifyFetcher
+    .get("me/player/devices", { headers: authHeader() })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
