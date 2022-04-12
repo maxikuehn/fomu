@@ -1,6 +1,6 @@
 import axios from "axios"
 import createAuthRefreshInterceptor from "axios-auth-refresh"
-import * as _ from "./../../node_modules/lodash"
+import _ from "lodash"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"

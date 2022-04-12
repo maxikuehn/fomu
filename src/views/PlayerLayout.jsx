@@ -6,7 +6,7 @@ import { appState, contextState, playerState } from "../recoil"
 import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import Fade from "../components/Fade"
 import { fetchAvailableDevices, playerPlay } from "../api/spotify"
-import * as _ from "./../../node_modules/lodash"
+import _ from "lodash"
 
 const Backdrop = ({ context }) => {
   const [devices, setDevices] = useState([])

@@ -20,12 +20,6 @@ import {
   spotifyAuthState,
 } from "./recoil"
 
-const dev = !import.meta.env.MODE || import.meta.env.MODE === "development"
-
-console.log("envs:", import.meta.env)
-
-if (!dev) console.log = () => {}
-
 function App() {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
   const [app, setApp] = useRecoilState(appState)
