@@ -23,13 +23,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       // Add _all_ external dependencies here
-      external: ["lodash/default", "react"],
-      output: {
-        globals: {
-          lodash: "lodash/default",
-          react: "react",
-        },
-      },
+      // external: ["lodash/default"],
+      // output: {
+      //   globals: {
+      //     lodash: "lodash/default",
+      //   },
+      // },
     },
   },
   resolve: {

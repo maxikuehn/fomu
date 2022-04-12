@@ -6,7 +6,7 @@ import { appState, contextState, playerState } from "../recoil"
 import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import Fade from "../components/Fade"
 import { fetchAvailableDevices, playerPlay } from "../api/spotify"
-import _ from "lodash"
+import _find from "lodash/find"
 
 const Backdrop = ({ context }) => {
   const [devices, setDevices] = useState([])
@@ -16,7 +16,7 @@ const Backdrop = ({ context }) => {
     let deviceList = (await fetchAvailableDevices()).devices
     console.log("deviceList", deviceList)
     setDevices(deviceList)
-    setSelectedDevice(_.find(deviceList, "is_active")?.id)
+    setSelectedDevice(_find(deviceList, "is_active")?.id)
   }, [])
 
   const deviceElement = ({ id, name, type }) => (

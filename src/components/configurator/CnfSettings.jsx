@@ -1,7 +1,8 @@
 import { DoubleRightOutlined } from "@ant-design/icons"
 import { Button, Checkbox, Select } from "antd"
 import Text from "antd/lib/typography/Text"
-import _ from "lodash"
+import _find from "lodash/find"
+import _filter from "lodash/filter"
 import { useEffect, useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { combineTracks, createPlaylist } from "../../api/spotify"
@@ -34,8 +35,10 @@ const CnfSettings = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    // TODO: setzt arrays zurück beim Neuladen der Seite
     const filterIDs = (input) => {
-      return _.filter(input, (id) => _.find(allPlaylists, { id }))
+      console.log("input", input)
+      return _filter(input, (id) => _find(allPlaylists, { id }))
     }
     setInputPlaylists(filterIDs)
     setOutputPlaylists(filterIDs)
@@ -58,7 +61,7 @@ const CnfSettings = () => {
       setInputPlaylists([newPlaylistID])
       if (!newPlaylistID) return
     } else {
-      setContext(_.find(allPlaylists, { id: joinPlaylist }).uri)
+      setContext(_find(allPlaylists, { id: joinPlaylist }).uri)
     }
 
     const tracks = allPlaylists

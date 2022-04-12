@@ -1,6 +1,8 @@
 import axios from "axios"
 import createAuthRefreshInterceptor from "axios-auth-refresh"
-import _ from "lodash"
+import _delay from "lodash/delay"
+import _pullAll from "lodash/pullAll"
+import _chunk from "lodash/chunk"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"
@@ -35,7 +37,7 @@ spotifyFetcher.interceptors.response.use(null, (error) => {
     })
   }
   if (error.config && error.response && error.response.status === 429) {
-    _.delay(() => {
+    _delay(() => {
       // console.log(
       //   "error.response.headers['retry-after']",
       //   error.response.headers,
@@ -166,10 +168,10 @@ export const combineTracks = async (destinationId, sourceId) => {
   ).flat()
 
   const existingTracks = await fetchPlaylistItemUris(destinationId)
-  _.pullAll(tracks, existingTracks)
+  _pullAll(tracks, existingTracks)
   console.log("new tracks in destPlaylist:", tracks.length)
 
-  let chunks = _.chunk(tracks, 100)
+  let chunks = _chunk(tracks, 100)
   return await Promise.all(
     chunks.map((tr) => postItemsInPlaylist(destinationId, tr))
   )

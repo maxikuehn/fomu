@@ -8,7 +8,7 @@ import {
   playerState,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, XCircle } from "react-feather"
-import _ from "lodash"
+import _forEach from "lodash/forEach"
 import {
   addTrackToPlaylist,
   playerSkipToNext,
@@ -52,7 +52,7 @@ const PlyrPlaylistAdd = () => {
 
   const handleSubmit = () => {
     console.log("selected", selected, player)
-    _.forEach(selected, (id) => {
+    _forEach(selected, (id) => {
       addTrackToPlaylist(id, player.item.uri)
     })
     if (deleteTrack) removeTracksFromPlaylist(joinPlaylist, [player.item.uri])

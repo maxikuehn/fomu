@@ -10,7 +10,7 @@ import LoadingPage from "./views/LoadingPage"
 import { ConfigProvider } from "antd"
 import de_DE from "antd/lib/locale/de_DE"
 
-if (import.meta.env.DEV) console.log = () => {}
+if (import.meta.env.PROD) console.log = () => {}
 
 ReactDOM.render(
   <React.StrictMode>
