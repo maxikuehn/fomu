@@ -6,8 +6,12 @@ import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"
 import scopes from "../service/Scopes"
 
+const dev = !process.env.NODE_ENV || process.env.NODE_ENV === "development"
+
 const BASE_URL = "https://api.spotify.com/v1"
-const REDIRECT_URI = "http://localhost:3000/callback"
+const REDIRECT_URI = dev
+  ? "http://localhost:3000/callback"
+  : "https://spotinderfy.herokuapp.com/callback"
 const CLIENT_ID = "0ed7c8cbcdf74e53b7bb0f3f11231171"
 const CLIENT_SECRET = "1a9bfd2ede0b4719ab02608486b7a54c"
 
