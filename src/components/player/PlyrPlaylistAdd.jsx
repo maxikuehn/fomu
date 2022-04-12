@@ -9,7 +9,7 @@ import {
   playerState,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, XCircle } from "react-feather"
-import _ from "lodash"
+import _ from "../../../node_modules/lodash"
 import {
   addTrackToPlaylist,
   playerSkipToNext,

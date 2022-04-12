@@ -1,14 +1,12 @@
-import { Button, Image, Space } from "antd"
+import { Button, Space } from "antd"
 import { useEffect, useState } from "react"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
 import { appState, contextState, playerState } from "../recoil"
-import { EAppState } from "../types"
 import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import Fade from "../components/Fade"
 import { fetchAvailableDevices, playerPlay } from "../api/spotify"
-import _ from "lodash"
-import Icon from "@ant-design/icons"
+import _ from "../../node_modules/lodash"
 
 const Backdrop = ({ context }) => {
   const [devices, setDevices] = useState([])

@@ -22,6 +22,8 @@ import {
 
 const dev = !process.env.NODE_ENV || process.env.NODE_ENV === "development"
 
+if (!dev) console.log = () => {}
+
 function App() {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
   const [app, setApp] = useRecoilState(appState)
