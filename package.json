@@ -11,6 +11,10 @@
   "browserslist": [
     "defaults"
   ],
+  "cacheDirectories": [
+    "node_modules",
+    "server/node_modules"
+  ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@headlessui/react": "^1.5.0",
