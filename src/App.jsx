@@ -22,9 +22,7 @@ import {
 
 const dev = !import.meta.env.MODE || import.meta.env.MODE === "development"
 
-console.log("NODE_ENV", dev)
-console.log("import.meta.env", import.meta.env)
-console.log("import.meta.env.SP_CLIENT_ID", import.meta.env.SP_CLIENT_ID)
+console.log("envs:", import.meta.env)
 
 if (!dev) console.log = () => {}
 
