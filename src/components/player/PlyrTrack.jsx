@@ -1,4 +1,4 @@
-import { Divider, Image, Space, Typography } from "antd"
+import { Image, Space, Typography } from "antd"
 import Icon from "@ant-design/icons"
 
 const { Text } = Typography

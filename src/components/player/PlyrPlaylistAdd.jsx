@@ -1,5 +1,4 @@
 import { Button, Image, Space } from "antd"
-import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilValue } from "recoil"
 import {
@@ -9,11 +8,10 @@ import {
   playerState,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, XCircle } from "react-feather"
-import _ from "../../../node_modules/lodash"
+import * as _ from "./../../../node_modules/lodash"
 import {
   addTrackToPlaylist,
   playerSkipToNext,
-  postItemsInPlaylist,
   removeTracksFromPlaylist,
 } from "../../api/spotify"
 

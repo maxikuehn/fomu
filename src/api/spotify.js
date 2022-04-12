@@ -1,15 +1,15 @@
 import axios from "axios"
 import createAuthRefreshInterceptor from "axios-auth-refresh"
-import _ from "../../node_modules/lodash"
+import * as _ from "./../../node_modules/lodash"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"
 import scopes from "../service/Scopes"
 
 const BASE_URL = "https://api.spotify.com/v1"
-const REDIRECT_URI = process.env.SP_REDIRECT_URI
-const CLIENT_ID = process.env.SP_CLIENT_ID
-const CLIENT_SECRET = process.env.SP_CLIENT_SECRET
+const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
+const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
+const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
 
 const authHeader = () => {
   const spotifyAuth = getRecoil(spotifyAuthState)

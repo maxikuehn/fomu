@@ -1,7 +1,7 @@
 import { DoubleRightOutlined } from "@ant-design/icons"
 import { Button, Checkbox, Select } from "antd"
 import Text from "antd/lib/typography/Text"
-import _ from "../../../node_modules/lodash"
+import * as _ from "./../../../node_modules/lodash"
 import { useEffect, useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { combineTracks, createPlaylist } from "../../api/spotify"

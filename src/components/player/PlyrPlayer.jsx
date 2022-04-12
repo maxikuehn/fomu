@@ -1,12 +1,7 @@
-import { Button, Divider, Space } from "antd"
-import { useEffect, useState } from "react"
-import {
-  useRecoilRefresher_UNSTABLE,
-  useRecoilState,
-  useRecoilValue,
-} from "recoil"
+import { useEffect } from "react"
+import { useRecoilState } from "recoil"
 import { fetchPlayer } from "../../api/spotify"
-import { contextState, playerState } from "../../recoil"
+import { playerState } from "../../recoil"
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 
