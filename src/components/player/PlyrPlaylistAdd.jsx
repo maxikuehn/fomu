@@ -74,13 +74,13 @@ const PlyrPlaylistAdd = () => {
           />
         ))}
         <div
-          className="py-10 cursor-pointer text-2xl font-semibold"
+          className="px-10 cursor-pointer text-2xl font-semibold"
           onClick={handleSubmit}
         >
           {selected.length > 0 ? (
             <div className="stroke-green-600 hover:stroke-green-700 active:stroke-green-800 flex flex-col items-center">
               <CheckCircle
-                size={250}
+                size={"100%"}
                 strokeWidth={0.7}
                 className="stroke-inherit"
               />
@@ -89,7 +89,7 @@ const PlyrPlaylistAdd = () => {
           ) : deleteTrack ? (
             <div className="stroke-red-600 hover:stroke-red-700 active:stroke-red-800 flex flex-col items-center">
               <XCircle
-                size={250}
+                size={"100%"}
                 strokeWidth={0.7}
                 className="stroke-inherit"
               />
@@ -98,7 +98,7 @@ const PlyrPlaylistAdd = () => {
           ) : (
             <div className="stroke-slate-600 hover:stroke-slate-700 active:stroke-slate-800 flex flex-col items-center">
               <ArrowRightCircle
-                size={250}
+                size={"100%"}
                 strokeWidth={0.7}
                 className="stroke-inherit"
               />

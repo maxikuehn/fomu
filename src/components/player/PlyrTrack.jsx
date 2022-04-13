@@ -25,8 +25,8 @@ const PlyrTrack = ({ track }) => {
       <Image
         src={album.images[0].url}
         preview={false}
-        width={600}
-        height={600}
+        width={"60vh"}
+        height={"60vh"}
       />
       <div className="flex justify-between items-center">
         <Space direction="vertical" size={0}>
