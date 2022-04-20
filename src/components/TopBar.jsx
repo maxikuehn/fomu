@@ -78,7 +78,11 @@ const TopBar = () => {
         className="bg-primary-400 rounded-full select-none cursor-pointer"
       >
         <div>
-          <Avatar size={45} src={currentUserProfile.images[0].url} />
+          <Avatar
+            size={45}
+            src={currentUserProfile.images[0].url}
+            alt="Spotify Account Profile Picture"
+          />
           <Text strong underline className="p-2">
             {currentUserProfile.display_name}
           </Text>

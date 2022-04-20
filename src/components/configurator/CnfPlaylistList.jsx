@@ -23,7 +23,13 @@ const Playlist = ({ name, id, tracks, owner, images }) => {
       onClick={handleClick}
     >
       <div className="flex gap-2 py-1">
-        <Image src={images[0]?.url} width={52} height={52} preview={false} />
+        <Image
+          src={images[0]?.url}
+          width={52}
+          height={52}
+          preview={false}
+          alt="PlaylistCoverImage"
+        />
         <Space direction="vertical" className="flex-1 text-left">
           <div className="text-ellipsis overflow-hidden max-w-xs">{name}</div>
           <Space>

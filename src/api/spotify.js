@@ -191,6 +191,23 @@ export const removeTracksFromPlaylist = async (playlist_id, tracks) => {
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
+export const fetchUserSaveTrackIds = async () => {
+  let likedTracks = []
+  let offset = 0
+  let limit = 50
+  let total = 0
+  while (true) {
+    const response = await spotifyFetcher.get("me/tracks", {
+      params: { limit, offset },
+      headers: authHeader(),
+    })
+    total = response.data.total
+    likedTracks = likedTracks.concat(response.data.items.map((t) => t.track.id))
+    if (offset + limit >= total) break
+    offset += limit
+  }
+  return likedTracks
+}
 
 export const fetchCurrentUserProfile = async () => {
   return spotifyFetcher

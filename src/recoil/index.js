@@ -14,6 +14,7 @@ import { inputPlaylistState } from "./inputPlaylistState"
 import { outputPlaylistState } from "./outputPlaylistState"
 import { playerState } from "./playerState"
 import { spotifyAuthState } from "./spotifyAuthState"
+import { userLikedTracksState } from "./userLikedTracksState"
 
 export {
   appLoadingState,
@@ -30,4 +31,5 @@ export {
   outputPlaylistState,
   playerState,
   spotifyAuthState,
+  userLikedTracksState,
 }

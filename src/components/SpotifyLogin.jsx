@@ -7,9 +7,11 @@ const SpotifyLogin = (props) => {
   }
 
   return (
-    <Button onClick={handleClick} type="primary">
-      Login
-    </Button>
+    <div className="flex items-center justify-center w-full h-full">
+      <Button onClick={handleClick} type="primary" size="large">
+        Login with Spotify
+      </Button>
+    </div>
   )
 }
 export default SpotifyLogin

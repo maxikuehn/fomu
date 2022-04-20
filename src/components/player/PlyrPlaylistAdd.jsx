@@ -19,11 +19,18 @@ const Playlist = ({ name, id, images, selected, handleClick }) => {
   return (
     <Button
       type={selected ? "primary" : "default"}
-      style={{ height: "auto", width: "100%" }}
+      style={{ height: "auto" }}
       onClick={() => handleClick(id)}
+      block
     >
       <div className="flex gap-2 py-1">
-        <Image src={images[0]?.url} width={52} height={52} preview={false} />
+        <Image
+          src={images[0]?.url}
+          width={52}
+          height={52}
+          preview={false}
+          alt="PlaylistCoverImage"
+        />
         <Space direction="vertical" className="flex-1 text-left ">
           <div className="text-ellipsis overflow-hidden max-w-xs text-lg">
             {name}
@@ -96,13 +103,13 @@ const PlyrPlaylistAdd = () => {
               <p className="text-red-600 ">Löschen</p>
             </div>
           ) : (
-            <div className="stroke-slate-600 hover:stroke-slate-700 active:stroke-slate-800 flex flex-col items-center">
+            <div className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 flex flex-col items-center">
               <ArrowRightCircle
                 size={"100%"}
                 strokeWidth={0.7}
                 className="stroke-inherit"
               />
-              <p className="text-slate-600 ">Skip</p>
+              <p className="text-primary-400 select-none">Skip</p>
             </div>
           )}
         </div>

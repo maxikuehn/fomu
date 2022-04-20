@@ -32,7 +32,7 @@ const PlyrControlls = ({
   const iconProps = {
     size: 40,
     className:
-      "text-primary-400 hover:text-primary-500 active:text-primary-700 cursor-pointer",
+      "text-primary-400 hover:text-primary-500 active:text-primary-600 cursor-pointer",
   }
 
   const handleClickRepeat = () => {
@@ -83,7 +83,7 @@ const PlyrControlls = ({
         </Badge>
       </Space>
       <Progress
-        percent={(progress / duration) * 100} // 150
+        percent={(progress / duration ?? 0) * 100} // 150
         showInfo={false}
         strokeColor={"#285e94"}
       />

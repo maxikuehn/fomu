@@ -7,7 +7,7 @@ import PlyrTrack from "./PlyrTrack"
 
 function PlyrPlayer() {
   const [player, setPlayer] = useRecoilState(playerState)
-  // console.log("player", player)
+  console.log("player", player)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,12 +26,12 @@ function PlyrPlayer() {
 
   return (
     <div className="flex-auto flex justify-center py-5">
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col justify-between gap-12 mb-4 w-[60vh]">
         <PlyrTrack track={item} />
         <PlyrControlls
           isPlaying={is_playing}
           progress={progress_ms}
-          duration={item.duration_ms}
+          duration={item?.duration_ms}
           repeatState={repeat_state}
           shuffleState={shuffle_state}
         />
