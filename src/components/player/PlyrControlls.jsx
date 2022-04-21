@@ -1,4 +1,5 @@
 import { Badge, Button as AButton, Progress, Space } from "antd"
+import _clamp from "lodash/clamp"
 import {
   Circle,
   Pause,
@@ -12,6 +13,7 @@ import {
 import {
   playerPause,
   playerPlay,
+  playerSeek,
   playerSetRepeat,
   playerSetShuffle,
   playerSkipToNext,
@@ -42,8 +44,17 @@ const PlyrControlls = ({
     playerSetRepeat(ARepeatState[nextIndex])
   }
 
+  // console.log("w", document.getElementsByClassName("plyr-progress").style.width)
+
+  const handleSeek = (e) => {
+    const width = document.getElementById("plyr-progress").offsetWidth
+    var pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
+    const seekMs = _clamp(Math.floor((pos / width) * duration), 0, duration)
+    playerSeek(seekMs)
+  }
+
   return (
-    <div className=" w-full flex flex-col px-2">
+    <div className=" w-full flex flex-col px-2" id="container">
       <Space className=" justify-center" size={40} align="center">
         <Badge
           count={
@@ -83,12 +94,12 @@ const PlyrControlls = ({
         </Badge>
       </Space>
       <Progress
+        id="plyr-progress"
+        className="cursor-pointer"
         percent={(progress / duration ?? 0) * 100} // 150
         showInfo={false}
         strokeColor={"#285e94"}
-        onClick={(e) => {
-          const percent = e.nativeEvent.offsetX / e.target.offsetWidth
-        }}
+        onClick={handleSeek}
       />
     </div>
   )
