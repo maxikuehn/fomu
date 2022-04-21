@@ -86,6 +86,9 @@ const PlyrControlls = ({
         percent={(progress / duration ?? 0) * 100} // 150
         showInfo={false}
         strokeColor={"#285e94"}
+        onClick={(e) => {
+          const percent = e.nativeEvent.offsetX / e.target.offsetWidth
+        }}
       />
     </div>
   )

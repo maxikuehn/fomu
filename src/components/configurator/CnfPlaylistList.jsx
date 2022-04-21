@@ -77,7 +77,7 @@ const CnfPlaylistList = () => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-4 border-primary-500 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="p-2 border-2 border-primary-400 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
         {userPlaylists.map(Playlist)}
       </div>
     </div>
