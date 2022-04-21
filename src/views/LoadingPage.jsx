@@ -1,7 +1,7 @@
 import { LoadingOutlined } from "@ant-design/icons"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { requestAccessToken } from "../api/spotify"
+import { requestAccessToken } from "../services/Spotify"
 
 const LoadingPage = () => {
   let navigate = useNavigate()

@@ -1,5 +1,5 @@
 import { Button } from "antd"
-import { requestUserAuthorization } from "../api/spotify"
+import { requestUserAuthorization } from "../services/Spotify"
 
 const SpotifyLogin = (props) => {
   const handleClick = () => {

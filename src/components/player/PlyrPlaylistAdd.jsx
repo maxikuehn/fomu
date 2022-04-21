@@ -1,5 +1,6 @@
-import { Button, Image, Space } from "antd"
-import { useState } from "react"
+import { Image, Tooltip } from "antd"
+import { useEffect, useState } from "react"
+import _forEach from "lodash/forEach"
 import { useRecoilValue } from "recoil"
 import {
   deleteTracksState,
@@ -7,111 +8,131 @@ import {
   joinPlaylistState,
   playerState,
 } from "../../recoil"
-import { ArrowRightCircle, CheckCircle, XCircle } from "react-feather"
-import _forEach from "lodash/forEach"
+import { ArrowRightCircle, CheckCircle, PlusCircle } from "react-feather"
 import {
   addTrackToPlaylist,
+  fetchPlaylistItemUris,
   playerSkipToNext,
   removeTracksFromPlaylist,
-} from "../../api/spotify"
+} from "../../services/Spotify"
 
-const Playlist = ({ name, id, images, selected, handleClick }) => {
+const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <Button
-      type={selected ? "primary" : "default"}
-      style={{ height: "auto" }}
-      onClick={() => handleClick(id)}
-      block
-    >
-      <div className="flex gap-2 py-1">
-        <Image
-          src={images[0]?.url}
-          width={52}
-          height={52}
-          preview={false}
-          alt="PlaylistCoverImage"
-        />
-        <Space direction="vertical" className="flex-1 text-left ">
-          <div className="text-ellipsis overflow-hidden max-w-xs text-lg">
-            {name}
-          </div>
-          {/* <Space>{selected ? "added" : "add"}</Space> */}
-        </Space>
+    <div className="h-auto border-2 border-primary-500 w-full py-1 px-2 rounded-md flex gap-2">
+      <Image
+        src={images[0]?.url}
+        width={52}
+        height={52}
+        preview={false}
+        alt="PlaylistCoverImage"
+      />
+      <div className="text-ellipsis overflow-hidden max-w-xs text-lg flex-1">
+        {name}
       </div>
-    </Button>
+      {trackContained ? (
+        <Tooltip title="Track schon gespeichert" placement="topRight">
+          <div className="self-center">
+            <CheckCircle
+              className="stroke-green-600"
+              size={40}
+              strokeWidth={1.2}
+            />
+          </div>
+        </Tooltip>
+      ) : (
+        <Tooltip title="in Playlist speichern" placement="topRight">
+          <div
+            className="self-center rounded-full cursor-pointer stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+            onClick={() => handleClick(id, index)}
+          >
+            <PlusCircle
+              className="stroke-inherit"
+              size={40}
+              strokeWidth={1.2}
+            />
+          </div>
+        </Tooltip>
+      )}
+    </div>
   )
 }
 
+let lastTrack = ""
 const PlyrPlaylistAdd = () => {
-  const outputPlaylists = useRecoilValue(fullOutputPlaylistState)
-  const deleteTrack = useRecoilValue(deleteTracksState)
   const player = useRecoilValue(playerState)
+  const deleteTrack = useRecoilValue(deleteTracksState)
   const joinPlaylist = useRecoilValue(joinPlaylistState)
-  const [selected, setSelected] = useState([])
+  const outputPlaylists = useRecoilValue(fullOutputPlaylistState)
+  const [existingTracks, setExistingTracks] = useState([])
+  const [trackSaved, setTrackSaved] = useState(false)
 
-  const handleClick = (id) => {
-    if (selected.includes(id)) {
-      setSelected(selected.filter((i) => i !== id))
-    } else {
-      setSelected([...selected, id])
+  if (outputPlaylists.length === 0) return null
+
+  useEffect(() => {
+    if (player.item.uri !== lastTrack) {
+      if (trackSaved && deleteTrack) {
+        removeTracksFromPlaylist(joinPlaylist, [lastTrack])
+        setTrackSaved(false)
+      }
     }
+    lastTrack = player.item.uri
+  }, [player.item?.uri])
+
+  useEffect(async () => {
+    let _existingTracks = await Promise.all(
+      outputPlaylists.map((p) => fetchPlaylistItemUris(p.id))
+    )
+    setExistingTracks(_existingTracks)
+  }, [])
+
+  const handleClick = (id, index) => {
+    addTrackToPlaylist(id, player.item.uri, false).then(
+      setExistingTracks((v) => {
+        v[index] = v[index].concat(player.item.uri)
+        return v
+      })
+    )
+    setTrackSaved(true)
   }
 
   const handleSubmit = () => {
-    console.log("selected", selected, player)
-    _forEach(selected, (id) => {
-      addTrackToPlaylist(id, player.item.uri)
-    })
     if (deleteTrack) removeTracksFromPlaylist(joinPlaylist, [player.item.uri])
     playerSkipToNext()
-    setSelected([])
   }
+
+  if (outputPlaylists.length === 0) return null
 
   return (
     <div className="basis-96 p-5 flex items-center ">
-      <div className="flex flex-col flex-1 gap-4 border- border-yellow-500 items-center">
-        {outputPlaylists.map((p) => (
-          <Playlist
-            key={p.id}
-            name={p.name}
-            id={p.id}
-            images={p.images}
-            selected={selected.includes(p.id)}
-            handleClick={handleClick}
-          />
-        ))}
+      <div className="flex flex-col flex-1 gap-2 items-center">
+        <span className="text-2xl font-semibold self-start px-4">
+          Track speichern
+        </span>
+        <div className="max-h-[50vh] w-full p-2 border-4 border-primary-500 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+          {outputPlaylists.map((p, i) => (
+            <Playlist
+              index={i}
+              key={p.id}
+              name={p.name}
+              id={p.id}
+              images={p.images}
+              trackContained={existingTracks[i]?.includes(player.item?.uri)}
+              handleClick={handleClick}
+            />
+          ))}
+        </div>
         <div
-          className="px-10 cursor-pointer text-2xl font-semibold"
+          className="mt-6 cursor-pointer flex flex-col items-center"
           onClick={handleSubmit}
         >
-          {selected.length > 0 ? (
-            <div className="stroke-green-600 hover:stroke-green-700 active:stroke-green-800 flex flex-col items-center">
-              <CheckCircle
-                size={"100%"}
-                strokeWidth={0.7}
-                className="stroke-inherit"
-              />
-              <p className="text-green-600">Speichern</p>
-            </div>
-          ) : deleteTrack ? (
-            <div className="stroke-red-600 hover:stroke-red-700 active:stroke-red-800 flex flex-col items-center">
-              <XCircle
-                size={"100%"}
-                strokeWidth={0.7}
-                className="stroke-inherit"
-              />
-              <p className="text-red-600 ">Löschen</p>
-            </div>
-          ) : (
-            <div className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 flex flex-col items-center">
-              <ArrowRightCircle
-                size={"100%"}
-                strokeWidth={0.7}
-                className="stroke-inherit"
-              />
-              <p className="text-primary-400 select-none">Skip</p>
-            </div>
-          )}
+          <ArrowRightCircle
+            size={"60%"}
+            strokeWidth={0.3}
+            className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+          />
+          <p className="text-primary-400 text-2xl font-semibold select-none">
+            {deleteTrack ? "Löschen" : "Weiter"}
+          </p>
         </div>
       </div>
     </div>

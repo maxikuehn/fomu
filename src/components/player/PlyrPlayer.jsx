@@ -1,13 +1,12 @@
 import { useEffect } from "react"
 import { useRecoilState } from "recoil"
-import { fetchPlayer } from "../../api/spotify"
+import { fetchPlayer } from "../../services/Spotify"
 import { playerState } from "../../recoil"
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 
 function PlyrPlayer() {
   const [player, setPlayer] = useRecoilState(playerState)
-  console.log("player", player)
 
   useEffect(() => {
     const interval = setInterval(() => {

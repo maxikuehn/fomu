@@ -5,7 +5,7 @@ import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
 import { appState, contextState, playerState } from "../recoil"
 import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import Fade from "../components/Fade"
-import { fetchAvailableDevices, playerPlay } from "../api/spotify"
+import { fetchAvailableDevices, playerPlay } from "../services/Spotify"
 import _find from "lodash/find"
 import { InfoCircleOutlined } from "@ant-design/icons"
 

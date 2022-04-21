@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil"
-import { fetchPlayer } from "../api/spotify"
+import { fetchPlayer } from "../services/Spotify"
 
 export const playerState = atom({
   key: "playerState",

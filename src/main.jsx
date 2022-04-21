@@ -9,6 +9,7 @@ import App from "./App"
 import LoadingPage from "./views/LoadingPage"
 import { ConfigProvider } from "antd"
 import de_DE from "antd/lib/locale/de_DE"
+import SiteNotFound from "./views/SiteNotFound"
 
 if (import.meta.env.PROD) console.log = () => {}
 
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="callback" element={<LoadingPage />} />
+            <Route path="*" element={<SiteNotFound />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>

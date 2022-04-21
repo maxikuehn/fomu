@@ -5,7 +5,7 @@ import {
   fetchCurrentUserPlaylist,
   fetchCurrentUserProfile,
   fetchPlayer,
-} from "./api/spotify"
+} from "./services/Spotify"
 import { useEffect, useState } from "react"
 import ConfiguratorLayout from "./views/ConfiguratorLayout"
 import TopBar from "./components/TopBar"

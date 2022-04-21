@@ -6,7 +6,8 @@ import _chunk from "lodash/chunk"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"
-import scopes from "../service/Scopes"
+import scopes from "./Scopes"
+import { useNotification } from "../Hooks/Notification"
 
 const BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
@@ -122,9 +123,9 @@ export const fetchPlaylistItemUris = async (playlits_id, offset = 0) => {
       // console.log("error", error)
       return
     })
+  if (request.total === 0) return []
   let tracks = request.items.map((t) => t.track.uri)
   if (offset > 0) return tracks
-  if (request.total === 0) return []
 
   let tracksLeft = request.total - (limit + offset)
   let length = Math.ceil(tracksLeft / 50)
@@ -154,10 +155,18 @@ export const postItemsInPlaylist = async (playlits_id, uris) => {
  * @param {string} playlist_id
  * @param {string} track_id
  */
-export const addTrackToPlaylist = async (playlist_id, track_id) => {
-  const existingTracks = await fetchPlaylistItemUris(playlist_id)
-  if (existingTracks.includes(track_id)) return
-  return postItemsInPlaylist(playlist_id, [track_id])
+export const addTrackToPlaylist = async (
+  playlist_id,
+  track_id,
+  checkForExisting = true
+) => {
+  if (checkForExisting) {
+    const existingTracks = await fetchPlaylistItemUris(playlist_id)
+    if (existingTracks.includes(track_id)) return
+  }
+  const result = await postItemsInPlaylist(playlist_id, [track_id])
+  useNotification({ title: "Track wurde hinzugefügt", type: "success" })
+  return result
 }
 
 export const combineTracks = async (destinationId, sourceId) => {

@@ -16,7 +16,7 @@ import {
   playerSetShuffle,
   playerSkipToNext,
   playerSkipToPrevious,
-} from "../../api/spotify"
+} from "../../services/Spotify"
 
 const Button = ({ icon }) => {
   return <AButton icon={icon} shape="circle" className="w-12 h-12" />

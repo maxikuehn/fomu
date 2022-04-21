@@ -1,6 +1,7 @@
 import { InfoCircleOutlined } from "@ant-design/icons"
 import { Badge, Button, Image, Space, Tooltip, Typography } from "antd"
 import { useState } from "react"
+import { Music } from "react-feather"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { currentUserPlaylistsState, inputPlaylistState } from "../../recoil"
 const { Text } = Typography
@@ -23,13 +24,19 @@ const Playlist = ({ name, id, tracks, owner, images }) => {
       onClick={handleClick}
     >
       <div className="flex gap-2 py-1">
-        <Image
-          src={images[0]?.url}
-          width={52}
-          height={52}
-          preview={false}
-          alt="PlaylistCoverImage"
-        />
+        {images.length > 0 ? (
+          <Image
+            src={images[0]?.url}
+            width={52}
+            height={52}
+            preview={false}
+            alt="PlaylistCoverImage"
+          />
+        ) : (
+          <div className="w-[52px] h-[52px] border-[1px] border-primary-700 flex items-center justify-center">
+            <Music size={45} strokeWidth={1} className="stroke-primary-300" />
+          </div>
+        )}
         <Space direction="vertical" className="flex-1 text-left">
           <div className="text-ellipsis overflow-hidden max-w-xs">{name}</div>
           <Space>
@@ -49,7 +56,7 @@ const CnfPlaylistList = () => {
   return (
     <div className="m-8 max-h-[80vh] min-w-[400px] flex flex-col select-none">
       <div className="px-4 py-2 flex items-center">
-        <h1 className=" text-2xl m-0">Wähle Playlists aus</h1>
+        <span className="text-2xl font-semibold">Wähle Playlists aus</span>
         <Tooltip
           className="px-3"
           placement="rightBottom"

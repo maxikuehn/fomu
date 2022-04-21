@@ -5,7 +5,7 @@ import _find from "lodash/find"
 import _filter from "lodash/filter"
 import { useEffect, useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { combineTracks, createPlaylist } from "../../api/spotify"
+import { combineTracks, createPlaylist } from "../../services/Spotify"
 import {
   appState,
   contextState,
@@ -35,13 +35,13 @@ const CnfSettings = () => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // TODO: setzt arrays zurück beim Neuladen der Seite
+    if (allPlaylists.length === 0) return
     const filterIDs = (input) => {
-      console.log("input", input)
       return _filter(input, (id) => _find(allPlaylists, { id }))
     }
-    setInputPlaylists(filterIDs)
-    setOutputPlaylists(filterIDs)
+
+    setInputPlaylists(filterIDs(inputPlaylists))
+    setOutputPlaylists(filterIDs(outputPlaylists))
   }, [])
 
   useEffect(() => {
@@ -58,7 +58,6 @@ const CnfSettings = () => {
       newPlaylistID = newPlaylist.id
       setJoinPlaylist(newPlaylistID)
       setContext(newPlaylist.uri)
-      setInputPlaylists([newPlaylistID])
       if (!newPlaylistID) return
     } else {
       setContext(_find(allPlaylists, { id: joinPlaylist }).uri)
@@ -69,6 +68,7 @@ const CnfSettings = () => {
       .map((p) => p.id)
 
     await combineTracks(newPlaylistID, tracks)
+    setInputPlaylists([newPlaylistID])
     setApp(EAppState.Player)
     setLoading(false)
   }
