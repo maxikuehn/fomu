@@ -249,21 +249,21 @@ export const fetchPlayer = async () => {
 
 export const playerSkipToNext = async () => {
   return spotifyFetcher
-    .post("me/player/next", { headers: authHeader() })
+    .post("me/player/next", {}, { headers: authHeader() })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
 
 export const playerSkipToPrevious = async () => {
   return spotifyFetcher
-    .post("me/player/previous", { headers: authHeader() })
+    .post("me/player/previous", {}, { headers: authHeader() })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
 
 export const playerPause = async () => {
   return spotifyFetcher
-    .put("me/player/pause", { headers: authHeader() })
+    .put("me/player/pause", {}, { headers: authHeader() })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
@@ -272,11 +272,12 @@ export const playerPlay = async (context_uri = null, device_id = null) => {
   return spotifyFetcher
     .put(
       "me/player/play",
+      {},
       {
         headers: authHeader(),
         context_uri,
-      },
-      { params: { device_id } }
+        params: { device_id },
+      }
     )
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
@@ -290,8 +291,8 @@ export const playerSeek = async (position_ms) => {
   return spotifyFetcher
     .put(
       "me/player/seek",
-      { headers: authHeader() },
-      { params: { position_ms } }
+      {},
+      { headers: authHeader(), params: { position_ms } }
     )
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
@@ -306,8 +307,8 @@ export const playerSetVolume = async (volume_percent) => {
   return spotifyFetcher
     .put(
       "me/player/volume",
-      { headers: authHeader() },
-      { params: { volume_percent } }
+      {},
+      { headers: authHeader(), params: { volume_percent } }
     )
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
@@ -320,7 +321,7 @@ export const playerSetVolume = async (volume_percent) => {
  */
 export const playerSetShuffle = async (state) => {
   return spotifyFetcher
-    .put("me/player/shuffle", { headers: authHeader() }, { params: { state } })
+    .put("me/player/shuffle", {}, { headers: authHeader(), params: { state } })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
@@ -331,7 +332,7 @@ export const playerSetShuffle = async (state) => {
  */
 export const playerSetRepeat = async (state) => {
   return spotifyFetcher
-    .put("me/player/repeat", { headers: authHeader() }, { params: { state } })
+    .put("me/player/repeat", {}, { headers: authHeader(), params: { state } })
     .then((response) => response.data)
     .catch((error) => console.log("error", error))
 }
