@@ -1,29 +1,24 @@
-import { notification } from "antd"
+import { message } from "antd"
 
 type Options = {
-  title: string
-  description: string
-  type?: "info" | "success" | "error" | "warning"
+  content: string
+  type?: "info" | "success" | "error" | "warning" | "loading"
   duration?: number
-  placement?: "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
 }
 
 export function useNotification({
-  title,
-  description,
+  content,
   type = "info",
-  duration = 3,
-  placement = "bottomLeft",
+  duration = 2,
 }: Options) {
   const key = `open${Date.now()}`
-  notification[type]({
+  message.open({
     key,
-    onClick: () => {
-      notification.close(key)
-    },
-    message: title,
-    description,
+    type,
+    content,
     duration,
-    placement,
+    onClick: () => {
+      message.destroy(key)
+    },
   })
 }

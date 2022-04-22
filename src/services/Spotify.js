@@ -165,7 +165,10 @@ export const addTrackToPlaylist = async (
     if (existingTracks.includes(track_id)) return
   }
   const result = await postItemsInPlaylist(playlist_id, [track_id])
-  useNotification({ title: "Track wurde hinzugefügt", type: "success" })
+  useNotification({
+    content: "Track zur Playlist hinzugefügt",
+    type: "success",
+  })
   return result
 }
 
@@ -239,7 +242,7 @@ export const saveTrackCurrentUser = async (trackIds) => {
     )
     .then((response) => {
       useNotification({
-        title: "Zu deinen Lieblingssongs hinzugefügt",
+        content: "Zu deinen Lieblingssongs hinzugefügt",
         type: "success",
       })
       return response.data
@@ -255,7 +258,7 @@ export const removeTrackCurrentUser = async (trackIds) => {
     })
     .then((response) => {
       useNotification({
-        title: "Aus deinen Lieblingssongs entfernt",
+        content: "Aus deinen Lieblingssongs entfernt",
         type: "success",
       })
 
