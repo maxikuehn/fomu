@@ -173,6 +173,8 @@ export const addTrackToPlaylist = async (
 }
 
 export const combineTracks = async (destinationId, sourceId) => {
+  console.log("combine")
+
   const tracks = (
     await Promise.all(
       sourceId.map((playlist) => fetchPlaylistItemUris(playlist))

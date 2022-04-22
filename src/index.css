@@ -1,4 +1,5 @@
 @import "~antd/dist/antd.css";
+@import "tailwindcss/base";
 
 @tailwind base;
 @tailwind components;
@@ -23,6 +24,8 @@ code {
 }
 @layer components {
   .custom-scrollbar {
+    scrollbar-color: #285e94 #fff0;
+    scrollbar-width: thin;
   }
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;

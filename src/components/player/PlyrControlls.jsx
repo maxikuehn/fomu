@@ -48,7 +48,6 @@ const PlyrControlls = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("fetchdevices")
       fetchAvailableDevices().then((response) => {
         setDevices(response.devices)
         setSelectedDevice(_find(response.devices, "is_active")?.id)
@@ -182,7 +181,7 @@ const PlyrControlls = ({
         <Progress
           id="plyr-progress"
           className="cursor-pointer"
-          percent={(progress / duration ?? 0) * 100} // 150
+          percent={(progress / duration ?? 0) * 100}
           showInfo={false}
           strokeColor={"#285e94"}
           onClick={handleSeek}
