@@ -63,6 +63,7 @@ const PlyrControlls = ({
   }
 
   const handleClickDevice = (id) => {
+    setSelectedDevice(id)
     transferPlayback(id).then(() => setDeviceMenuVisible(false))
   }
 
