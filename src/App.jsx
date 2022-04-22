@@ -1,13 +1,11 @@
 import SpotifyLogin from "./components/SpotifyLogin"
-import PlayerLayout from "./views/PlayerLayout"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import {
   fetchCurrentUserPlaylist,
   fetchCurrentUserProfile,
   fetchPlayer,
 } from "./services/Spotify"
-import { useEffect, useState } from "react"
-import ConfiguratorLayout from "./views/ConfiguratorLayout"
+import { lazy, Suspense, useEffect } from "react"
 import TopBar from "./components/TopBar"
 import LoadingPage from "./views/LoadingPage"
 import { EAppState } from "./types"
@@ -19,6 +17,9 @@ import {
   playerState,
   spotifyAuthState,
 } from "./recoil"
+
+const PlayerLayout = lazy(() => import("./views/PlayerLayout"))
+const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
 
 function App() {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
@@ -58,7 +59,7 @@ function App() {
         ) : (
           <div className="flex flex-col h-full">
             <TopBar />
-            {renderSwitch()}
+            <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>
           </div>
         )
       ) : (
