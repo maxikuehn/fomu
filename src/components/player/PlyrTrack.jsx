@@ -18,7 +18,6 @@ const PlyrTrack = ({ track }) => {
   useEffect(() => {
     checkUserSaveTrackId(id).then((res) => {
       setLiked(res)
-      console.log("res", res)
     })
   }, [track])
 
@@ -73,6 +72,6 @@ const PlyrTrack = ({ track }) => {
   )
 }
 
-const areEqual = (prev, next) => prev.track.id === next.track.id
+const areEqual = (prev, next) => prev.track?.id === next.track?.id
 
 export default memo(PlyrTrack, areEqual)

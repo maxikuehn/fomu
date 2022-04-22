@@ -12,5 +12,4 @@ const localStorageEffect =
         : localStorage.setItem(key, JSON.stringify(newValue))
     })
   }
-
 export default localStorageEffect

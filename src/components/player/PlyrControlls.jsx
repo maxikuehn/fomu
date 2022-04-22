@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Badge, Button, Dropdown, Menu, Progress, Space } from "antd"
+import { Badge, Dropdown, Menu, Progress, Space } from "antd"
 import _clamp from "lodash/clamp"
 import _find from "lodash/find"
 import {
@@ -26,8 +26,8 @@ import {
   playerSkipToPrevious,
   transferPlayback,
 } from "../../services/Spotify"
-import { deviceListState } from "../../recoil"
 import { useRecoilState } from "recoil"
+import { deviceListState } from "../../recoil"
 
 const PlyrControlls = ({
   isPlaying,

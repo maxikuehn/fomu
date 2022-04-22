@@ -1,14 +1,8 @@
-import { DownOutlined, LeftOutlined, SearchOutlined } from "@ant-design/icons"
+import { DownOutlined, LeftOutlined } from "@ant-design/icons"
 import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
-import { ChevronLeft } from "react-feather"
-import {
-  useRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-  useSetRecoilState,
-} from "recoil"
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil"
 import {
   appState,
   contextState,
