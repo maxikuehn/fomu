@@ -218,6 +218,52 @@ export const fetchUserSaveTrackIds = async () => {
   return likedTracks
 }
 
+export const checkUserSaveTrackId = async (trackIds) => {
+  return spotifyFetcher
+    .get("me/tracks/contains", {
+      headers: authHeader(),
+      params: { ids: trackIds },
+    })
+    .then((response) => response.data[0])
+    .catch((error) => console.log("error", error))
+}
+
+export const saveTrackCurrentUser = async (trackIds) => {
+  return spotifyFetcher
+    .put(
+      "me/tracks",
+      { ids: [trackIds] },
+      {
+        headers: authHeader(),
+      }
+    )
+    .then((response) => {
+      useNotification({
+        title: "Zu deinen Lieblingssongs hinzugefügt",
+        type: "success",
+      })
+      return response.data
+    })
+    .catch((error) => console.log("error", error))
+}
+
+export const removeTrackCurrentUser = async (trackIds) => {
+  return spotifyFetcher
+    .delete("me/tracks", {
+      headers: authHeader(),
+      data: { ids: [trackIds] },
+    })
+    .then((response) => {
+      useNotification({
+        title: "Aus deinen Lieblingssongs entfernt",
+        type: "success",
+      })
+
+      return response.data
+    })
+    .catch((error) => console.log("error", error))
+}
+
 export const fetchCurrentUserProfile = async () => {
   return spotifyFetcher
     .get("me", {

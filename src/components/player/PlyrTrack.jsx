@@ -1,13 +1,32 @@
-import { Image, Space, Typography } from "antd"
+import React, { memo, useEffect, useState } from "react"
+import { Image, Space } from "antd"
 import heartInactive from "./../../assets/icons/heart-64.png"
 import heartActive from "./../../assets/icons/heart-64-active.png"
+import {
+  checkUserSaveTrackId,
+  removeTrackCurrentUser,
+  saveTrackCurrentUser,
+} from "../../services/spotify"
 
 const PlyrTrack = ({ track }) => {
+  const [liked, setLiked] = useState(false)
   if (!track) {
     return <div />
   }
+  const { name, artists, album, id } = track
 
-  const { name, artists, album } = track
+  useEffect(() => {
+    checkUserSaveTrackId(id).then((res) => {
+      setLiked(res)
+      console.log("res", res)
+    })
+  }, [track])
+
+  const handleClickLike = () => {
+    if (liked) removeTrackCurrentUser(id)
+    else saveTrackCurrentUser(id)
+    setLiked(!liked)
+  }
 
   return (
     <Space direction="vertical">
@@ -20,29 +39,40 @@ const PlyrTrack = ({ track }) => {
       />
       <div className="flex justify-between items-center">
         <Space direction="vertical" size={0}>
-          <a
-            href={track.uri}
-            className="cursor-pointer text-inherit font-semibold hover:text-primary-300 hover:underline"
+          <span
+            onClick={() => (window.location.href = track.uri)}
+            className="cursor-pointer font-semibold underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
           >
             {name}
-          </a>
+          </span>
           <div>
             {artists
               .map((a, i) => (
-                <a
-                  href={a.uri}
-                  className="cursor-pointer text-inherit hover:text-primary-300 hover:underline"
+                <span
+                  onClick={() => (window.location.href = a.uri)}
+                  className="cursor-pointer underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
                   key={i}
                 >
                   {a.name}
-                </a>
+                </span>
               ))
               .reduce((prev, curr) => [prev, ", ", curr])}
           </div>
         </Space>
-        <Image height={35} width={35} src={heartInactive} preview={false} />
+        <Image
+          alt="likeHeart"
+          height={35}
+          width={35}
+          className="cursor-pointer hover:brightness-90 active:brightness-75"
+          src={liked ? heartActive : heartInactive}
+          onClick={handleClickLike}
+          preview={false}
+        />
       </div>
     </Space>
   )
 }
-export default PlyrTrack
+
+const areEqual = (prev, next) => prev.track.id === next.track.id
+
+export default memo(PlyrTrack, areEqual)

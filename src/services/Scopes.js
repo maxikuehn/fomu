@@ -43,6 +43,8 @@ const scopes = (() => [
   scopesList.playlistReadPrivate,
   scopesList.playlistModifyPrivate,
   scopesList.playlistModifyPublic,
+  scopesList.userLibraryRead,
+  scopesList.userLibraryModify,
   scopesList.userReadPrivate,
   scopesList.userReadEmail,
   scopesList.userReadPlaybackState,

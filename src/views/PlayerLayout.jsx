@@ -19,8 +19,6 @@ const Backdrop = ({ context }) => {
   const [devices, setDevices] = useRecoilState(deviceListState)
   const [currentDevice, setCurrentDevice] = useRecoilState(currentDeviceState)
 
-  console.log("currentDevice", currentDevice)
-
   useEffect(async () => {
     let deviceList = (await fetchAvailableDevices()).devices
     setDevices(deviceList)
