@@ -23,7 +23,7 @@ const Backdrop = ({ context }) => {
     const interval = setInterval(() => {
       fetchAvailableDevices().then((response) => {
         setDevices(response.devices)
-        setSelectedDevice(_find(deviceList, "is_active")?.id)
+        setSelectedDevice(_find(response.devices, "is_active")?.id)
       })
     }, 2000)
     return () => clearInterval(interval)

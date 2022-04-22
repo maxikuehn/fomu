@@ -344,6 +344,13 @@ export const fetchAvailableDevices = async () => {
     .catch((error) => console.log("error", error))
 }
 
+export const transferPlayback = async (device) => {
+  return spotifyFetcher
+    .put("me/player", { device_ids: [device] }, { headers: authHeader() })
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
 export const requestUserAuthorization = async () => {
   const _url = new URL("https://accounts.spotify.com/authorize")
   _url.searchParams.append("client_id", CLIENT_ID)

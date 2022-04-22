@@ -1,5 +1,7 @@
-import { Badge, Button as AButton, Progress, Space } from "antd"
+import { useEffect, useState } from "react"
+import { Badge, Button, Dropdown, Menu, Progress, Space } from "antd"
 import _clamp from "lodash/clamp"
+import _find from "lodash/find"
 import {
   Circle,
   Pause,
@@ -9,8 +11,12 @@ import {
   Shuffle,
   SkipBack,
   SkipForward,
+  Monitor,
+  Smartphone,
+  Speaker,
 } from "react-feather"
 import {
+  fetchAvailableDevices,
   playerPause,
   playerPlay,
   playerSeek,
@@ -18,11 +24,8 @@ import {
   playerSetShuffle,
   playerSkipToNext,
   playerSkipToPrevious,
+  transferPlayback,
 } from "../../services/Spotify"
-
-const Button = ({ icon }) => {
-  return <AButton icon={icon} shape="circle" className="w-12 h-12" />
-}
 
 const PlyrControlls = ({
   isPlaying,
@@ -31,10 +34,66 @@ const PlyrControlls = ({
   repeatState,
   shuffleState,
 }) => {
+  const [devices, setDevices] = useState([])
+  const [selectedDevice, setSelectedDevice] = useState("")
+  const [deviceMenuVisible, setDeviceMenuVisible] = useState(false)
+
+  useEffect(async () => {
+    let deviceList = (await fetchAvailableDevices()).devices
+    setDevices(deviceList)
+    setSelectedDevice(_find(deviceList, "is_active")?.id)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("fetchdevices")
+      fetchAvailableDevices().then((response) => {
+        setDevices(response.devices)
+        setSelectedDevice(_find(response.devices, "is_active")?.id)
+      })
+    }, 2000)
+    if (!deviceMenuVisible) clearInterval(interval)
+    return () => clearInterval(interval)
+  }, [deviceMenuVisible])
+
   const iconProps = {
     size: 40,
     className:
       "text-primary-400 hover:text-primary-500 active:text-primary-600 cursor-pointer",
+  }
+
+  const handleClickDevice = (id) => {
+    transferPlayback(id).then(() => setDeviceMenuVisible(false))
+  }
+
+  const deviceList = () => {
+    return (
+      <Menu className="flex flex-col gap-1">
+        {devices.map(({ id, type, name }) => (
+          <Menu.Item
+            key={id}
+            onClick={() => handleClickDevice(id)}
+            className={`${id === selectedDevice && "bg-primary-600"}`}
+          >
+            <div className="flex gap-2 items-center">
+              {(() => {
+                switch (type) {
+                  case "Computer":
+                    return <Monitor size={15} />
+                  case "Smartphone":
+                    return <Smartphone size={15} />
+                  case "Speaker":
+                    return <Speaker size={15} />
+                }
+              })()}
+              <Space direction="vertical" className="flex-1 text-left">
+                <div className="text-ellipsis overflow-hidden">{name}</div>
+              </Space>
+            </div>
+          </Menu.Item>
+        ))}
+      </Menu>
+    )
   }
 
   const handleClickRepeat = () => {
@@ -44,13 +103,19 @@ const PlyrControlls = ({
     playerSetRepeat(ARepeatState[nextIndex])
   }
 
-  // console.log("w", document.getElementsByClassName("plyr-progress").style.width)
+  const handleClickCast = () => {}
 
   const handleSeek = (e) => {
     const width = document.getElementById("plyr-progress").offsetWidth
     var pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
     const seekMs = _clamp(Math.floor((pos / width) * duration), 0, duration)
     playerSeek(seekMs)
+  }
+
+  const formatMinute = (ms) => {
+    const m = Math.floor(ms / 1000 / 60)
+    const s = Math.floor((ms / 1000) % 60)
+    return `${m}:${s < 10 ? "0" : ""}${s}`
   }
 
   return (
@@ -92,15 +157,30 @@ const PlyrControlls = ({
         >
           <Repeat {...iconProps} onClick={handleClickRepeat} />
         </Badge>
+        <Dropdown
+          trigger={["click"]}
+          overlay={deviceList}
+          placement="topLeft"
+          onVisibleChange={(visible) => setDeviceMenuVisible(visible)}
+          visible={deviceMenuVisible}
+        >
+          <Cast {...iconProps} onClick={handleClickCast} />
+        </Dropdown>
       </Space>
-      <Progress
-        id="plyr-progress"
-        className="cursor-pointer"
-        percent={(progress / duration ?? 0) * 100} // 150
-        showInfo={false}
-        strokeColor={"#285e94"}
-        onClick={handleSeek}
-      />
+      <div className="flex gap-1" direction="horizontal">
+        <span className="w-10 text-primary-300 text-right">
+          {formatMinute(progress)}
+        </span>
+        <Progress
+          id="plyr-progress"
+          className="cursor-pointer"
+          percent={(progress / duration ?? 0) * 100} // 150
+          showInfo={false}
+          strokeColor={"#285e94"}
+          onClick={handleSeek}
+        />
+        <span className="w-10 text-primary-300">{formatMinute(duration)}</span>
+      </div>
     </div>
   )
 }

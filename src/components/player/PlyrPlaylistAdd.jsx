@@ -66,9 +66,8 @@ const PlyrPlaylistAdd = () => {
   const [existingTracks, setExistingTracks] = useState([])
   const [trackSaved, setTrackSaved] = useState(false)
 
-  if (outputPlaylists.length === 0) return null
-
   useEffect(() => {
+    if (!player) return
     if (player.item.uri !== lastTrack) {
       if (trackSaved && deleteTrack) {
         removeTracksFromPlaylist(joinPlaylist, [lastTrack])
@@ -76,7 +75,7 @@ const PlyrPlaylistAdd = () => {
       }
     }
     lastTrack = player.item.uri
-  }, [player.item?.uri])
+  }, [player])
 
   useEffect(async () => {
     let _existingTracks = await Promise.all(
@@ -100,7 +99,7 @@ const PlyrPlaylistAdd = () => {
     playerSkipToNext()
   }
 
-  if (outputPlaylists.length === 0) return null
+  if (outputPlaylists.length === 0 || !player) return null
 
   return (
     <div className="basis-96 p-5 flex items-center ">
@@ -121,16 +120,17 @@ const PlyrPlaylistAdd = () => {
             />
           ))}
         </div>
-        <div
-          className="mt-6 cursor-pointer flex flex-col items-center"
-          onClick={handleSubmit}
-        >
+        <div className="mt-6 flex flex-col items-center self-center">
           <ArrowRightCircle
+            onClick={handleSubmit}
             size={"60%"}
             strokeWidth={0.3}
-            className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+            className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 cursor-pointer rounded-full"
           />
-          <p className="text-primary-400 text-2xl font-semibold select-none">
+          <p
+            onClick={handleSubmit}
+            className="text-primary-400 text-2xl font-semibold select-none cursor-pointer"
+          >
             {deleteTrack ? "Löschen" : "Weiter"}
           </p>
         </div>
