@@ -1,8 +1,14 @@
 import { Button, Empty, Space, Tooltip } from "antd"
 import { useEffect, useState } from "react"
-import { useRecoilValue, useSetRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
-import { appState, contextState, playerState } from "../recoil"
+import {
+  appState,
+  contextState,
+  currentDeviceState,
+  deviceListState,
+  playerState,
+} from "../recoil"
 import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import Fade from "../components/Fade"
 import { fetchAvailableDevices, playerPlay } from "../services/Spotify"
@@ -10,20 +16,21 @@ import _find from "lodash/find"
 import { InfoCircleOutlined } from "@ant-design/icons"
 
 const Backdrop = ({ context }) => {
-  const [devices, setDevices] = useState([])
-  const [selectedDevice, setSelectedDevice] = useState("")
+  const [devices, setDevices] = useRecoilState(deviceListState)
+  const [currentDevice, setCurrentDevice] = useRecoilState(currentDeviceState)
+
+  console.log("currentDevice", currentDevice)
 
   useEffect(async () => {
     let deviceList = (await fetchAvailableDevices()).devices
     setDevices(deviceList)
-    setSelectedDevice(_find(deviceList, "is_active")?.id)
+    setCurrentDevice(_find(deviceList, "is_active")?.id)
   }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
       fetchAvailableDevices().then((response) => {
         setDevices(response.devices)
-        setSelectedDevice(_find(response.devices, "is_active")?.id)
       })
     }, 2000)
     return () => clearInterval(interval)
@@ -32,10 +39,10 @@ const Backdrop = ({ context }) => {
   const deviceElement = ({ id, name, type }) => (
     <Button
       key={id}
-      type={id === selectedDevice ? "primary" : "default"}
+      type={id === currentDevice ? "primary" : "default"}
       style={{ height: "auto" }}
       block
-      onClick={() => setSelectedDevice(id)}
+      onClick={() => setCurrentDevice(id)}
     >
       <div className="flex gap-2 py-1 items-center">
         {(() => {
@@ -58,8 +65,8 @@ const Backdrop = ({ context }) => {
   )
 
   const handleClickStart = () => {
-    if (!selectedDevice) return
-    playerPlay(context, selectedDevice)
+    if (!currentDevice) return
+    playerPlay(context, currentDevice)
   }
 
   return (
@@ -115,10 +122,10 @@ const PlayerLayout = () => {
           visible && "grayscale blur-sm"
         }`}
       >
-        <div id="sidebar" className="bg-red-6001 basis-80">
-          verlauf
+        <div id="sidebar" className="basis-80">
+          verlauf wip
         </div>
-        <div id="right" className=" flex-auto flex">
+        <div id="right" className="flex-auto flex">
           <PlyrPlayer />
           <PlyrPlaylistAdd />
         </div>

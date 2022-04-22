@@ -26,6 +26,8 @@ import {
   playerSkipToPrevious,
   transferPlayback,
 } from "../../services/Spotify"
+import { deviceListState } from "../../recoil"
+import { useRecoilState } from "recoil"
 
 const PlyrControlls = ({
   isPlaying,
@@ -34,7 +36,7 @@ const PlyrControlls = ({
   repeatState,
   shuffleState,
 }) => {
-  const [devices, setDevices] = useState([])
+  const [devices, setDevices] = useRecoilState(deviceListState)
   const [selectedDevice, setSelectedDevice] = useState("")
   const [deviceMenuVisible, setDeviceMenuVisible] = useState(false)
 
@@ -70,6 +72,11 @@ const PlyrControlls = ({
   const deviceList = () => {
     return (
       <Menu className="flex flex-col gap-1">
+        {devices.length === 0 && (
+          <Menu.Item key="nodevice" className="text-center">
+            Keine Geräte verfügbar
+          </Menu.Item>
+        )}
         {devices.map(({ id, type, name }) => (
           <Menu.Item
             key={id}

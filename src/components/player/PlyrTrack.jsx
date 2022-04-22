@@ -40,7 +40,7 @@ const PlyrTrack = ({ track }) => {
               .reduce((prev, curr) => [prev, ", ", curr])}
           </div>
         </Space>
-        {/* <Image height={35} width={35} src={heartInactive} preview={false} /> */}
+        <Image height={35} width={35} src={heartInactive} preview={false} />
       </div>
     </Space>
   )

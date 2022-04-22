@@ -272,10 +272,11 @@ export const playerPlay = async (context_uri = null, device_id = null) => {
   return spotifyFetcher
     .put(
       "me/player/play",
-      {},
+      {
+        context_uri,
+      },
       {
         headers: authHeader(),
-        context_uri,
         params: { device_id },
       }
     )
@@ -382,7 +383,6 @@ export const requestAccessToken = async (code) => {
     )
     .then((resp) => {
       setRecoil(spotifyAuthState, resp.data)
-
       return
     })
     .catch((error) => {

@@ -38,14 +38,6 @@ const scopesList = {
   userReadPrivate: "user-read-private",
 }
 
-export const allScopes = (() => {
-  return Object.keys(scopesList)
-    .reduce((sum, scope) => {
-      return sum.concat(scopesList[scope], "%20")
-    }, "")
-    .slice(0, -3)
-})()
-
 const scopes = (() => [
   scopesList.userReadCurrentlyPlaying,
   scopesList.playlistReadPrivate,
@@ -57,7 +49,5 @@ const scopes = (() => [
   scopesList.userModifyPlaybackState,
   scopesList.userReadCurrentlyPlaying,
 ])()
-
-let x = scopes
 
 export default scopes
