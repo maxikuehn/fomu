@@ -6,7 +6,7 @@ import {
   checkUserSaveTrackId,
   removeTrackCurrentUser,
   saveTrackCurrentUser,
-} from "../../services/spotify"
+} from "../../services/Spotify"
 
 const PlyrTrack = ({ track }) => {
   const [liked, setLiked] = useState(false)
