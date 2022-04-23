@@ -1,19 +1,17 @@
-import { Button, Empty, Space, Tooltip } from "antd"
+import { Button, Space, Tooltip } from "antd"
 import { useEffect, useState } from "react"
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
+import { useRecoilState, useRecoilValue } from "recoil"
 import {
-  appState,
   contextState,
   currentDeviceState,
   deviceListState,
   playerState,
 } from "../recoil"
-import { Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
+import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
 import Fade from "../components/Fade"
+import { Info, Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
 import { fetchAvailableDevices, playerPlay } from "../services/Spotify"
 import _find from "lodash/find"
-import { InfoCircleOutlined } from "@ant-design/icons"
 
 const Backdrop = ({ context }) => {
   const [devices, setDevices] = useRecoilState(deviceListState)
@@ -76,16 +74,14 @@ const Backdrop = ({ context }) => {
             {devices.map(deviceElement)}
           </>
         ) : (
-          <>
-            <Tooltip
-              className="px-2"
-              placement="rightBottom"
-              title="Öffne Spotify auf einem beliebigen Gerät, damit es hier erscheint."
-            >
-              kein Gerät verfügbar
-              <InfoCircleOutlined className="text-lg mx-2" />
-            </Tooltip>
-          </>
+          <Tooltip
+            className="px-2 flex"
+            placement="rightBottom"
+            title="Öffne Spotify auf einem beliebigen Gerät, damit es hier erscheint."
+          >
+            kein Gerät verfügbar
+            <Info size={18} className="mx-4" />
+          </Tooltip>
         )}
       </div>
       <div

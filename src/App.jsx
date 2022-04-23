@@ -23,7 +23,7 @@ const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
 
 function App() {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
-  const [app, setApp] = useRecoilState(appState)
+  const app = useRecoilValue(appState)
   const setCurrentUserPlaylists = useSetRecoilState(currentUserPlaylistsState)
   const setCurrentUserProfile = useSetRecoilState(currentUserState)
   const setPlayer = useSetRecoilState(playerState)
