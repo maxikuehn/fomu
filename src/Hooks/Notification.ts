@@ -20,5 +20,6 @@ export function useNotification({
     onClick: () => {
       message.destroy(key)
     },
+    className: "cursor-pointer",
   })
 }

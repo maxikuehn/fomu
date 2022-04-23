@@ -1,4 +1,5 @@
 import { LoadingOutlined } from "@ant-design/icons"
+import { Spin } from "antd"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { requestAccessToken } from "../services/Spotify"
@@ -15,10 +16,16 @@ const LoadingPage = () => {
   }, [])
 
   return (
-    <div className="h-full flex justify-center items-center">
-      <div>
-        <LoadingOutlined style={{ fontSize: "75px" }} />
-      </div>
+    <div className="w-screen h-screen bg-background flex justify-center items-center">
+      <Spin
+        indicator={
+          <LoadingOutlined
+            style={{
+              fontSize: 100,
+            }}
+          />
+        }
+      />
     </div>
   )
 }
