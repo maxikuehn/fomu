@@ -16,7 +16,7 @@ const LoadingPage = () => {
   }, [])
 
   return (
-    <div className="w-screen h-screen bg-background flex justify-center items-center">
+    <div className="w-screen h-screen absolute top-0 bg-background flex justify-center items-center">
       <Spin
         indicator={
           <LoadingOutlined

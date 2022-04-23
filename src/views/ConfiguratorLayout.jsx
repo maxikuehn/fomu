@@ -1,4 +1,3 @@
-import { ArrowRightOutlined } from "@ant-design/icons"
 import {
   CnfDestination,
   CnfPlaylistList,
@@ -8,9 +7,12 @@ import { ArrowRight } from "react-feather"
 
 const ConfiguratorLayout = () => {
   return (
-    <div className="flex flex-grow justify-center gap-6">
+    <div className="flex flex-grow justify-center gap-2 xl:gap-14 p-2">
       <CnfPlaylistList />
-      <ArrowRight size={60} className="self-center text-primary-400" />
+      <ArrowRight
+        size={60}
+        className="self-center text-primary-400 min-w-fit"
+      />
       <CnfDestination />
       <CnfSettings />
     </div>

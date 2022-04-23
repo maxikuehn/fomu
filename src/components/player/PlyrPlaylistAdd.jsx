@@ -26,7 +26,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
         preview={false}
         alt="PlaylistCoverImage"
       />
-      <div className="text-ellipsis overflow-hidden max-w-xs text-lg flex-1">
+      <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[250px] text-lg flex-1">
         {name}
       </div>
       {trackContained ? (

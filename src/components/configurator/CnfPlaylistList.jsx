@@ -1,62 +1,19 @@
 import { InfoCircleOutlined } from "@ant-design/icons"
-import { Badge, Button, Image, Space, Tooltip, Typography } from "antd"
-import { useState } from "react"
-import { Music } from "react-feather"
-import { useRecoilState, useRecoilValue } from "recoil"
+import { Badge, Button, Tooltip } from "antd"
+import { useRecoilValue } from "recoil"
 import { currentUserPlaylistsState, inputPlaylistState } from "../../recoil"
-const { Text } = Typography
-
-const Playlist = ({ name, id, tracks, owner, images }) => {
-  const [inputPlaylists, setInputPlaylists] = useRecoilState(inputPlaylistState)
-  const [selected, setSelected] = useState(inputPlaylists.includes(id))
-
-  const handleClick = () => {
-    if (selected) setInputPlaylists((val) => val.filter((p) => p !== id))
-    else setInputPlaylists((val) => [...val, id])
-    setSelected(!selected)
-  }
-
-  return (
-    <Button
-      key={id}
-      type={selected ? "primary" : "default"}
-      style={{ height: "auto" }}
-      onClick={handleClick}
-    >
-      <div className="flex gap-2 py-1">
-        {images.length > 0 ? (
-          <Image
-            src={images[0]?.url}
-            width={52}
-            height={52}
-            preview={false}
-            alt="PlaylistCoverImage"
-          />
-        ) : (
-          <div className="w-[52px] h-[52px] border-[1px] border-primary-700 flex items-center justify-center">
-            <Music size={45} strokeWidth={1} className="stroke-primary-300" />
-          </div>
-        )}
-        <Space direction="vertical" className="flex-1 text-left">
-          <div className="text-ellipsis overflow-hidden max-w-xs">{name}</div>
-          <Space>
-            <Text keyboard>{tracks.total} Tracks</Text>
-            <Text keyboard>{owner.display_name}</Text>
-          </Space>
-        </Space>
-      </div>
-    </Button>
-  )
-}
+import CnfPlaylist from "./CnfPlaylist"
 
 const CnfPlaylistList = () => {
   const userPlaylists = useRecoilValue(currentUserPlaylistsState)
   const inputPlaylists = useRecoilValue(inputPlaylistState)
 
   return (
-    <div className="m-8 max-h-[80vh] min-w-[400px] flex flex-col select-none">
-      <div className="px-4 py-2 flex items-center">
-        <span className="text-2xl font-semibold">Wähle Playlists aus</span>
+    <div className="max-h-[85vh] max-w-[400px] flex-1 flex flex-col select-none">
+      <div className="px-4 py-2 flex items-center flex-nowrap">
+        <span className="text-2xl font-semibold whitespace-nowrap">
+          Wähle Playlists aus
+        </span>
         <Tooltip
           className="px-3"
           placement="rightBottom"
@@ -78,7 +35,9 @@ const CnfPlaylistList = () => {
         />
       </div>
       <div className="p-2 border-2 border-primary-400 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
-        {userPlaylists.map(Playlist)}
+        {userPlaylists.map((p) => (
+          <CnfPlaylist key={p.id} {...p} input={true} />
+        ))}
       </div>
     </div>
   )
