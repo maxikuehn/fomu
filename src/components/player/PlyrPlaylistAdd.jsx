@@ -58,6 +58,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
 }
 
 let lastTrack = ""
+
 const PlyrPlaylistAdd = () => {
   const player = useRecoilValue(playerState)
   const deleteTrack = useRecoilValue(deleteTracksState)
@@ -67,12 +68,11 @@ const PlyrPlaylistAdd = () => {
   const [trackSaved, setTrackSaved] = useState(false)
 
   useEffect(() => {
-    if (!player) return
-    if (player.item.uri !== lastTrack) {
-      if (trackSaved && deleteTrack) {
-        removeTracksFromPlaylist(joinPlaylist, [lastTrack])
-        setTrackSaved(false)
-      }
+    if (!player || !player.item) return
+    if (player.item.uri === lastTrack) return
+    if (trackSaved && deleteTrack) {
+      removeTracksFromPlaylist(joinPlaylist, [lastTrack])
+      setTrackSaved(false)
     }
     lastTrack = player.item.uri
   }, [player])

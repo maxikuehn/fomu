@@ -7,16 +7,14 @@ import {
   removeTrackCurrentUser,
   saveTrackCurrentUser,
 } from "../../services/Spotify"
+import { Mic } from "react-feather"
 
 const PlyrTrack = ({ track }) => {
   const [liked, setLiked] = useState(false)
-  if (!track) {
-    return <div />
-  }
-  const { name, artists, album, id } = track
 
   useEffect(() => {
-    checkUserSaveTrackId(id).then((res) => {
+    if (!track.id) return
+    checkUserSaveTrackId(track.id).then((res) => {
       setLiked(res)
     })
   }, [track])
@@ -27,15 +25,28 @@ const PlyrTrack = ({ track }) => {
     setLiked(!liked)
   }
 
+  const {
+    name = "podcast beste! aber funktioniert hier leider nicht..",
+    artists = [{ uri: "", name: "" }],
+    album,
+    id = "podcast",
+  } = track
+
   return (
     <Space direction="vertical">
-      <Image
-        src={album.images[0].url}
-        preview={false}
-        width={"60vh"}
-        height={"60vh"}
-        alt="CurrentTrackCoverImage"
-      />
+      {album ? (
+        <Image
+          src={album.images[0].url}
+          preview={false}
+          width={"60vh"}
+          height={"60vh"}
+          alt="CurrentTrackCoverImage"
+        />
+      ) : (
+        <div className="w-[60vh] h-[60vh] flex justify-center items-center">
+          <Mic size={"50%"} strokeWidth={0.3} className="stroke-primary-600" />
+        </div>
+      )}
       <div className="flex justify-between items-center">
         <Space direction="vertical" size={0}>
           <span
@@ -72,6 +83,8 @@ const PlyrTrack = ({ track }) => {
   )
 }
 
-const areEqual = (prev, next) => prev.track?.id === next.track?.id
+const areEqual = (prev, next) => {
+  return prev.track?.id === next.track?.id
+}
 
 export default memo(PlyrTrack, areEqual)

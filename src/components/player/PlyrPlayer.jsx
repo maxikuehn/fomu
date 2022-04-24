@@ -26,7 +26,7 @@ function PlyrPlayer() {
   return (
     <div className="flex-auto flex justify-center py-5">
       <div className="flex flex-col justify-between gap-12 mb-4 w-[60vh]">
-        <PlyrTrack track={item} />
+        <PlyrTrack track={item || {}} />
         <PlyrControlls
           isPlaying={is_playing}
           progress={progress_ms}
