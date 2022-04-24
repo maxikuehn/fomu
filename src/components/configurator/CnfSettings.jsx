@@ -74,7 +74,7 @@ const CnfSettings = () => {
   }
 
   return (
-    <div className="p-2 w-80 h-min self-center border-4 border-primary-500 rounded-lg flex flex-col gap-2">
+    <div className="p-2 w-80 h-min self-center border-2 border-primary-500 rounded flex flex-col gap-2">
       <Text>Zusammenführen in:</Text>
       <Select
         className="w-full"

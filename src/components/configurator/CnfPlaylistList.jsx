@@ -34,7 +34,7 @@ const CnfPlaylistList = () => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-2 border-primary-400 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
         {userPlaylists.map((p) => (
           <CnfPlaylist key={p.id} {...p} input={true} />
         ))}

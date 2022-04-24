@@ -34,7 +34,7 @@ const CnfDestination = () => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-2 border-primary-400 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
         <Input.Group compact className="w-full">
           <Input
             placeholder="neue Playlist"
