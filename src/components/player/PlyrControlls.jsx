@@ -110,8 +110,6 @@ const PlyrControlls = ({
     playerSetRepeat(ARepeatState[nextIndex])
   }
 
-  const handleClickCast = () => {}
-
   const handleSeek = (e) => {
     const width = document.getElementById("plyr-progress").offsetWidth
     var pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
@@ -171,7 +169,7 @@ const PlyrControlls = ({
           onVisibleChange={(visible) => setDeviceMenuVisible(visible)}
           visible={deviceMenuVisible}
         >
-          <Cast {...iconProps} onClick={handleClickCast} />
+          <Cast {...iconProps} />
         </Dropdown>
       </Space>
       <div className="flex gap-1" direction="horizontal">
