@@ -13,15 +13,12 @@ const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
             <InfoCircleOutlined className="text-lg" />
           </Tooltip>
         )}
-        {badgeCount && (
-          <>
-            <div className="flex-auto" />
-            <Badge
-              count={badgeCount}
-              style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
-            />
-          </>
-        )}
+
+        <div className="flex-auto" />
+        <Badge
+          count={badgeCount}
+          style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
+        />
       </div>
       <div className="p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
         {children}
