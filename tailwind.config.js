@@ -14,6 +14,10 @@ module.exports = {
         background: "#0d1117",
         "spotify-green": "#1fdf64",
       },
+      transitionProperty: {
+        dimension: "width, height",
+        margin: "margin",
+      },
     },
   },
   plugins: [],
