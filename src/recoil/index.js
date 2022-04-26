@@ -1,6 +1,6 @@
 export { appLoadingState } from "./appLoadingState"
 export { appState } from "./appState"
-export { contextState } from "./contextState"
+export { contextState, contextIdState } from "./contextState"
 export { currentDeviceState } from "./currentDeviceState"
 export {
   currentUserPlaylistsState,
@@ -11,7 +11,9 @@ export {
 export { currentUserState } from "./currentUserState"
 export { deleteTracksState } from "./deleteTracksState"
 export { deviceListState } from "./deviceListState"
+export { historyOpenState } from "./historyOpenState"
 export { joinPlaylistState } from "./joinPlaylistState"
+export { listeningHistoryState, toggleDeleted } from "./listeningHistoryState"
 export { inputPlaylistState } from "./inputPlaylistState"
 export { outputPlaylistState } from "./outputPlaylistState"
 export { playerState } from "./playerState"

@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
-import { useRecoilValue } from "recoil"
-import { contextState, playerState } from "../recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { contextState, historyOpenState, playerState } from "../recoil"
 import { PlyrPlayer, PlyrPlaylistAdd } from "../components/player"
 import Fade from "../components/Fade"
 import _find from "lodash/find"
 import Backdrop from "./Backdrop"
+import PlyrHistory from "../components/player/PlyrHistory"
+import { Button } from "antd"
+import { RightOutlined } from "@ant-design/icons"
 
 const PlayerLayout = () => {
+  const [historyOpen, setHistoryOpen] = useRecoilState(historyOpenState)
   const context = useRecoilValue(contextState)
   const player = useRecoilValue(playerState)
   const [visible, setVisible] = useState(false)
@@ -19,15 +23,22 @@ const PlayerLayout = () => {
 
   return (
     <>
-      <div
-        className={`w-full h-full flex flex-row px-8 ${
-          visible && "grayscale blur-sm"
-        }`}
-      >
-        <div id="sidebar" className="basis-80">
-          verlauf wip
-        </div>
-        <div id="right" className="flex-auto flex">
+      <div className={`w-full h-full ${visible && "grayscale blur-sm"}`}>
+        <PlyrHistory />
+        <div className={`flex h-full justify-around`}>
+          <div
+            className={`px-4 py-2 transition-dimension duration-500 ${
+              historyOpen ? "w-96" : "w-56"
+            }`}
+          >
+            <Button
+              size="small"
+              icon={<RightOutlined />}
+              onClick={() => setHistoryOpen(true)}
+            >
+              Wiedergabeverlauf
+            </Button>
+          </div>
           <PlyrPlayer />
           <PlyrPlaylistAdd />
         </div>

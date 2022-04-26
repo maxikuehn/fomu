@@ -1,12 +1,14 @@
 import { Image, Tooltip } from "antd"
 import { useEffect, useState } from "react"
 import _forEach from "lodash/forEach"
-import { useRecoilValue } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import {
   deleteTracksState,
   fullOutputPlaylistState,
   joinPlaylistState,
+  listeningHistoryState,
   playerState,
+  toggleDeleted,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, PlusCircle } from "react-feather"
 import {
@@ -64,6 +66,7 @@ const PlyrPlaylistAdd = () => {
   const deleteTrack = useRecoilValue(deleteTracksState)
   const joinPlaylist = useRecoilValue(joinPlaylistState)
   const outputPlaylists = useRecoilValue(fullOutputPlaylistState)
+  const setListeningHistory = useSetRecoilState(listeningHistoryState)
   const [existingTracks, setExistingTracks] = useState([])
   const [trackSaved, setTrackSaved] = useState(false)
 
@@ -73,6 +76,7 @@ const PlyrPlaylistAdd = () => {
     if (trackSaved && deleteTrack) {
       removeTracksFromPlaylist(joinPlaylist, [lastTrack])
       setTrackSaved(false)
+      setListeningHistory((history) => toggleDeleted(history, lastTrack))
     }
     lastTrack = player.item.uri
   }, [player])
@@ -95,7 +99,10 @@ const PlyrPlaylistAdd = () => {
   }
 
   const handleSubmit = () => {
-    if (deleteTrack) removeTracksFromPlaylist(joinPlaylist, [player.item.uri])
+    if (deleteTrack) {
+      removeTracksFromPlaylist(joinPlaylist, [player.item.uri])
+      setListeningHistory((history) => toggleDeleted(history, lastTrack))
+    }
     playerSkipToNext()
   }
 

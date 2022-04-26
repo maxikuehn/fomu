@@ -196,15 +196,27 @@ export const combineTracks = async (destinationId, sourceId) => {
  * @param {string} playlist_id
  * @param {string[]} tracks
  */
-export const removeTracksFromPlaylist = async (playlist_id, tracks) => {
+export const removeTracksFromPlaylist = async (
+  playlist_id,
+  tracks,
+  notify = false
+) => {
   return spotifyFetcher
     .delete(`playlists/${playlist_id}/tracks`, {
       data: { tracks: tracks.map((t) => ({ uri: t })) },
       headers: authHeader(),
     })
-    .then((response) => response.data)
+    .then((response) => {
+      if (notify)
+        useNotification({
+          content: "Track aus Playlist entfernt",
+          type: "success",
+        })
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
+
 export const fetchUserSaveTrackIds = async () => {
   let likedTracks = []
   let offset = 0
@@ -332,6 +344,44 @@ export const playerPlay = async (context_uri = null, device_id = null) => {
       }
     )
     .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerPlayTrack = async (trackId, device_id = null) => {
+  return spotifyFetcher
+    .put(
+      "me/player/play",
+      {
+        // context_uri,
+        uris: [trackId],
+      },
+      {
+        headers: authHeader(),
+        params: { device_id },
+      }
+    )
+    .then((response) => response.data)
+    .catch((error) => console.log("error", error))
+}
+
+export const playerAddToQueue = async (uri, notify = false) => {
+  return spotifyFetcher
+    .post(
+      "me/player/queue",
+      {},
+      {
+        headers: authHeader(),
+        params: { uri },
+      }
+    )
+    .then((response) => {
+      if (notify)
+        useNotification({
+          content: "Track zur Warteschlange hinzugefügt",
+          type: "success",
+        })
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
