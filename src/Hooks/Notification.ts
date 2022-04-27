@@ -8,7 +8,7 @@ type Options = {
 
 export function useNotification({
   content,
-  type = "info",
+  type = "success",
   duration = 2,
 }: Options) {
   const key = `open${Date.now()}`

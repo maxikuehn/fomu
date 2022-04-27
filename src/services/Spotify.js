@@ -167,7 +167,6 @@ export const addTrackToPlaylist = async (
   const result = await postItemsInPlaylist(playlist_id, [track_id])
   useNotification({
     content: "Track zur Playlist hinzugefügt",
-    type: "success",
   })
   return result
 }
@@ -196,22 +195,16 @@ export const combineTracks = async (destinationId, sourceId) => {
  * @param {string} playlist_id
  * @param {string[]} tracks
  */
-export const removeTracksFromPlaylist = async (
-  playlist_id,
-  tracks,
-  notify = false
-) => {
+export const removeTracksFromPlaylist = async (playlist_id, tracks) => {
   return spotifyFetcher
     .delete(`playlists/${playlist_id}/tracks`, {
       data: { tracks: tracks.map((t) => ({ uri: t })) },
       headers: authHeader(),
     })
     .then((response) => {
-      if (notify)
-        useNotification({
-          content: "Track aus Playlist entfernt",
-          type: "success",
-        })
+      useNotification({
+        content: "Track aus Playlist entfernt",
+      })
       return response.data
     })
     .catch((error) => console.log("error", error))
@@ -257,7 +250,6 @@ export const saveTrackCurrentUser = async (trackIds) => {
     .then((response) => {
       useNotification({
         content: "Zu deinen Lieblingssongs hinzugefügt",
-        type: "success",
       })
       return response.data
     })
@@ -273,7 +265,6 @@ export const removeTrackCurrentUser = async (trackIds) => {
     .then((response) => {
       useNotification({
         content: "Aus deinen Lieblingssongs entfernt",
-        type: "success",
       })
 
       return response.data
@@ -378,7 +369,6 @@ export const playerAddToQueue = async (uri, notify = false) => {
       if (notify)
         useNotification({
           content: "Track zur Warteschlange hinzugefügt",
-          type: "success",
         })
       return response.data
     })
