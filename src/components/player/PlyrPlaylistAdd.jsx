@@ -10,7 +10,7 @@ import {
   playerState,
   toggleDeleted,
 } from "../../recoil"
-import { ArrowRightCircle, CheckCircle, PlusCircle } from "react-feather"
+import { ArrowRightCircle, CheckCircle, Music, PlusCircle } from "react-feather"
 import {
   addTrackToPlaylist,
   fetchPlaylistItemUris,
@@ -21,13 +21,19 @@ import {
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
     <div className="h-auto border-[1px] border-[#434343] w-full py-1 px-2 rounded-sm flex gap-2">
-      <Image
-        src={images[images.length - 1].url}
-        width={52}
-        height={52}
-        preview={false}
-        alt="PlaylistCoverImage"
-      />
+      {images.length > 0 ? (
+        <Image
+          src={images[images.length - 1].url}
+          width={52}
+          height={52}
+          preview={false}
+          alt="PlaylistCoverImage"
+        />
+      ) : (
+        <div className="w-[52px] h-[52px] border-[1px] border-primary-700 flex items-center justify-center">
+          <Music size={45} strokeWidth={1} className="stroke-primary-300" />
+        </div>
+      )}
       <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[250px] text-lg flex-1">
         {name}
       </div>
