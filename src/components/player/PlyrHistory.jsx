@@ -18,7 +18,7 @@ const PlyrHistory = () => {
       } overflow-hidden bg-background`}
     >
       <div id="sidebar" className="flex flex-col px-4 gap-2 h-full w-full p-2">
-        <div className="flex">
+        <div className="flex mr-[10px]">
           <Button
             size="small"
             icon={<LeftOutlined />}
@@ -36,7 +36,7 @@ const PlyrHistory = () => {
             onChange={(e) => setShowDeleted(e.target.checked)}
           />
         </div>
-        <div className="flex flex-col gap-2 overflow-y-auto overflow-x-hidden custom-scrollbar h-full">
+        <div className="flex flex-col gap-2 overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1">
           {listeningHistory.map((e) => (
             <PlyrHistoryEntry {...e} key={e.uri} showDeleted={showDeleted} />
           ))}
