@@ -26,7 +26,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
       <div className="flex gap-2 py-1 flex-nowrap">
         {images.length > 0 ? (
           <Image
-            src={images[0].url}
+            src={images[images.length - 1].url}
             width={52}
             height={52}
             preview={false}

@@ -22,7 +22,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
     <div className="h-auto border-[1px] border-[#434343] w-full py-1 px-2 rounded-sm flex gap-2">
       <Image
-        src={images[0]?.url}
+        src={images[images.length - 1].url}
         width={52}
         height={52}
         preview={false}
