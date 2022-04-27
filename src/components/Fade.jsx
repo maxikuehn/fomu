@@ -17,6 +17,7 @@ const Fade = ({ show = false, children }) => {
         style={{
           animation: `${show ? "fadeIn" : "fadeOut"} 0.7s `,
         }}
+        id="Fade"
         onAnimationEnd={onAnimationEnd}
       >
         {children}

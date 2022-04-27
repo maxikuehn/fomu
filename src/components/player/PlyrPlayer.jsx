@@ -27,13 +27,9 @@ function PlyrPlayer() {
     return () => clearInterval(interval)
   }, [])
 
-  if (!player) {
-    return <div className="flex-auto">Loading</div>
-  }
-
-  const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
-
   useEffect(() => {
+    if (!player) return
+    const { item } = player
     if (lastTrack === item.uri) return
     if (context !== player.context.uri) return
     if (!listeningHistory.find((track) => track.uri === item.uri)) {
@@ -49,10 +45,16 @@ function PlyrPlayer() {
       ])
     }
     lastTrack = item.uri
-  }, [item])
+  }, [player?.item])
+
+  if (!player) {
+    return <div className="flex-auto">Loading</div>
+  }
+
+  const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
 
   return (
-    <div className="flex-auto flex justify-center py-5">
+    <div className="flex-auto flex justify-center py-5" id="Player">
       <div className="flex flex-col justify-between gap-12 mb-4 w-[60vh]">
         <PlyrTrack track={item || {}} />
         <PlyrControlls

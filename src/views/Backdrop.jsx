@@ -59,7 +59,10 @@ const Backdrop = ({ context }) => {
   }
 
   return (
-    <div className="bg-opacity-90 absolute inset-0 bg-slate-900 flex flex-col justify-center items-center gap-8">
+    <div
+      className="bg-opacity-90 absolute inset-0 bg-slate-900 flex flex-col justify-center items-center gap-8"
+      id="Backdrop"
+    >
       <div className="flex flex-col gap-2 p-4 border-2 border-primary-400 rounded-lg min-w-[300px]">
         {devices.length > 0 ? (
           <>
