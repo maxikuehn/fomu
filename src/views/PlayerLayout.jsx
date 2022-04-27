@@ -41,6 +41,11 @@ const PlayerLayout = () => {
           </div>
           <PlyrPlayer />
           <PlyrPlaylistAdd />
+          <div
+            className={`transition-dimension duration-500 ${
+              historyOpen ? "w-0" : "lg:w-16"
+            }`}
+          />
         </div>
       </div>
       <Fade show={visible}>
