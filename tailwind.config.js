@@ -17,6 +17,7 @@ module.exports = {
       transitionProperty: {
         dimension: "width, height",
         margin: "margin",
+        allBorderWidth: "border-width",
       },
     },
   },
