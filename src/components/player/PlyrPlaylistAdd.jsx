@@ -30,8 +30,8 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
           alt="PlaylistCoverImage"
         />
       ) : (
-        <div className="w-[52px] h-[52px] border-[1px] border-primary-700 flex items-center justify-center">
-          <Music size={45} strokeWidth={1} className="stroke-primary-300" />
+        <div className="w-[52px] h-[52px] bg-primary-600 flex items-center justify-center">
+          <Music size={45} strokeWidth={1} className="stroke-primary-0" />
         </div>
       )}
       <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[250px] text-lg flex-1">

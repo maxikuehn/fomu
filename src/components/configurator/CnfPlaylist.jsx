@@ -34,8 +34,8 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
             className="w-[52px] h-[52px] flex-1"
           />
         ) : (
-          <div className="w-[52px] h-[52px] border-[1px] border-primary-700 flex items-center justify-center">
-            <Music size={45} strokeWidth={1} className="stroke-primary-300" />
+          <div className="w-[52px] h-[52px] bg-primary-600 flex items-center justify-center">
+            <Music size={45} strokeWidth={1} className="stroke-primary-0" />
           </div>
         )}
 
