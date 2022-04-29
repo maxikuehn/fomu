@@ -87,7 +87,7 @@ const Backdrop = ({ context }) => {
       >
         <PlayCircle size={250} strokeWidth={0.7} className="text-inherit" />
         <p className="text-4xl text-inherit font-semibold m-0 select-none">
-          Start Session
+          Session starten
         </p>
       </div>
     </div>
