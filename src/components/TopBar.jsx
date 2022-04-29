@@ -2,17 +2,8 @@ import { DownOutlined, LeftOutlined } from "@ant-design/icons"
 import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil"
-import {
-  appState,
-  contextState,
-  currentUserState,
-  deleteTracksState,
-  inputPlaylistState,
-  joinPlaylistState,
-  outputPlaylistState,
-  spotifyAuthState,
-} from "../recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { appState, currentUserState } from "../recoil"
 import { EAppState } from "../types"
 
 const ProfileMenu = () => {
@@ -25,14 +16,7 @@ const ProfileMenu = () => {
   const resetContext = useResetRecoilState(contextState)
 
   const handleLogout = () => {
-    resetJoin()
-    resetDelete()
-    resetApp()
-    resetInput()
-    resetOutput()
-    resetAuth()
-    resetContext()
-    localStorage.clear()
+    resetRecoil()
   }
   return (
     <Menu className="rounded-lg">
