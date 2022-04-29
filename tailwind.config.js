@@ -12,6 +12,7 @@ module.exports = {
           700: "#0E2642",
         },
         background: "#0d1117",
+        borderGrey: "#434343",
         "spotify-green": "#1fdf64",
       },
       transitionProperty: {

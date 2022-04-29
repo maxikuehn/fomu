@@ -20,7 +20,7 @@ import {
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <div className="h-auto border-[1px] border-[#434343] w-full py-1 px-2 rounded-sm flex gap-2">
+    <div className="h-auto border-[1px] border-borderGrey w-full py-1 px-2 rounded-sm flex gap-2">
       {images.length > 0 ? (
         <Image
           src={images[images.length - 1].url}
