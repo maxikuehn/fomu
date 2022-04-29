@@ -7,14 +7,6 @@ import { appState, currentUserState } from "../recoil"
 import { EAppState } from "../types"
 
 const ProfileMenu = () => {
-  const resetJoin = useResetRecoilState(joinPlaylistState)
-  const resetDelete = useResetRecoilState(deleteTracksState)
-  const resetApp = useResetRecoilState(appState)
-  const resetInput = useResetRecoilState(inputPlaylistState)
-  const resetOutput = useResetRecoilState(outputPlaylistState)
-  const resetAuth = useResetRecoilState(spotifyAuthState)
-  const resetContext = useResetRecoilState(contextState)
-
   const handleLogout = () => {
     resetRecoil()
   }
