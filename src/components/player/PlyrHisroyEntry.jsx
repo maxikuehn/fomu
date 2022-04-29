@@ -27,7 +27,7 @@ const PlyrHistoryEntry = ({
   return (
     <div
       id="PlayerHistoryEntry"
-      className={`flex gap-1 overflow-hidden border rounded border-borderGrey transition-all duration-500 ${
+      className={`flex gap-1 w-full overflow-hidden border rounded border-borderGrey transition-all duration-500 ${
         show ? "h-[54px] p-1 mb-1" : "h-0 mb-[-2px] opacity-0"
       }`}
     >

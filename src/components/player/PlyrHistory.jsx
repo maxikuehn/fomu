@@ -37,7 +37,7 @@ const PlyrHistory = () => {
             onChange={(e) => setShowDeleted(e.target.checked)}
           />
         </div>
-        <div className="flex flex-col overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1">
+        <div className="overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1">
           {listeningHistory.map((e) => (
             <PlyrHistoryEntry {...e} key={e.uri} showDeleted={showDeleted} />
           ))}
