@@ -17,6 +17,7 @@ import {
   playerState,
   spotifyAuthState,
 } from "./recoil"
+import { checkVersion } from "./services/AppVersion"
 
 const PlayerLayout = lazy(() => import("./views/PlayerLayout"))
 const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
@@ -40,6 +41,7 @@ function App() {
   useEffect(() => {
     if (!loggedIn) return
     initFetch()
+    if (!checkVersion()) window.location.reload()
   }, [loggedIn, app])
 
   const renderSwitch = () => {

@@ -3,12 +3,12 @@ import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { appState, currentUserState } from "../recoil"
+import { appState, currentUserState, resetStates } from "../recoil"
 import { EAppState } from "../types"
 
 const ProfileMenu = () => {
   const handleLogout = () => {
-    resetRecoil()
+    resetStates()
   }
   return (
     <Menu className="rounded-lg">

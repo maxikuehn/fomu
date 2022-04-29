@@ -1,4 +1,4 @@
-import { useResetRecoilState } from "recoil"
+import { resetRecoil } from "recoil-nexus"
 import { appState } from "./appState"
 import { contextState } from "./contextState"
 import { deleteTracksState } from "./deleteTracksState"
@@ -8,15 +8,15 @@ import { joinPlaylistState } from "./joinPlaylistState"
 import { outputPlaylistState } from "./outputPlaylistState"
 import { spotifyAuthState } from "./spotifyAuthState"
 
-export const resetRecoil = () => {
-  useResetRecoilState(appState)()
-  useResetRecoilState(contextState)()
-  useResetRecoilState(deleteTracksState)()
-  useResetRecoilState(historyOpenState)()
-  useResetRecoilState(inputPlaylistState)()
-  useResetRecoilState(joinPlaylistState)()
-  useResetRecoilState(outputPlaylistState)()
-  useResetRecoilState(spotifyAuthState)()
+export const resetStates = () => {
+  resetRecoil(appState)
+  resetRecoil(contextState)
+  resetRecoil(deleteTracksState)
+  resetRecoil(historyOpenState)
+  resetRecoil(inputPlaylistState)
+  resetRecoil(joinPlaylistState)
+  resetRecoil(outputPlaylistState)
+  resetRecoil(spotifyAuthState)
 
   localStorage.clear()
 }
