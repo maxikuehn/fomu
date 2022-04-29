@@ -10,7 +10,7 @@ const CnfPlaylistList = () => {
 
   return (
     <CnfContainer
-      title="Wähle Playlists aus"
+      title="Quelle Playlists"
       badgeCount={inputPlaylists.length}
       tooltip={
         <div>

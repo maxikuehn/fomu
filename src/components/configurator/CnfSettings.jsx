@@ -1,6 +1,5 @@
 import { DoubleRightOutlined } from "@ant-design/icons"
 import { Button, Checkbox, Select } from "antd"
-import Text from "antd/lib/typography/Text"
 import _find from "lodash/find"
 import _filter from "lodash/filter"
 import { useEffect, useState } from "react"
@@ -18,6 +17,7 @@ import {
   outputPlaylistState,
 } from "../../recoil"
 import { EAppState } from "../../types"
+import CustomTooltip from "../CustomTooltip"
 
 const CnfSettings = () => {
   const ownedSelectdPlaylists = useRecoilValue(
@@ -75,7 +75,14 @@ const CnfSettings = () => {
 
   return (
     <div className="p-2 w-80 h-min self-center border-2 border-primary-500 rounded flex flex-col gap-2">
-      <Text>Zusammenführen in:</Text>
+      <div>
+        <span>Joined Playlist:</span>
+        <CustomTooltip
+          content={
+            "Alle Tracks aus den Quell-Playlists werden in der Joined Playlist zusammengefasst."
+          }
+        />
+      </div>
       <Select
         className="w-full"
         defaultValue={null}
@@ -83,7 +90,7 @@ const CnfSettings = () => {
         onChange={(v) => setJoinPlaylist(v)}
       >
         <Select.Option key={"new"} value={"new"}>
-          Playlist automatisch erstellen
+          Neue Playlist verwenden
         </Select.Option>
         {ownedSelectdPlaylists.map((p) => (
           <Select.Option key={p.id} value={p.id}>
@@ -91,12 +98,19 @@ const CnfSettings = () => {
           </Select.Option>
         ))}
       </Select>
-      <Checkbox
-        checked={deleteTracks}
-        onChange={(e) => setDeleteTracks(e.target.checked)}
-      >
-        Tracks löschen
-      </Checkbox>
+      <div>
+        <Checkbox
+          checked={deleteTracks}
+          onChange={(e) => setDeleteTracks(e.target.checked)}
+        >
+          Tracks löschen
+        </Checkbox>
+        <CustomTooltip
+          content={
+            "Soll ein Track aus der Joined Playlist gelöscht werden, nachdem er sortiert wurde?"
+          }
+        />
+      </div>
       <Button
         type="primary"
         disabled={
