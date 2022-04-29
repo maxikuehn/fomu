@@ -40,10 +40,13 @@ function PlyrPlayer() {
           name: item.name,
           artistNames: item.artists.map((artist) => artist.name),
           image: item.album.images[item.album.images.length - 1].url,
-          deleted: false,
+          deleted: true,
         },
         ...listeningHistory,
       ])
+      setTimeout(() => {
+        setListeningHistory((history) => toggleDeleted(history, item.uri))
+      }, 10)
     }
     lastTrack = item.uri
   }, [player?.item])
