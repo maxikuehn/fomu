@@ -20,7 +20,7 @@ import {
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <div className="h-auto border-[1px] border-borderGrey w-full py-1 px-2 rounded-sm flex gap-2">
+    <div className="h-auto border border-borderGrey w-full py-1 px-2 rounded-sm flex gap-2">
       {images.length > 0 ? (
         <Image
           src={images[images.length - 1].url}
@@ -112,7 +112,7 @@ const PlyrPlaylistAdd = () => {
         <span className="text-2xl font-semibold self-start px-4">
           Track speichern
         </span>
-        <div className="max-h-[50vh] w-full p-2 border-2 border-primary-400 rounded-lg overflow-auto custom-scrollbar flex flex-col gap-1">
+        <div className="max-h-[50vh] w-full p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
           {outputPlaylists.map((p, i) => (
             <Playlist
               index={i}
