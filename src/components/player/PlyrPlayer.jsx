@@ -29,6 +29,7 @@ function PlyrPlayer() {
 
   useEffect(() => {
     if (!player) return
+    if (!player.item) return
     const { item } = player
     if (lastTrack === item.uri) return
     if (context !== player.context.uri) return
