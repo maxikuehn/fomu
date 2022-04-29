@@ -38,28 +38,20 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
         {name}
       </div>
       {trackContained ? (
-        <Tooltip title="Track schon gespeichert" placement="topRight">
-          <div className="self-center">
-            <CheckCircle
-              className="stroke-green-600"
-              size={40}
-              strokeWidth={1.2}
-            />
-          </div>
-        </Tooltip>
+        <div className="self-center">
+          <CheckCircle
+            className="stroke-green-600"
+            size={40}
+            strokeWidth={1.2}
+          />
+        </div>
       ) : (
-        <Tooltip title="in Playlist speichern" placement="topRight">
-          <div
-            className="self-center rounded-full cursor-pointer stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
-            onClick={() => handleClick(id, index)}
-          >
-            <PlusCircle
-              className="stroke-inherit"
-              size={40}
-              strokeWidth={1.2}
-            />
-          </div>
-        </Tooltip>
+        <div
+          className="self-center rounded-full cursor-pointer stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+          onClick={() => handleClick(id, index)}
+        >
+          <PlusCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
+        </div>
       )}
     </div>
   )

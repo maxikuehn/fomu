@@ -24,7 +24,7 @@ const CnfDestination = () => {
   }
 
   return (
-    <CnfContainer title="Ziel Playlist" badgeCount={outputPlaylists.length}>
+    <CnfContainer title="Ziel Playlists" badgeCount={outputPlaylists.length}>
       <Input.Group compact className="w-full">
         <Input
           placeholder="neue Playlist"
