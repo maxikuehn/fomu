@@ -31,7 +31,12 @@ const PlyrHistoryEntry = ({
         show ? "h-[54px] p-1 mb-1" : "h-0 mb-[-2px] opacity-0"
       }`}
     >
-      <Image src={image} width={44} preview={false} />
+      <Image
+        src={image}
+        width={44}
+        preview={false}
+        alt="ListeningHistoryEntryImage"
+      />
       <div className="flex flex-col flex-1 w-0">
         <span className={spanClass}>{name}</span>
         <span className={spanClass}>{artistNames.join(", ")}</span>
