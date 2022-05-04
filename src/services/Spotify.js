@@ -285,7 +285,7 @@ export const createPlaylist = async (userId, name = "SPOTINDERFY") => {
   return spotifyFetcher
     .post(
       `users/${userId}/playlists`,
-      { name, description: "Created by spotinderfy.ai :)", public: false },
+      { name, description: "Created by spot.maxikuehn.de :)", public: false },
       { headers: authHeader() }
     )
     .then((response) => response.data)
