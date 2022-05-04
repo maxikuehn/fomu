@@ -444,11 +444,21 @@ export const transferPlayback = async (device) => {
 }
 
 export const requestUserAuthorization = async () => {
+  var generateRandomString = function (length) {
+    var text = ""
+    var possible =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    for (var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length))
+    }
+    return text
+  }
+
   const _url = new URL("https://accounts.spotify.com/authorize")
   _url.searchParams.append("client_id", CLIENT_ID)
   _url.searchParams.append("response_type", "code")
   _url.searchParams.append("redirect_uri", REDIRECT_URI)
-  // _url.searchParams.append("state", "")
+  _url.searchParams.append("state", generateRandomString(16))
   _url.searchParams.append("scope", scopes.join(" "))
   _url.searchParams.append("show_dialog", false)
 
