@@ -281,7 +281,7 @@ export const fetchCurrentUserProfile = async () => {
     .catch((error) => console.log("error", error))
 }
 
-export const createPlaylist = async (userId, name) => {
+export const createPlaylist = async (userId, name = "SPOTINDERFY") => {
   return spotifyFetcher
     .post(
       `users/${userId}/playlists`,

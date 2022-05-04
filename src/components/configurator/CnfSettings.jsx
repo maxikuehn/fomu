@@ -54,7 +54,7 @@ const CnfSettings = () => {
     let newPlaylistID = joinPlaylist
 
     if (joinPlaylist === "new") {
-      const newPlaylist = await createPlaylist(currentUser.id, "SPOTINDERFY")
+      const newPlaylist = await createPlaylist(currentUser.id)
       newPlaylistID = newPlaylist.id
       setJoinPlaylist(newPlaylistID)
       setContext(newPlaylist.uri)
