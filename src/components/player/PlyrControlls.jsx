@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import { Badge, Dropdown, Menu, Progress, Space } from "antd"
 import _clamp from "lodash/clamp"
 import _find from "lodash/find"
@@ -28,6 +28,52 @@ import {
 } from "../../services/Spotify"
 import { useRecoilState } from "recoil"
 import { deviceListState } from "../../recoil"
+
+const DeviceList = memo(
+  ({ devices, handleClickDevice, selectedDevice }) => {
+    return (
+      <Menu>
+        {devices.length === 0 && (
+          <Menu.Item key="nodevice" className="text-center">
+            Keine Geräte verfügbar
+          </Menu.Item>
+        )}
+        {devices.map(({ id, name, type }) => (
+          <Menu.Item
+            key={id}
+            onClick={() => handleClickDevice(id)}
+            className={`${id === selectedDevice && "bg-primary-600"}`}
+          >
+            <div className="flex gap-2 items-center">
+              {(() => {
+                switch (type) {
+                  case "Computer":
+                    return <Monitor size={15} />
+                  case "Smartphone":
+                    return <Smartphone size={15} />
+                  case "Speaker":
+                    return <Speaker size={15} />
+                }
+              })()}
+              <Space direction="vertical" className="flex-1 text-left">
+                <div className="text-ellipsis overflow-hidden">{name}</div>
+              </Space>
+            </div>
+          </Menu.Item>
+        ))}
+      </Menu>
+    )
+  },
+  (prevProps, nextProps) => {
+    if (prevProps.devices.length !== nextProps.devices.length) {
+      return false
+    }
+    if (prevProps.selectedDevice !== nextProps.selectedDevice) {
+      return false
+    }
+    return true
+  }
+)
 
 const PlyrControlls = ({
   isPlaying,
@@ -72,41 +118,6 @@ const PlyrControlls = ({
   const handleClickDevice = (id) => {
     setSelectedDevice(id)
     transferPlayback(id).then(() => setDeviceMenuVisible(false))
-  }
-
-  const deviceList = () => {
-    return (
-      <Menu className="flex flex-col gap-1">
-        {devices.length === 0 && (
-          <Menu.Item key="nodevice" className="text-center">
-            Keine Geräte verfügbar
-          </Menu.Item>
-        )}
-        {devices.map(({ id, type, name }) => (
-          <Menu.Item
-            key={id}
-            onClick={() => handleClickDevice(id)}
-            className={`${id === selectedDevice && "bg-primary-600"}`}
-          >
-            <div className="flex gap-2 items-center">
-              {(() => {
-                switch (type) {
-                  case "Computer":
-                    return <Monitor size={15} />
-                  case "Smartphone":
-                    return <Smartphone size={15} />
-                  case "Speaker":
-                    return <Speaker size={15} />
-                }
-              })()}
-              <Space direction="vertical" className="flex-1 text-left">
-                <div className="text-ellipsis overflow-hidden">{name}</div>
-              </Space>
-            </div>
-          </Menu.Item>
-        ))}
-      </Menu>
-    )
   }
 
   const handleClickRepeat = () => {
@@ -170,7 +181,13 @@ const PlyrControlls = ({
         </Badge>
         <Dropdown
           trigger={["click"]}
-          overlay={deviceList}
+          overlay={
+            <DeviceList
+              devices={devices}
+              selectedDevice={selectedDevice}
+              handleClickDevice={handleClickDevice}
+            />
+          }
           placement="topLeft"
           onVisibleChange={(visible) => setDeviceMenuVisible(visible)}
           visible={deviceMenuVisible}
