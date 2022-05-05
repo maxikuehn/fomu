@@ -39,6 +39,7 @@ const PlyrControlls = ({
   const [devices, setDevices] = useRecoilState(deviceListState)
   const [selectedDevice, setSelectedDevice] = useState("")
   const [deviceMenuVisible, setDeviceMenuVisible] = useState(false)
+  const dev = import.meta.env.MODE === "development"
 
   useEffect(async () => {
     let deviceList = (await fetchAvailableDevices()).devices
@@ -46,14 +47,19 @@ const PlyrControlls = ({
     setSelectedDevice(_find(deviceList, "is_active")?.id)
   }, [])
 
+  let interval
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchAvailableDevices().then((response) => {
-        setDevices(response.devices)
-        setSelectedDevice(_find(response.devices, "is_active")?.id)
-      })
-    }, 2000)
-    if (!deviceMenuVisible) clearInterval(interval)
+    if (deviceMenuVisible) {
+      interval = setInterval(
+        () => {
+          fetchAvailableDevices().then((response) => {
+            setDevices(response.devices)
+            setSelectedDevice(_find(response.devices, "is_active")?.id)
+          })
+        },
+        dev ? 500 : 2000
+      )
+    } else clearInterval(interval)
     return () => clearInterval(interval)
   }, [deviceMenuVisible])
 

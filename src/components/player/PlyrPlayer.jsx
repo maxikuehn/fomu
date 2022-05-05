@@ -27,7 +27,7 @@ function PlyrPlayer() {
           setPlayer(response)
         })
       },
-      dev ? 200 : 2000
+      dev ? 500 : 2000
     )
     return () => clearInterval(interval)
   }, [])
