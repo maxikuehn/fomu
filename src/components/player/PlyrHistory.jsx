@@ -1,14 +1,20 @@
 import { LeftOutlined } from "@ant-design/icons"
 import { Button, Checkbox } from "antd"
-import { useState } from "react"
+import { forwardRef, useState } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { historyOpenState, listeningHistoryState } from "../../recoil"
 import PlyrHistoryEntry from "./PlyrHisroyEntry"
+import FlipMove from "react-flip-move"
+
+const FunctionalPlyrHistoryEntry = forwardRef((props, ref) => (
+  <div ref={ref}>
+    <PlyrHistoryEntry {...props} />
+  </div>
+))
 
 const PlyrHistory = () => {
   const listeningHistory = useRecoilValue(listeningHistoryState)
   const [historyOpen, setHistoryOpen] = useRecoilState(historyOpenState)
-
   const [showDeleted, setShowDeleted] = useState(false)
 
   return (
@@ -37,10 +43,16 @@ const PlyrHistory = () => {
             onChange={(e) => setShowDeleted(e.target.checked)}
           />
         </div>
-        <div className="overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1">
-          {listeningHistory.map((e) => (
-            <PlyrHistoryEntry {...e} key={e.uri} showDeleted={showDeleted} />
-          ))}
+        <div className="overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1 relative">
+          <FlipMove>
+            {listeningHistory.map((props) => (
+              <FunctionalPlyrHistoryEntry
+                {...props}
+                key={props.uri}
+                showDeleted={showDeleted}
+              />
+            ))}
+          </FlipMove>
         </div>
       </div>
     </div>
