@@ -38,21 +38,25 @@ function PlyrPlayer() {
     const { item } = player
     if (lastTrack === item.uri) return
     if (context !== player.context.uri) return
+    lastTrack = item.uri
+
+    const index = listeningHistory.findIndex((t) => t.uri === item.uri)
+    if (index === 0) return
 
     setListeningHistory((oldHistory) => {
-      let history = [...oldHistory]
-      let element = {
-        uri: item.uri,
-        name: item.name,
-        artistNames: item.artists.map((artist) => artist.name),
-        image: item.album.images[item.album.images.length - 1].url,
-        deleted: false,
-      }
-      const index = listeningHistory.findIndex((t) => t.uri === item.uri)
-      if (index > -1) history.splice(index, 1)
+      const history = [...oldHistory]
+      const element =
+        index > -1
+          ? history.splice(index, 1)[0]
+          : {
+              uri: item.uri,
+              name: item.name,
+              artistNames: item.artists.map((artist) => artist.name),
+              image: item.album.images[item.album.images.length - 1].url,
+              deleted: false,
+            }
       return [element, ...history]
     })
-    lastTrack = item.uri
   }, [player?.item])
 
   if (!player) {
