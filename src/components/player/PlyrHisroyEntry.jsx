@@ -1,13 +1,15 @@
 import { Image } from "antd"
-import { PlusSquare, Trash } from "react-feather"
+import { PlayCircle, PlusSquare, Trash } from "react-feather"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import {
   contextIdState,
+  contextState,
   listeningHistoryState,
   toggleDeleted,
 } from "../../recoil"
 import {
   playerAddToQueue,
+  playerPlayTrack,
   removeTracksFromPlaylist,
 } from "../../services/Spotify"
 
@@ -21,6 +23,7 @@ const PlyrHistoryEntry = ({
 }) => {
   const setListeningHistory = useSetRecoilState(listeningHistoryState)
   const contextId = useRecoilValue(contextIdState)
+  const context = useRecoilValue(contextState)
 
   const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden"
   let show = !deleted || showDeleted
@@ -42,6 +45,16 @@ const PlyrHistoryEntry = ({
         <span className={spanClass}>{artistNames.join(", ")}</span>
       </div>
       <div className="flex gap-1">
+        {false && (
+          <PlayCircle
+            size={22}
+            strokeWidth={1.2}
+            className="self-center stroke-primary-300 cursor-pointer"
+            onClick={() =>
+              playerPlayTrack({ position: 0, context_uri: context })
+            }
+          />
+        )}
         <PlusSquare
           size={22}
           strokeWidth={1.2}

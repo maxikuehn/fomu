@@ -285,7 +285,7 @@ export const createPlaylist = async (userId, name = "SPOTINDERFY") => {
   return spotifyFetcher
     .post(
       `users/${userId}/playlists`,
-      { name, description: "Created by spot.maxikuehn.de :)", public: false },
+      { name, description: "Created by spot.maxikuehn.de :)", public: true },
       { headers: authHeader() }
     )
     .then((response) => response.data)
@@ -338,13 +338,17 @@ export const playerPlay = async (context_uri = null, device_id = null) => {
     .catch((error) => console.log("error", error))
 }
 
-export const playerPlayTrack = async (trackId, device_id = null) => {
+export const playerPlayTrack = async ({
+  position,
+  context_uri,
+  device_id = null,
+}) => {
   return spotifyFetcher
     .put(
       "me/player/play",
       {
-        // context_uri,
-        uris: [trackId],
+        context_uri,
+        offset: { position },
       },
       {
         headers: authHeader(),
