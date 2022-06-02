@@ -36,7 +36,7 @@
     "autoprefixer": "^10.4.4",
     "install": "^0.13.0",
     "less": "^4.1.2",
-    "npm": "^8.5.5",
+    "npm": "^8.11.0",
     "postcss": "^8.4.12",
     "postcss-import": "^14.1.0",
     "tailwindcss": "^3.0.23",
