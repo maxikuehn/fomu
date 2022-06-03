@@ -6,12 +6,12 @@ import {
   listeningHistoryState,
   playerState,
   toggleDeleted,
+  triggerPlayerUpdateState,
 } from "../../recoil"
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 
 let lastTrack = ""
-const dev = import.meta.env.MODE === "development"
 
 function PlyrPlayer() {
   const [player, setPlayer] = useRecoilState(playerState)
@@ -19,18 +19,29 @@ function PlyrPlayer() {
     listeningHistoryState
   )
   const context = useRecoilValue(contextState)
+  const [triggerPlayerUpdate, setTriggerPlayerUpdate] = useRecoilState(
+    triggerPlayerUpdateState
+  )
 
   useEffect(() => {
-    const interval = setInterval(
-      () => {
+    const interval = setInterval(() => {
+      fetchPlayer().then((response) => {
+        setPlayer(response)
+      })
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (triggerPlayerUpdate) {
+      setTriggerPlayerUpdate(false)
+      setTimeout(() => {
         fetchPlayer().then((response) => {
           setPlayer(response)
         })
-      },
-      dev ? 500 : 2000
-    )
-    return () => clearInterval(interval)
-  }, [])
+      }, 300)
+    }
+  }, [triggerPlayerUpdate])
 
   useEffect(() => {
     if (!player) return

@@ -5,7 +5,7 @@ import _pullAll from "lodash/pullAll"
 import _chunk from "lodash/chunk"
 import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
-import { spotifyAuthState } from "../recoil"
+import { spotifyAuthState, triggerPlayerUpdateState } from "../recoil"
 import scopes from "./Scopes"
 import { useNotification } from "../Hooks/Notification"
 
@@ -13,6 +13,10 @@ const BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
+
+const triggerUpdatePlayer = () => {
+  setRecoil(triggerPlayerUpdateState, true)
+}
 
 const authHeader = () => {
   const spotifyAuth = getRecoil(spotifyAuthState)
@@ -304,21 +308,30 @@ export const fetchPlayer = async () => {
 export const playerSkipToNext = async () => {
   return spotifyFetcher
     .post("me/player/next", {}, { headers: authHeader() })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
 export const playerSkipToPrevious = async () => {
   return spotifyFetcher
     .post("me/player/previous", {}, { headers: authHeader() })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
 export const playerPause = async () => {
   return spotifyFetcher
     .put("me/player/pause", {}, { headers: authHeader() })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -334,7 +347,10 @@ export const playerPlay = async (context_uri = null, device_id = null) => {
         params: { device_id },
       }
     )
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -355,7 +371,10 @@ export const playerPlayTrack = async ({
         params: { device_id },
       }
     )
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -390,7 +409,10 @@ export const playerSeek = async (position_ms) => {
       {},
       { headers: authHeader(), params: { position_ms } }
     )
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -418,7 +440,10 @@ export const playerSetVolume = async (volume_percent) => {
 export const playerSetShuffle = async (state) => {
   return spotifyFetcher
     .put("me/player/shuffle", {}, { headers: authHeader(), params: { state } })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -429,7 +454,10 @@ export const playerSetShuffle = async (state) => {
 export const playerSetRepeat = async (state) => {
   return spotifyFetcher
     .put("me/player/repeat", {}, { headers: authHeader(), params: { state } })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 
@@ -443,7 +471,10 @@ export const fetchAvailableDevices = async () => {
 export const transferPlayback = async (device) => {
   return spotifyFetcher
     .put("me/player", { device_ids: [device] }, { headers: authHeader() })
-    .then((response) => response.data)
+    .then((response) => {
+      triggerUpdatePlayer()
+      return response.data
+    })
     .catch((error) => console.log("error", error))
 }
 

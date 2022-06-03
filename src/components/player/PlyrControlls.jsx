@@ -77,7 +77,7 @@ const DeviceList = memo(
 
 const PlyrControlls = ({
   isPlaying,
-  progress,
+  progress: progressPlyr,
   duration,
   repeatState,
   shuffleState,
@@ -85,6 +85,7 @@ const PlyrControlls = ({
   const [devices, setDevices] = useRecoilState(deviceListState)
   const [selectedDevice, setSelectedDevice] = useState("")
   const [deviceMenuVisible, setDeviceMenuVisible] = useState(false)
+  const [progress, setProgress] = useState(progressPlyr)
   const dev = import.meta.env.MODE === "development"
 
   useEffect(async () => {
@@ -92,6 +93,22 @@ const PlyrControlls = ({
     setDevices(deviceList)
     setSelectedDevice(_find(deviceList, "is_active")?.id)
   }, [])
+
+  useEffect(() => {
+    setProgress(progressPlyr)
+  }, [progressPlyr])
+
+  useEffect(() => {
+    let id
+    if (isPlaying) {
+      id = setInterval(() => {
+        setProgress((p) => p + 1000)
+      }, 1000)
+    } else {
+      clearInterval(id)
+    }
+    return () => clearInterval(id)
+  }, [isPlaying])
 
   let interval
   useEffect(() => {
@@ -103,7 +120,7 @@ const PlyrControlls = ({
             setSelectedDevice(_find(response.devices, "is_active")?.id)
           })
         },
-        dev ? 500 : 2000
+        dev ? 500 : 1000
       )
     } else clearInterval(interval)
     return () => clearInterval(interval)
