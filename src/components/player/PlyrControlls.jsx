@@ -88,10 +88,12 @@ const PlyrControlls = ({
   const [progress, setProgress] = useState(progressPlyr)
   const dev = import.meta.env.MODE === "development"
 
-  useEffect(async () => {
-    let deviceList = (await fetchAvailableDevices()).devices
-    setDevices(deviceList)
-    setSelectedDevice(_find(deviceList, "is_active")?.id)
+  useEffect(() => {
+    ;(async () => {
+      let deviceList = (await fetchAvailableDevices()).devices
+      setDevices(deviceList)
+      setSelectedDevice(_find(deviceList, "is_active")?.id)
+    })()
   }, [])
 
   useEffect(() => {

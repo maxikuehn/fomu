@@ -79,11 +79,13 @@ const PlyrPlaylistAdd = () => {
     lastTrack = player.item.uri
   }, [player])
 
-  useEffect(async () => {
-    let _existingTracks = await Promise.all(
-      outputPlaylists.map((p) => fetchPlaylistItemUris(p.id))
-    )
-    setExistingTracks(_existingTracks)
+  useEffect(() => {
+    ;(async () => {
+      let _existingTracks = await Promise.all(
+        outputPlaylists.map((p) => fetchPlaylistItemUris(p.id))
+      )
+      setExistingTracks(_existingTracks)
+    })()
   }, [])
 
   const handleClick = (id, index) => {

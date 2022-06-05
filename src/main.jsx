@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react"
-import ReactDOM from "react-dom"
+import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { RecoilRoot } from "recoil"
 import RecoilNexus from "recoil-nexus"
@@ -14,7 +14,10 @@ const App = lazy(() => import("./App"))
 
 if (import.meta.env.PROD) console.log = () => {}
 
-ReactDOM.render(
+const container = document.getElementById("app")
+const root = createRoot(container)
+
+root.render(
   <React.StrictMode>
     <ConfigProvider locale={de_DE}>
       <RecoilRoot>
@@ -35,6 +38,5 @@ ReactDOM.render(
         </BrowserRouter>
       </RecoilRoot>
     </ConfigProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 )
