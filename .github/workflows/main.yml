@@ -6,12 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
+    - name: Use Node.js 16
+      uses: actions/setup-node@v3
       with:
-        node-version: '14'
+        node-version: '16'
+        chache: 'npm'
       
     - name: 🔨 Build Project
       run: |
@@ -27,4 +28,3 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
         server-dir: ./www/spot/
-        dry-run: true
