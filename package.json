@@ -3,9 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --host",
+    "dev-server": "cd server && npm start",
+    "dev-client": "vite --host",
+    "dev-client-build": "vite build --watch",
     "build": "vite build",
-    "preview": "vite preview --port=3000"
+    "preview": "vite preview --port=3001"
   },
   "browserslist": [
     "defaults"

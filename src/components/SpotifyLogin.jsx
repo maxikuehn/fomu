@@ -1,15 +1,13 @@
 import { Button } from "antd"
+import { useNavigate } from "react-router-dom"
 import { requestUserAuthorization } from "../services/Spotify"
 
-const REDIRECT_BASE = JSON.parse(import.meta.env.VITE_SP_REDIRECT_BASE ?? "[]")
-
 const SpotifyLogin = () => {
+  let navigate = useNavigate()
+
   const handleClick = () => {
     const href = window.location.href
-    if (Array.isArray(REDIRECT_BASE) && REDIRECT_BASE.includes(href))
-      requestUserAuthorization(href)
-    else
-      console.error("Redirect base not valid.", REDIRECT_BASE)
+    requestUserAuthorization(href)
   }
 
   return (

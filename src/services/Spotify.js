@@ -8,6 +8,7 @@ import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState, triggerPlayerUpdateState } from "../recoil"
 import scopes from "./Scopes"
 import { useNotification } from "../Hooks/Notification"
+import { data } from "autoprefixer"
 
 const BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_APPENDIX = import.meta.env.VITE_SP_REDIRECT_APPENDIX
@@ -62,21 +63,11 @@ spotifyFetcher.interceptors.response.use(null, (error) => {
 
 export const requestRefreshedAccessToken = async (failedRequest) => {
   console.log("refreshing token..")
+
   return axios
-    .post(
-      "https://accounts.spotify.com/api/token",
-      qs.stringify({
-        grant_type: "refresh_token",
-        refresh_token: getRecoil(spotifyAuthState).refresh_token,
-      }),
-      {
-        headers: {
-          Authorization:
-            "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
+    .post("http://localhost:3001/refresh", {
+      data: { refresh_token },
+    })
     .then((resp) => {
       setRecoil(
         spotifyAuthState,
@@ -94,6 +85,39 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
       console.log("error", error.message)
       return error
     })
+
+  // return axios
+  //   .post(
+  //     "https://accounts.spotify.com/api/token",
+  //     qs.stringify({
+  //       grant_type: "refresh_token",
+  //       refresh_token: getRecoil(spotifyAuthState).refresh_token,
+  //     }),
+  //     {
+  //       headers: {
+  //         Authorization:
+  //           "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //     }
+  //   )
+  //   .then((resp) => {
+  //     setRecoil(
+  //       spotifyAuthState,
+  //       Object.assign({}, getRecoil(spotifyAuthState), resp.data)
+  //     )
+  //     if (failedRequest) {
+  //       failedRequest.response.config.headers[
+  //         "Authorization"
+  //       ] = `Bearer ${resp.data.access_token}`
+  //       // console.log("failedRequest", failedRequest.response)
+  //     }
+  //     return Promise.resolve()
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error.message)
+  //     return error
+  //   })
 }
 
 createAuthRefreshInterceptor(axios, requestRefreshedAccessToken)
@@ -502,27 +526,40 @@ export const requestUserAuthorization = async (href) => {
 
 export const requestAccessToken = async (href, code) => {
   return axios
-    .post(
-      "https://accounts.spotify.com/api/token",
-      qs.stringify({
-        grant_type: "authorization_code",
-        code,
-        redirect_uri: href + REDIRECT_APPENDIX,
-      }),
-      {
-        headers: {
-          Authorization:
-            "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
+    .post("http://localhost:3001/token", {
+      data: { href, code },
+    })
     .then((resp) => {
       setRecoil(spotifyAuthState, resp.data)
       return
     })
     .catch((error) => {
-      console.log("error", error.message)
+      console.log("error", error.message, href, REDIRECT_APPENDIX)
       return error
     })
+
+  // return axios
+  //   .post(
+  //     "https://accounts.spotify.com/api/token",
+  //     qs.stringify({
+  //       grant_type: "authorization_code",
+  //       code,
+  //       redirect_uri: href,
+  //     }),
+  //     {
+  //       headers: {
+  //         Authorization:
+  //           "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //     }
+  //   )
+  //   .then((resp) => {
+  //     setRecoil(spotifyAuthState, resp.data)
+  //     return
+  //   })
+  //   .catch((error) => {
+  //     console.log("error", error.message, href, REDIRECT_APPENDIX)
+  //     return error
+  //   })
 }
