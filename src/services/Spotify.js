@@ -10,7 +10,7 @@ import scopes from "./Scopes"
 import { useNotification } from "../Hooks/Notification"
 
 const BASE_URL = "https://api.spotify.com/v1"
-const REDIRECT_APPENDIX = import.meta.env.VITE_SP_REDIRECT_APPENDIX
+const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
 
@@ -492,7 +492,7 @@ export const requestUserAuthorization = async (href) => {
   const _url = new URL("https://accounts.spotify.com/authorize")
   _url.searchParams.append("client_id", CLIENT_ID)
   _url.searchParams.append("response_type", "code")
-  _url.searchParams.append("redirect_uri", href + REDIRECT_APPENDIX)
+  _url.searchParams.append("redirect_uri", REDIRECT_URI)
   _url.searchParams.append("state", generateRandomString(16))
   _url.searchParams.append("scope", scopes.join(" "))
   _url.searchParams.append("show_dialog", false)
@@ -507,7 +507,7 @@ export const requestAccessToken = async (href, code) => {
       qs.stringify({
         grant_type: "authorization_code",
         code,
-        redirect_uri: href + REDIRECT_APPENDIX,
+        redirect_uri: REDIRECT_URI,
       }),
       {
         headers: {
