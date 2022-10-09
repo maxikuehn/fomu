@@ -11,6 +11,7 @@ import { useNotification } from "../Hooks/Notification"
 import { data } from "autoprefixer"
 
 const BASE_URL = "https://api.spotify.com/v1"
+const API_URL = import.meta.env.VITE_SP_API_URL
 const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
@@ -66,7 +67,7 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
   console.log(getRecoil(spotifyAuthState))
 
   return axios
-    .post("http://localhost:3000/refresh", {
+    .post(API_URL + "refresh", {
       refresh_token,
     })
     .then((resp) => {
@@ -527,8 +528,8 @@ export const requestUserAuthorization = async (href) => {
 
 export const requestAccessToken = async (href, code) => {
   return axios
-    .post("http://localhost:3000/token", {
-      href,
+    .post(API_URL + "token", {
+      href: REDIRECT_URI,
       code,
     })
     .then((resp) => {
