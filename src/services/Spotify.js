@@ -11,7 +11,7 @@ import { useNotification } from "../Hooks/Notification"
 import { data } from "autoprefixer"
 
 const BASE_URL = "https://api.spotify.com/v1"
-const REDIRECT_APPENDIX = import.meta.env.VITE_SP_REDIRECT_APPENDIX
+const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
 
@@ -63,10 +63,11 @@ spotifyFetcher.interceptors.response.use(null, (error) => {
 
 export const requestRefreshedAccessToken = async (failedRequest) => {
   console.log("refreshing token..")
+  console.log(getRecoil(spotifyAuthState))
 
   return axios
-    .post("http://localhost:3001/refresh", {
-      data: { refresh_token },
+    .post("http://localhost:3000/refresh", {
+      refresh_token,
     })
     .then((resp) => {
       setRecoil(
@@ -77,7 +78,7 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
         failedRequest.response.config.headers[
           "Authorization"
         ] = `Bearer ${resp.data.access_token}`
-        // console.log("failedRequest", failedRequest.response)
+        console.log("failedRequest", failedRequest.response)
       }
       return Promise.resolve()
     })
@@ -516,7 +517,7 @@ export const requestUserAuthorization = async (href) => {
   const _url = new URL("https://accounts.spotify.com/authorize")
   _url.searchParams.append("client_id", CLIENT_ID)
   _url.searchParams.append("response_type", "code")
-  _url.searchParams.append("redirect_uri", href + REDIRECT_APPENDIX)
+  _url.searchParams.append("redirect_uri", REDIRECT_URI)
   _url.searchParams.append("state", generateRandomString(16))
   _url.searchParams.append("scope", scopes.join(" "))
   _url.searchParams.append("show_dialog", false)
@@ -526,15 +527,15 @@ export const requestUserAuthorization = async (href) => {
 
 export const requestAccessToken = async (href, code) => {
   return axios
-    .post("http://localhost:3001/token", {
-      data: { href, code },
+    .post("http://localhost:3000/token", {
+      href,
+      code,
     })
     .then((resp) => {
       setRecoil(spotifyAuthState, resp.data)
       return
     })
     .catch((error) => {
-      console.log("error", error.message, href, REDIRECT_APPENDIX)
       return error
     })
 
