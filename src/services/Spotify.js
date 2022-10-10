@@ -10,7 +10,7 @@ import { useNotification } from "../Hooks/Notification"
 
 const BASE_URL = window.location.origin
 const API_BASE_URL = "https://api.spotify.com/v1"
-const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
+const REDIRECT_URI = BASE_URL + "/callback"
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 const DEV = import.meta.env.DEV
 
