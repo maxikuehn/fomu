@@ -4,6 +4,8 @@ const qs = require("qs")
 const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
   process.env
 
+console.log("NODE process.env", process.env)
+
 const handler = async function (event) {
   if (!event.body)
     event.body = {
