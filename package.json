@@ -4,9 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "netlify dev": "netlify dev",
-    "dev-server": "cd server && npm start",
     "dev": "vite --host",
-    "dev-client-build": "vite build --watch",
     "build": "vite build",
     "preview": "vite preview --port=3001"
   },
