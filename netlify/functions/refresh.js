@@ -1,8 +1,8 @@
 const axios = require("axios")
 const qs = require("qs")
 
-const client_id = "9076f429c5f3490fa8c08428f47cbd60" // Your client id
-const client_secret = "c3363dd311ba4421b79c41d205b1b4f5" // Your secret
+const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
+  process.env
 
 const handler = async function (event) {
   const body = JSON.parse(event.body)
