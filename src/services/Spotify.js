@@ -3,16 +3,16 @@ import createAuthRefreshInterceptor from "axios-auth-refresh"
 import _delay from "lodash/delay"
 import _pullAll from "lodash/pullAll"
 import _chunk from "lodash/chunk"
-import qs from "qs"
 import { getRecoil, setRecoil } from "recoil-nexus"
 import { spotifyAuthState, triggerPlayerUpdateState } from "../recoil"
 import scopes from "./Scopes"
 import { useNotification } from "../Hooks/Notification"
 
-const BASE_URL = "https://api.spotify.com/v1"
+const BASE_URL = window.location.origin
+const API_BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_URI = import.meta.env.VITE_SP_REDIRECT_URI
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
-const CLIENT_SECRET = import.meta.env.VITE_SP_CLIENT_SECRET
+const DEV = import.meta.env.DEV
 
 const triggerUpdatePlayer = () => {
   setRecoil(triggerPlayerUpdateState, true)
@@ -26,8 +26,14 @@ const authHeader = () => {
 }
 
 const spotifyFetcher = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: 1000,
+})
+
+const authFetcher = axios.create({
+  baseURL: DEV
+    ? "http://localhost:8888/.netlify/functions"
+    : new URL("/.netlify/functions", BASE_URL).toString(),
 })
 
 spotifyFetcher.interceptors.response.use(null, (error) => {
@@ -62,21 +68,12 @@ spotifyFetcher.interceptors.response.use(null, (error) => {
 
 export const requestRefreshedAccessToken = async (failedRequest) => {
   console.log("refreshing token..")
-  return axios
-    .post(
-      "https://accounts.spotify.com/api/token",
-      qs.stringify({
-        grant_type: "refresh_token",
-        refresh_token: getRecoil(spotifyAuthState).refresh_token,
-      }),
-      {
-        headers: {
-          Authorization:
-            "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
+  console.log(getRecoil(spotifyAuthState))
+
+  return authFetcher
+    .post("refresh", {
+      refresh_token,
+    })
     .then((resp) => {
       setRecoil(
         spotifyAuthState,
@@ -86,7 +83,7 @@ export const requestRefreshedAccessToken = async (failedRequest) => {
         failedRequest.response.config.headers[
           "Authorization"
         ] = `Bearer ${resp.data.access_token}`
-        // console.log("failedRequest", failedRequest.response)
+        console.log("failedRequest", failedRequest.response)
       }
       return Promise.resolve()
     })
@@ -478,7 +475,7 @@ export const transferPlayback = async (device) => {
     .catch((error) => console.log("error", error))
 }
 
-export const requestUserAuthorization = async (href) => {
+export const requestUserAuthorization = async () => {
   var generateRandomString = function (length) {
     var text = ""
     var possible =
@@ -501,28 +498,16 @@ export const requestUserAuthorization = async (href) => {
 }
 
 export const requestAccessToken = async (href, code) => {
-  return axios
-    .post(
-      "https://accounts.spotify.com/api/token",
-      qs.stringify({
-        grant_type: "authorization_code",
-        code,
-        redirect_uri: REDIRECT_URI,
-      }),
-      {
-        headers: {
-          Authorization:
-            "Basic " + window.btoa(CLIENT_ID + ":" + CLIENT_SECRET),
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
+  return authFetcher
+    .post("token", {
+      href: REDIRECT_URI,
+      code,
+    })
     .then((resp) => {
       setRecoil(spotifyAuthState, resp.data)
       return
     })
     .catch((error) => {
-      console.log("error", error.message)
       return error
     })
 }

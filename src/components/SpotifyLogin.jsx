@@ -1,7 +1,10 @@
 import { Button } from "antd"
+import { useNavigate } from "react-router-dom"
 import { requestUserAuthorization } from "../services/Spotify"
 
 const SpotifyLogin = () => {
+  let navigate = useNavigate()
+
   const handleClick = () => {
     const href = window.location.href
     requestUserAuthorization(href)

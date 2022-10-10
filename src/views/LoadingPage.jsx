@@ -10,7 +10,7 @@ const LoadingPage = () => {
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code")
     if (!code) return
-    const href = window.location.href
+    const href = window.location.href.split("?")[0]
     requestAccessToken(href, code).then(() => {
       navigate("/")
     })
