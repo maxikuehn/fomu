@@ -504,10 +504,10 @@ export const requestAccessToken = async (href, code) => {
       code,
     })
     .then((resp) => {
-      setRecoil(spotifyAuthState, resp.data)
-      return
+      return resp.data
     })
     .catch((error) => {
-      return error
+      console.error(error)
+      return undefined
     })
 }
