@@ -29,39 +29,39 @@ import {
 import { useRecoilState } from "recoil"
 import { deviceListState } from "../../recoil"
 
+const Device = ({ id, name, type }, handleClickDevice, selectedDevice) => ({
+  label: name,
+  key: id,
+  icon: (() => {
+    switch (type) {
+      case "Computer":
+        return <Monitor size={15} />
+      case "Smartphone":
+        return <Smartphone size={15} />
+      case "Speaker":
+        return <Speaker size={15} />
+    }
+  })(),
+  onClick: () => handleClickDevice(id),
+  className: `${id === selectedDevice && "bg-primary-600"}`,
+})
+
 const DeviceList = memo(
   ({ devices, handleClickDevice, selectedDevice }) => {
     return (
-      <Menu>
-        {devices.length === 0 && (
-          <Menu.Item key="nodevice" className="text-center">
-            Keine Geräte verfügbar
-          </Menu.Item>
-        )}
-        {devices.map(({ id, name, type }) => (
-          <Menu.Item
-            key={id}
-            onClick={() => handleClickDevice(id)}
-            className={`${id === selectedDevice && "bg-primary-600"}`}
-          >
-            <div className="flex gap-2 items-center">
-              {(() => {
-                switch (type) {
-                  case "Computer":
-                    return <Monitor size={15} />
-                  case "Smartphone":
-                    return <Smartphone size={15} />
-                  case "Speaker":
-                    return <Speaker size={15} />
-                }
-              })()}
-              <Space direction="vertical" className="flex-1 text-left">
-                <div className="text-ellipsis overflow-hidden">{name}</div>
-              </Space>
-            </div>
-          </Menu.Item>
-        ))}
-      </Menu>
+      <Menu
+        items={
+          devices.length === 0
+            ? [
+                {
+                  label: "Keine Geräte verfügbar",
+                  key: "nodevice",
+                  className: "text-center",
+                },
+              ]
+            : devices.map((d) => Device(d, handleClickDevice, selectedDevice))
+        }
+      />
     )
   },
   (prevProps, nextProps) => {
@@ -208,8 +208,8 @@ const PlyrControlls = ({
             />
           }
           placement="topLeft"
-          onVisibleChange={(visible) => setDeviceMenuVisible(visible)}
-          visible={deviceMenuVisible}
+          onOpenChange={(open) => setDeviceMenuVisible(open)}
+          open={deviceMenuVisible}
         >
           <Cast {...iconProps} />
         </Dropdown>

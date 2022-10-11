@@ -11,11 +11,10 @@ const ProfileMenu = () => {
     resetStates()
   }
   return (
-    <Menu className="rounded-lg">
-      <Menu.Item onClick={handleLogout} key="logout2">
-        Logout
-      </Menu.Item>
-    </Menu>
+    <Menu
+      className="rounded-lg"
+      items={[{ label: "Logout", onClick: handleLogout, key: "logout2" }]}
+    />
   )
 }
 
@@ -42,7 +41,7 @@ const TopBar = () => {
       <div />
       <Dropdown
         overlay={<ProfileMenu />}
-        onVisibleChange={setOpen}
+        onOpenChange={setOpen}
         trigger="click"
         placement="bottomRight"
         className="bg-primary-400 rounded-full select-none cursor-pointer"
