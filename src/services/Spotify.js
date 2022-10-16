@@ -12,7 +12,6 @@ const BASE_URL = window.location.origin
 const API_BASE_URL = "https://api.spotify.com/v1"
 const REDIRECT_URI = BASE_URL + "/callback"
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
-const DEV = import.meta.env.DEV
 
 const triggerUpdatePlayer = () => {
   setRecoil(triggerPlayerUpdateState, true)
@@ -31,9 +30,7 @@ const spotifyFetcher = axios.create({
 })
 
 const authFetcher = axios.create({
-  baseURL: DEV
-    ? "http://localhost:8888/.netlify/functions"
-    : new URL("/.netlify/functions", BASE_URL).toString(),
+  baseURL: new URL("/.netlify/functions", BASE_URL).toString(),
 })
 
 spotifyFetcher.interceptors.response.use(null, (error) => {
