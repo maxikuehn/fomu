@@ -11,10 +11,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
-<h2 align="center">Spotinderfy</h3>
+<h2 align="center">F O M U</h3>
 
   <p align="center">
-    <a href="https://www.spot.maxikuehn.de/">View Demo</a>
+    <a href="https://fomu.app">View Demo</a>
     ·
     <a href="https://github.com/maxikuehn/spotinderfy/issues">Report Bug</a>
     ·
