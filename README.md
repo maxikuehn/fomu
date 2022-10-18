@@ -1,13 +1,13 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/2af211c4-3e94-4376-b8e3-a7b2feee9ae0/deploy-status)](https://app.netlify.com/sites/spotinderfy/deploys)
-![react](https://img.shields.io/badge/React.js-18.1.0-blue)
-![Lines of code](https://img.shields.io/tokei/lines/github/maxikuehn/spotinderfy)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2af211c4-3e94-4376-b8e3-a7b2feee9ae0/deploy-status)](https://app.netlify.com/sites/fomu/deploys)
+![react](https://img.shields.io/badge/React.js-18.2.0-blue)
+![Lines of code](https://img.shields.io/tokei/lines/github/maxikuehn/fomu)
 
 <div id="top"></div>
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/maxikuehn/spotinderfy">
+  <!-- <a href="https://github.com/maxikuehn/fomu">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a> -->
 
@@ -16,9 +16,9 @@
   <p align="center">
     <a href="https://fomu.app">View Demo</a>
     ·
-    <a href="https://github.com/maxikuehn/spotinderfy/issues">Report Bug</a>
+    <a href="https://github.com/maxikuehn/fomu/issues">Report Bug</a>
     ·
-    <a href="https://github.com/maxikuehn/spotinderfy/issues">Request Feature</a>
+    <a href="https://github.com/maxikuehn/fomu/issues">Request Feature</a>
   </p>
   <br />
 </div>
@@ -48,6 +48,6 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 ## Contact
 
-Project Link: [https://github.com/maxikuehn/spotinderfy](https://github.com/maxikuehn/spotinderfy)
+Project Link: [https://github.com/maxikuehn/fomu](https://github.com/maxikuehn/fomu)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
