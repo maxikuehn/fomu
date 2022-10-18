@@ -1,13 +1,10 @@
 import { Button } from "antd"
-import { useNavigate } from "react-router-dom"
-import { requestUserAuthorization } from "../services/Spotify"
+import api from "../api"
 
 const SpotifyLogin = () => {
-  let navigate = useNavigate()
-
   const handleClick = () => {
-    const href = window.location.href
-    requestUserAuthorization(href)
+    const redirectUri = api.token.authorizeUri()
+    window.location.href = redirectUri
   }
 
   return (

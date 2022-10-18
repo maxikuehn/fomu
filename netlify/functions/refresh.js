@@ -6,7 +6,6 @@ const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
 
 const handler = async function (event) {
   const body = JSON.parse(event.body)
-
   return axios
     .post(
       "https://accounts.spotify.com/api/token",

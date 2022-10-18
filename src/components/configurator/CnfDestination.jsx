@@ -2,24 +2,22 @@ import { PlusOutlined } from "@ant-design/icons"
 import { Button, Input } from "antd"
 import { useState } from "react"
 import { useRecoilValue } from "recoil"
-import { createPlaylist } from "../../services/Spotify"
 import {
   currentUserOwnedPlaylistState,
-  currentUserState,
   outputPlaylistState,
 } from "../../recoil"
 import CnfPlaylist from "./CnfPlaylist"
 import CnfContainer from "./CnfContainer"
+import api from "../../api"
 
 const CnfDestination = () => {
   const ownedPlaylists = useRecoilValue(currentUserOwnedPlaylistState)
-  const currentUser = useRecoilValue(currentUserState)
   const outputPlaylists = useRecoilValue(outputPlaylistState)
   const [newPlaylistName, setNewPlaylistName] = useState("")
 
   const handleAddPlaylist = async () => {
-    if (newPlaylistName === "") return
-    await createPlaylist(currentUser.id, newPlaylistName)
+    if (!newPlaylistName || newPlaylistName === "") return
+    await api.playlist.create(newPlaylistName)
     location.reload()
   }
 

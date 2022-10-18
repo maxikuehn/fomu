@@ -11,12 +11,8 @@ import {
   toggleDeleted,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, Music, PlusCircle } from "react-feather"
-import {
-  addTrackToPlaylist,
-  fetchPlaylistItemUris,
-  playerSkipToNext,
-  removeTracksFromPlaylist,
-} from "../../services/Spotify"
+
+import api from "../../api"
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
@@ -72,7 +68,7 @@ const PlyrPlaylistAdd = () => {
     if (!player || !player.item) return
     if (player.item.uri === lastTrack) return
     if (trackSaved && deleteTrack) {
-      removeTracksFromPlaylist(joinPlaylist, [lastTrack])
+      api.playlist.removeTracks(joinPlaylist, [lastTrack])
       setTrackSaved(false)
       setListeningHistory((history) => toggleDeleted(history, lastTrack))
     }
@@ -82,14 +78,14 @@ const PlyrPlaylistAdd = () => {
   useEffect(() => {
     ;(async () => {
       let _existingTracks = await Promise.all(
-        outputPlaylists.map((p) => fetchPlaylistItemUris(p.id))
+        outputPlaylists.map((p) => api.playlist.itemUris(p.id))
       )
       setExistingTracks(_existingTracks)
     })()
   }, [])
 
   const handleClick = (id, index) => {
-    addTrackToPlaylist(id, player.item.uri, false).then(
+    api.playlist.addTrack(id, player.item.uri, false).then(
       setExistingTracks((v) => {
         v[index] = v[index].concat(player.item.uri)
         return v
@@ -100,10 +96,10 @@ const PlyrPlaylistAdd = () => {
 
   const handleSubmit = () => {
     if (deleteTrack) {
-      removeTracksFromPlaylist(joinPlaylist, [player.item.uri])
+      api.playlist.removeTracks(joinPlaylist, [player.item.uri])
       setListeningHistory((history) => toggleDeleted(history, lastTrack))
     }
-    playerSkipToNext()
+    api.player.nextTrack()
   }
 
   if (outputPlaylists.length === 0 || !player) return null
