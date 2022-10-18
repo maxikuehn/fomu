@@ -12,10 +12,10 @@ const LoadingPage = () => {
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code")
-    if (!code) navigate("/")
+    navigate("/")
+    if (!code) return
     api.token.get(code).then((data) => {
       if (data !== undefined) setAuthState(data)
-      navigate("/")
     })
   }, [])
 

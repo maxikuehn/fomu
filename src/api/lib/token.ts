@@ -9,28 +9,26 @@ const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
 export const refresh = async (failedRequest: any) => {
   console.log("refreshing token..")
-  console.log(getRecoil(spotifyAuthState))
+  const refresh_token = getRecoil(spotifyAuthState)?.refresh_token
+  if (!refresh_token) return
 
-  return netlifyFetcher
-    .post("refresh", {
-      refresh_token: getRecoil(spotifyAuthState)?.refresh_token,
-    })
-    .then((resp) => {
-      setRecoil(
-        spotifyAuthState,
-        Object.assign({}, getRecoil(spotifyAuthState), resp.data)
-      )
-      if (failedRequest) {
-        failedRequest.response.config.headers[
-          "Authorization"
-        ] = `Bearer ${resp.data.access_token}`
-        console.log("failedRequest", failedRequest.response)
-      }
-      return Promise.resolve()
-    })
+  return netlifyFetcher.post("refresh", { refresh_token }).then((resp) => {
+    setRecoil(
+      spotifyAuthState,
+      Object.assign({}, getRecoil(spotifyAuthState), resp.data)
+    )
+    if (failedRequest) {
+      failedRequest.response.config.headers[
+        "Authorization"
+      ] = `Bearer ${resp.data.access_token}`
+      console.log("failedRequest", failedRequest.response)
+    }
+    return Promise.resolve()
+  })
 }
 
 export const get = async (code: string) => {
+  if (!code || code === "") return
   return netlifyFetcher
     .post("token", {
       href: REDIRECT_URI,
