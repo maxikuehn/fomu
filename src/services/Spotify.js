@@ -4,12 +4,16 @@ import _delay from "lodash/delay"
 import _pullAll from "lodash/pullAll"
 import _chunk from "lodash/chunk"
 import { getRecoil, setRecoil } from "recoil-nexus"
-import { spotifyAuthState, triggerPlayerUpdateState } from "../recoil"
+import {
+  currentUserState,
+  spotifyAuthState,
+  triggerPlayerUpdateState,
+} from "../recoil"
 import scopes from "./Scopes"
 import { useNotification } from "../Hooks/Notification"
 
 const BASE_URL = window.location.origin
-const API_BASE_URL = "https://api.spotify.com/v1"
+const SPOTIFY_API_BASE = "https://api.spotify.com/v1"
 const REDIRECT_URI = BASE_URL + "/callback"
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
@@ -25,12 +29,18 @@ const authHeader = () => {
 }
 
 const spotifyFetcher = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: SPOTIFY_API_BASE,
   timeout: 1000,
 })
 
-const authFetcher = axios.create({
+const netlifyFetcher = axios.create({
   baseURL: new URL("/.netlify/functions", BASE_URL).toString(),
+})
+
+const firebaseFetcher = axios.create({
+  baseURL: DEV
+    ? "http://localhost:5001/fomu-app/europe-west1"
+    : "https://europe-west1-fomu-app.cloudfunctions.net",
 })
 
 spotifyFetcher.interceptors.response.use(null, (error) => {
@@ -63,13 +73,27 @@ spotifyFetcher.interceptors.response.use(null, (error) => {
   return Promise.reject(error)
 })
 
+export const addWeeklyUser = async ({ input_playlists, output_playlist }) => {
+  return firebaseFetcher
+    .post("addUserReq", {
+      refresh_token: getRecoil(spotifyAuthState).refresh_token,
+      spotify_user_id: getRecoil(currentUserState).id,
+      input_playlists,
+      output_playlist,
+    })
+    .then((resp) => {
+      return resp.data
+    })
+    .catch((error) => console.log("error", error))
+}
+
 export const requestRefreshedAccessToken = async (failedRequest) => {
   console.log("refreshing token..")
   console.log(getRecoil(spotifyAuthState))
 
-  return authFetcher
+  return netlifyFetcher
     .post("refresh", {
-      refresh_token,
+      refresh_token: getRecoil(spotifyAuthState).refresh_token,
     })
     .then((resp) => {
       setRecoil(
@@ -495,7 +519,7 @@ export const requestUserAuthorization = async () => {
 }
 
 export const requestAccessToken = async (href, code) => {
-  return authFetcher
+  return netlifyFetcher
     .post("token", {
       href: REDIRECT_URI,
       code,
