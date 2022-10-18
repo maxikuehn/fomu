@@ -1,10 +1,5 @@
 import SpotifyLogin from "./components/SpotifyLogin"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import {
-  fetchCurrentUserPlaylist,
-  fetchCurrentUserProfile,
-  fetchPlayer,
-} from "./services/Spotify"
 import { lazy, Suspense, useEffect } from "react"
 import TopBar from "./components/TopBar"
 import LoadingPage from "./views/LoadingPage"
@@ -18,11 +13,12 @@ import {
   spotifyAuthState,
 } from "./recoil"
 import { checkVersion } from "./services/AppVersion"
+import api from "./api"
 
 const PlayerLayout = lazy(() => import("./views/PlayerLayout"))
 const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
 
-function App() {
+const App = () => {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
   const app = useRecoilValue(appState)
   const setCurrentUserPlaylists = useSetRecoilState(currentUserPlaylistsState)
@@ -32,9 +28,9 @@ function App() {
 
   const initFetch = async () => {
     setAppLoading(true)
-    setCurrentUserPlaylists((await fetchCurrentUserPlaylist()).items)
-    setCurrentUserProfile(await fetchCurrentUserProfile())
-    setPlayer(await fetchPlayer())
+    setCurrentUserPlaylists((await api.playlist.currentUser()).items)
+    setCurrentUserProfile(await api.user.profile())
+    setPlayer(await api.player.get())
     setAppLoading(false)
   }
 

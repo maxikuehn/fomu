@@ -4,13 +4,11 @@ import _find from "lodash/find"
 import _filter from "lodash/filter"
 import { useEffect, useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { combineTracks, createPlaylist } from "../../services/Spotify"
 import {
   appState,
   contextState,
   currentUserOwnedSelectedPlaylistState,
   currentUserPlaylistsState,
-  currentUserState,
   deleteTracksState,
   inputPlaylistState,
   joinPlaylistState,
@@ -18,6 +16,7 @@ import {
 } from "../../recoil"
 import { EAppState } from "../../types"
 import CustomTooltip from "../CustomTooltip"
+import api from "../../api"
 
 const CnfSettings = () => {
   const ownedSelectdPlaylists = useRecoilValue(
@@ -29,7 +28,6 @@ const CnfSettings = () => {
   const [outputPlaylists, setOutputPlaylists] =
     useRecoilState(outputPlaylistState)
   const allPlaylists = useRecoilValue(currentUserPlaylistsState)
-  const currentUser = useRecoilValue(currentUserState)
   const setApp = useSetRecoilState(appState)
   const setContext = useSetRecoilState(contextState)
   const [loading, setLoading] = useState(false)
@@ -54,7 +52,7 @@ const CnfSettings = () => {
     let newPlaylistID = joinPlaylist
 
     if (joinPlaylist === "new") {
-      const newPlaylist = await createPlaylist(currentUser.id)
+      const newPlaylist = await api.playlist.create()
       newPlaylistID = newPlaylist.id
       setJoinPlaylist(newPlaylistID)
       setContext(newPlaylist.uri)
@@ -67,7 +65,7 @@ const CnfSettings = () => {
       .filter((p) => inputPlaylists.includes(p.id) && p.id !== newPlaylistID)
       .map((p) => p.id)
 
-    await combineTracks(newPlaylistID, tracks)
+    await api.playlist.combine(newPlaylistID, tracks)
     setInputPlaylists([newPlaylistID])
     setApp(EAppState.Player)
     setLoading(false)

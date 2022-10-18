@@ -1,17 +1,13 @@
 import { Image } from "antd"
 import { PlayCircle, PlusSquare, Trash } from "react-feather"
 import { useRecoilValue, useSetRecoilState } from "recoil"
+import api from "../../api"
 import {
   contextIdState,
   contextState,
   listeningHistoryState,
   toggleDeleted,
 } from "../../recoil"
-import {
-  playerAddToQueue,
-  playerPlayTrack,
-  removeTracksFromPlaylist,
-} from "../../services/Spotify"
 
 const PlyrHistoryEntry = ({
   uri,
@@ -51,7 +47,7 @@ const PlyrHistoryEntry = ({
             strokeWidth={1.2}
             className="self-center stroke-primary-300 cursor-pointer"
             onClick={() =>
-              playerPlayTrack({ position: 0, context_uri: context })
+              api.player.playTrack({ position: 0, context_uri: context })
             }
           />
         )}
@@ -59,7 +55,7 @@ const PlyrHistoryEntry = ({
           size={22}
           strokeWidth={1.2}
           className="self-center stroke-primary-300 cursor-pointer"
-          onClick={() => playerAddToQueue(uri, true)}
+          onClick={() => api.player.addToQueue(uri, true)}
         />
         <Trash
           size={22}
@@ -68,9 +64,11 @@ const PlyrHistoryEntry = ({
             deleted ? "grayscale" : "cursor-pointer"
           }`}
           onClick={() => {
-            removeTracksFromPlaylist(contextId, [uri]).then(() =>
-              setListeningHistory((history) => toggleDeleted(history, uri))
-            )
+            api.playlist
+              .removeTracks(contextId, [uri])
+              .then(() =>
+                setListeningHistory((history) => toggleDeleted(history, uri))
+              )
           }}
         />
       </div>

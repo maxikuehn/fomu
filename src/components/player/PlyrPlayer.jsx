@@ -1,15 +1,14 @@
 import { useEffect } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { fetchPlayer } from "../../services/Spotify"
 import {
   contextState,
   listeningHistoryState,
   playerState,
-  toggleDeleted,
   triggerPlayerUpdateState,
 } from "../../recoil"
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
+import api from "../../api"
 
 let lastTrack = ""
 
@@ -25,7 +24,7 @@ function PlyrPlayer() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      fetchPlayer().then((response) => {
+      api.player.get().then((response) => {
         setPlayer(response)
       })
     }, 5000)
@@ -36,7 +35,7 @@ function PlyrPlayer() {
     if (triggerPlayerUpdate) {
       setTriggerPlayerUpdate(false)
       setTimeout(() => {
-        fetchPlayer().then((response) => {
+        api.player.get().then((response) => {
           setPlayer(response)
         })
       }, 300)
@@ -46,9 +45,11 @@ function PlyrPlayer() {
   useEffect(() => {
     if (!player) return
     if (!player.item) return
+    if (!player.context) return
     const { item } = player
     if (lastTrack === item.uri) return
     if (context !== player.context.uri) return
+
     lastTrack = item.uri
 
     const index = listeningHistory.findIndex((t) => t.uri === item.uri)

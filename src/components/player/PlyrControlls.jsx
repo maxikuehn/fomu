@@ -15,19 +15,9 @@ import {
   Smartphone,
   Speaker,
 } from "react-feather"
-import {
-  fetchAvailableDevices,
-  playerPause,
-  playerPlay,
-  playerSeek,
-  playerSetRepeat,
-  playerSetShuffle,
-  playerSkipToNext,
-  playerSkipToPrevious,
-  transferPlayback,
-} from "../../services/Spotify"
 import { useRecoilState } from "recoil"
 import { deviceListState } from "../../recoil"
+import api from "../../api"
 
 const Device = ({ id, name, type }, handleClickDevice, selectedDevice) => ({
   label: name,
@@ -90,7 +80,7 @@ const PlyrControlls = ({
 
   useEffect(() => {
     ;(async () => {
-      let deviceList = (await fetchAvailableDevices()).devices
+      let deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setSelectedDevice(_find(deviceList, "is_active")?.id)
     })()
@@ -102,10 +92,11 @@ const PlyrControlls = ({
 
   useEffect(() => {
     let id
+    const incr = 500
     if (isPlaying) {
       id = setInterval(() => {
-        setProgress((p) => p + 1000)
-      }, 1000)
+        setProgress((p) => p + incr)
+      }, incr)
     } else {
       clearInterval(id)
     }
@@ -116,11 +107,10 @@ const PlyrControlls = ({
   useEffect(() => {
     if (deviceMenuVisible) {
       interval = setInterval(
-        () => {
-          fetchAvailableDevices().then((response) => {
-            setDevices(response.devices)
-            setSelectedDevice(_find(response.devices, "is_active")?.id)
-          })
+        async () => {
+          const devices = await api.player.availableDevices()
+          setDevices(devices)
+          setSelectedDevice(_find(devices, "is_active")?.id)
         },
         dev ? 500 : 1000
       )
@@ -134,23 +124,24 @@ const PlyrControlls = ({
       "text-primary-400 hover:text-primary-500 active:text-primary-600 cursor-pointer",
   }
 
-  const handleClickDevice = (id) => {
+  const handleClickDevice = async (id) => {
     setSelectedDevice(id)
-    transferPlayback(id).then(() => setDeviceMenuVisible(false))
+    await api.player.transferPlayback(id)
+    setDeviceMenuVisible(false)
   }
 
   const handleClickRepeat = () => {
     const ARepeatState = ["off", "track", "context"]
     const index = ARepeatState.indexOf(repeatState)
     const nextIndex = (index + 1) % ARepeatState.length
-    playerSetRepeat(ARepeatState[nextIndex])
+    api.player.setRepeat(ARepeatState[nextIndex])
   }
 
   const handleSeek = (e) => {
     const width = document.getElementById("plyr-progress").offsetWidth
     var pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
     const seekMs = _clamp(Math.floor((pos / width) * duration), 0, duration)
-    playerSeek(seekMs)
+    api.player.seekPosition(seekMs)
   }
 
   const formatMinute = (ms) => {
@@ -175,16 +166,16 @@ const PlyrControlls = ({
         >
           <Shuffle
             {...iconProps}
-            onClick={() => playerSetShuffle(!shuffleState)}
+            onClick={() => api.player.setShuffle(!shuffleState)}
           />
         </Badge>
-        <SkipBack {...iconProps} onClick={() => playerSkipToPrevious()} />
+        <SkipBack {...iconProps} onClick={() => api.player.previousTrack()} />
         {isPlaying ? (
-          <Pause {...iconProps} onClick={() => playerPause()} />
+          <Pause {...iconProps} onClick={() => api.player.pause()} />
         ) : (
-          <Play {...iconProps} onClick={() => playerPlay()} />
+          <Play {...iconProps} onClick={() => api.player.play()} />
         )}
-        <SkipForward {...iconProps} onClick={() => playerSkipToNext()} />
+        <SkipForward {...iconProps} onClick={() => api.player.nextTrack()} />
         <Badge
           count={
             repeatState === "off" ? (

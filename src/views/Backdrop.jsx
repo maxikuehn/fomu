@@ -3,8 +3,8 @@ import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 import { currentDeviceState, deviceListState } from "../recoil"
 import { Info, Monitor, PlayCircle, Smartphone, Speaker } from "react-feather"
-import { fetchAvailableDevices, playerPlay } from "../services/Spotify"
 import _find from "lodash/find"
+import api from "../api"
 
 const Backdrop = ({ context }) => {
   const [devices, setDevices] = useRecoilState(deviceListState)
@@ -12,17 +12,16 @@ const Backdrop = ({ context }) => {
 
   useEffect(() => {
     ;async () => {
-      let deviceList = (await fetchAvailableDevices()).devices
+      let deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setCurrentDevice(_find(deviceList, "is_active")?.id)
     }
   }, [])
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchAvailableDevices().then((response) => {
-        setDevices(response.devices)
-      })
+    const interval = setInterval(async () => {
+      const devices = await api.player.availableDevices()
+      setDevices(devices)
     }, 2000)
     return () => clearInterval(interval)
   }, [])
@@ -57,7 +56,7 @@ const Backdrop = ({ context }) => {
 
   const handleClickStart = () => {
     if (!currentDevice) return
-    playerPlay(context, currentDevice)
+    api.player.playContext({ context_uri: context, device_id: currentDevice })
   }
 
   return (
