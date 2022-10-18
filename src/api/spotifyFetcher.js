@@ -7,7 +7,7 @@ import { refresh } from "./lib/token"
 
 const spotifyFetcher = axios.create({
   baseURL: "https://api.spotify.com/v1",
-  timeout: 1000,
+  timeout: 3000,
 })
 
 spotifyFetcher.interceptors.request.use((config) => {
