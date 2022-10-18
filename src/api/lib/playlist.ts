@@ -1,6 +1,8 @@
 import _pullAll from "lodash/pullAll"
 import _uniq from "lodash/uniq"
+import { getRecoil } from "recoil-nexus"
 import { useNotification } from "../../Hooks/Notification"
+import { currentUserState } from "../../recoil"
 import spotifyFetcher from "../spotifyFetcher"
 
 const chunk = (arr: any[], chunkSize = 1) => {
@@ -85,7 +87,8 @@ export const removeTracks = async (playlist_id: string, tracks: string[]) => {
     })
 }
 
-export const create = async (userId: string, name: string = "F O M U") => {
+export const create = async (name: string = "F O M U") => {
+  const userId = getRecoil(currentUserState)?.id
   return spotifyFetcher
     .post(`users/${userId}/playlists`, {
       name,

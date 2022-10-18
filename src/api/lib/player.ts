@@ -9,47 +9,49 @@ const forcePlayerUpdate = () => {
   setRecoil(triggerPlayerUpdateState, true)
 }
 
-export const playbackState = async () => {
+export const get = async () => {
   return spotifyFetcher.get(`${base}`).then((response) => {
     return response.data
   })
 }
 
-export const transferPlayback = async (device_ids: string[]) => {
-  return spotifyFetcher.put(`${base}`, { device_ids }).then((response) => {
-    forcePlayerUpdate()
-    return response.data
-  })
-}
-
-export const availableDevices = async () => {
-  return spotifyFetcher.get(`${base}/devices`).then((response) => {
-    return response.data
-  })
-}
-
-export const startPlayback = async ({
-  device_id,
-  context_uri,
-  position,
-}: {
-  context_uri: string
-  device_id: string
-  position: number
-}) => {
+export const transferPlayback = async (device_id: string) => {
   return spotifyFetcher
-    .put(
-      `${base}/play`,
-      { context_uri, offset: { position } },
-      { params: { device_id } }
-    )
+    .put(`${base}`, { device_ids: [device_id] })
     .then((response) => {
       forcePlayerUpdate()
       return response.data
     })
 }
 
-export const pausePlayback = async () => {
+export const availableDevices = async () => {
+  return spotifyFetcher.get(`${base}/devices`).then((response) => {
+    return response.data.devices
+  })
+}
+
+export const playContext = async ({
+  device_id,
+  context_uri,
+}: {
+  context_uri?: string
+  device_id?: string
+}) => {
+  return spotifyFetcher
+    .put(`${base}/play`, { context_uri }, { params: { device_id } })
+    .then((response) => {
+      forcePlayerUpdate()
+      return response.data
+    })
+}
+1
+export const play = () =>
+  playContext({
+    context_uri: undefined,
+    device_id: undefined,
+  })
+
+export const pause = async () => {
   return spotifyFetcher.put(`${base}/pause`).then((response) => {
     forcePlayerUpdate()
     return response.data

@@ -13,7 +13,7 @@ export const refresh = async (failedRequest: any) => {
 
   return netlifyFetcher
     .post("refresh", {
-      access_token: getRecoil(spotifyAuthState)?.refresh_token,
+      refresh_token: getRecoil(spotifyAuthState)?.refresh_token,
     })
     .then((resp) => {
       setRecoil(
@@ -45,7 +45,7 @@ export const get = async (code: string) => {
     })
 }
 
-export const authorize = async () => {
+export const authorizeUri = () => {
   const generateRandomString = (length: number) => {
     let text = ""
     const possible =

@@ -13,6 +13,7 @@ const spotifyFetcher = axios.create({
 spotifyFetcher.interceptors.request.use((config) => {
   const spotifyAuth = getRecoil(spotifyAuthState)
   config.headers.Authorization = `Bearer ${spotifyAuth.access_token}`
+  return config
 })
 
 createAuthRefreshInterceptor(spotifyFetcher, refresh, {
@@ -21,11 +22,9 @@ createAuthRefreshInterceptor(spotifyFetcher, refresh, {
 })
 
 spotifyFetcher.interceptors.response.use(
-  (value) => {
-    console.log("spotifyFetcher response -- NO ERROR")
-  },
+  (value) => value,
   (error) => {
-    console.log("spotifyFetcher response -- ERROR", error)
+    console.error("spotifyFetcher:", error.message)
     // Server error => immediate retry
     if (error.config && error.response && error.response.status >= 500) {
       return spotifyFetcher.request({

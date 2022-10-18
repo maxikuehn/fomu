@@ -7,11 +7,10 @@ const netlifyFetcher = axios.create({
 })
 
 netlifyFetcher.interceptors.response.use(
-  (value) => {
-    console.log("netlifyFetcher response -- NO ERROR")
-  },
+  (value) => value,
   (error) => {
-    console.log("netlifyFetcher response -- ERROR", error)
+    console.error("netlifyFetcher:", error.message)
+    return Promise.reject(error)
   }
 )
 

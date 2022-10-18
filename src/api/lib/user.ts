@@ -1,6 +1,6 @@
 import spotifyFetcher from "../spotifyFetcher"
 
-export const getProfile = async () => {
+export const profile = async () => {
   return spotifyFetcher.get("me").then((response) => {
     return response.data
   })

@@ -9,11 +9,10 @@ const firebaseFetcher = axios.create({
 })
 
 firebaseFetcher.interceptors.response.use(
-  (value) => {
-    console.log("firebaseFetcher response -- NO ERROR")
-  },
+  (value) => value,
   (error) => {
-    console.log("firebaseFetcher response -- ERROR", error)
+    console.error("firebaseFetcher:", error.message)
+    return Promise.reject(error)
   }
 )
 
