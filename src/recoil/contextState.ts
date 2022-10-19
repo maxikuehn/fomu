@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil"
 import localStorageEffect from "./localSorageEffect"
 
-export const contextState = atom({
+export const contextState = atom<string>({
   key: "contextState",
   default: "",
   effects: [localStorageEffect("contextState")],

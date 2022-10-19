@@ -1,9 +1,10 @@
 import { atom, selector } from "recoil"
+import { sp_playlist } from "../types"
 import { currentUserState } from "./currentUserState"
 import { inputPlaylistState } from "./inputPlaylistState"
 import { outputPlaylistState } from "./outputPlaylistState"
 
-export const currentUserPlaylistsState = atom({
+export const currentUserPlaylistsState = atom<sp_playlist[]>({
   key: "currentUserPlaylistsState",
   default: [],
 })
