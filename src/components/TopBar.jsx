@@ -1,5 +1,5 @@
 import { DownOutlined, LeftOutlined } from "@ant-design/icons"
-import { Avatar, Button, Dropdown, Menu, Modal } from "antd"
+import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
