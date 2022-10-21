@@ -8,6 +8,10 @@ import { joinPlaylistState } from "./joinPlaylistState"
 import { outputPlaylistState } from "./outputPlaylistState"
 import { spotifyAuthState } from "./spotifyAuthState"
 
+export const logout = () => {
+  resetRecoil(spotifyAuthState)
+}
+
 export const resetStates = () => {
   resetRecoil(appState)
   resetRecoil(contextState)

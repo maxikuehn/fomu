@@ -3,7 +3,7 @@ import { Avatar, Button, Dropdown, Menu, Modal } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
-import { appState, currentUserState, resetStates } from "../recoil"
+import { appState, currentUserState, logout } from "../recoil"
 import { EAppState } from "../types"
 import AccountDialog from "./AccountDialog"
 import WeeklyDialog from "./WeeklyDialog"
@@ -31,7 +31,7 @@ const TopBar = () => {
   items.push(
     ...[
       { label: "Account", onClick: () => setOpenAccount(true), key: "account" },
-      { label: "Logout", onClick: resetStates, key: "logout2" },
+      { label: "Logout", onClick: logout, key: "logout2" },
     ]
   )
 
