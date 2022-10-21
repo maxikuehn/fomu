@@ -48,7 +48,7 @@ const PlyrTrack = ({ track }) => {
         <Space direction="vertical" size={0}>
           <span
             onClick={() => (window.location.href = track.uri)}
-            className="cursor-pointer font-semibold underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+            className="cursor-pointer font-semibold text-base underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
           >
             {name}
           </span>
@@ -57,7 +57,7 @@ const PlyrTrack = ({ track }) => {
               .map((a, i) => (
                 <span
                   onClick={() => (window.location.href = a.uri)}
-                  className="cursor-pointer underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+                  className="cursor-pointer underline text-sm decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
                   key={i}
                 >
                   {a.name}
