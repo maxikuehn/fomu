@@ -5,32 +5,44 @@ import { useState } from "react"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { appState, currentUserState, resetStates } from "../recoil"
 import { EAppState } from "../types"
+import AccountDialog from "./AccountDialog"
 import WeeklyDialog from "./WeeklyDialog"
+
+const dev = import.meta.env.DEV
 
 const TopBar = () => {
   const currentUserProfile = useRecoilValue(currentUserState)
   const [app, setApp] = useRecoilState(appState)
   const [open, setOpen] = useState(0)
   const [openWeekly, setOpenWeekly] = useState(false)
+  const [openAccount, setOpenAccount] = useState(false)
 
   if (!currentUserProfile) return <div />
 
-  const ProfileMenu = () => (
-    <Menu
-      className="rounded-lg"
-      items={[
+  const items = dev
+    ? [
         {
           label: "Mix der Woche",
           onClick: () => setOpenWeekly(true),
           key: "weekly",
         },
-        { label: "Logout", onClick: resetStates, key: "logout2" },
-      ]}
-    />
+      ]
+    : []
+  items.push(
+    ...[
+      { label: "Account", onClick: () => setOpenAccount(true), key: "account" },
+      { label: "Logout", onClick: resetStates, key: "logout2" },
+    ]
   )
+
+  const ProfileMenu = () => <Menu className="rounded-lg" items={items} />
 
   return (
     <>
+      <AccountDialog
+        open={openAccount}
+        handleClose={() => setOpenAccount(false)}
+      />
       <WeeklyDialog
         open={openWeekly}
         handleClose={() => setOpenWeekly(false)}
@@ -58,7 +70,7 @@ const TopBar = () => {
           <div>
             <Avatar
               size={45}
-              src={currentUserProfile.images[0].url}
+              src={currentUserProfile.images[0]?.url}
               alt="Spotify Account Profile Picture"
             />
             <Text strong underline className="p-2">
