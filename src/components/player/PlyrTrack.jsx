@@ -47,7 +47,7 @@ const PlyrTrack = ({ track }) => {
       <div className="flex justify-between items-center">
         <Space direction="vertical" size={0}>
           <span
-            onClick={() => (window.location.href = track.uri)}
+            onClick={() => window.open(track.uri, "_self")}
             className="cursor-pointer font-semibold text-base underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
           >
             {name}
@@ -56,7 +56,7 @@ const PlyrTrack = ({ track }) => {
             {artists
               .map((a, i) => (
                 <span
-                  onClick={() => (window.location.href = a.uri)}
+                  onClick={() => window.open(a.uri, "_self")}
                   className="cursor-pointer underline text-sm decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
                   key={i}
                 >

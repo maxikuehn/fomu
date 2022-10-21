@@ -3,7 +3,7 @@ import { atom } from "recoil"
 interface ListeningHistoryEntry {
   uri: string
   name: string
-  artistNames: string
+  artists: { uri: string; name: string }[]
   image: string
   deleted: boolean
 }

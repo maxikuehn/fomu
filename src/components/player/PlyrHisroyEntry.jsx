@@ -12,7 +12,7 @@ import {
 const PlyrHistoryEntry = ({
   uri,
   name,
-  artistNames,
+  artists,
   image,
   deleted,
   showDeleted,
@@ -21,7 +21,7 @@ const PlyrHistoryEntry = ({
   const contextId = useRecoilValue(contextIdState)
   const context = useRecoilValue(contextState)
 
-  const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden"
+  const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden "
   let show = !deleted || showDeleted
   return (
     <div
@@ -37,8 +37,28 @@ const PlyrHistoryEntry = ({
         alt="ListeningHistoryEntryImage"
       />
       <div className="flex flex-col flex-1 w-0">
-        <span className={spanClass}>{name}</span>
-        <span className={spanClass}>{artistNames.join(", ")}</span>
+        <span
+          onClick={() => window.open(uri, "_self")}
+          className={
+            spanClass +
+            "cursor-pointer underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+          }
+        >
+          {name}
+        </span>
+        <span className={spanClass}>
+          {artists
+            .map((a, i) => (
+              <span
+                onClick={() => window.open(a.uri, "_self")}
+                className="cursor-pointer underline text-sm decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+                key={i}
+              >
+                {a.name}
+              </span>
+            ))
+            .reduce((prev, curr) => [prev, ", ", curr])}
+        </span>
       </div>
       <div className="flex gap-1">
         {false && (

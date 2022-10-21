@@ -63,7 +63,10 @@ function PlyrPlayer() {
           : {
               uri: item.uri,
               name: item.name,
-              artistNames: item.artists.map((artist) => artist.name),
+              artists: item.artists.map((artist) => ({
+                uri: artist.uri,
+                name: artist.name,
+              })),
               image: item.album.images[item.album.images.length - 1].url,
               deleted: false,
             }
