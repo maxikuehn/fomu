@@ -50,6 +50,8 @@ const scopes = (() => [
   scopesList.userReadPlaybackState,
   scopesList.userModifyPlaybackState,
   scopesList.userReadCurrentlyPlaying,
+  scopesList.playlistReadCollaborative,
+  scopesList.streaming,
 ])()
 
 export default scopes
