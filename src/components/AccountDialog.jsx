@@ -1,5 +1,6 @@
 import { Button, Divider, Modal, Typography } from "antd"
 import React, { useState, useEffect, memo } from "react"
+import { ExternalLink } from "react-feather"
 import { useNotification } from "../Hooks/Notification"
 import { resetStates } from "../recoil"
 
@@ -62,7 +63,10 @@ const AccountDialog = ({ open, handleClose: propsHandleClose }) => {
               window.open("https://www.spotify.com/us/account/apps/", "_blank")
             }
           >
-            Verbindung trennen
+            <div className="flex justify-center items-center space-x-2">
+              <span>Verbindung trennen</span>
+              <ExternalLink size={16} />
+            </div>
           </Button>
         </div>
         <Divider />
