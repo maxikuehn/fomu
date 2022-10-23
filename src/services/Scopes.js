@@ -49,7 +49,6 @@ const scopes = (() => [
   scopesList.userReadEmail,
   scopesList.userReadPlaybackState,
   scopesList.userModifyPlaybackState,
-  scopesList.userReadCurrentlyPlaying,
   scopesList.playlistReadCollaborative,
   scopesList.streaming,
 ])()
