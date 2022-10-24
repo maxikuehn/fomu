@@ -20,7 +20,7 @@ const PlyrHistory = () => {
   return (
     <div
       id="PlayerHistory"
-      className={`h-[calc(100vh-77px)] fixed z-10 left-0 transition-dimension duration-300 ${
+      className={`h-[calc(100vh-77px-40px)] fixed z-10 left-0 transition-dimension duration-300 ${
         historyOpen ? "w-96" : "w-0"
       } overflow-hidden bg-background`}
     >

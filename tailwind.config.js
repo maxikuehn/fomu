@@ -20,6 +20,15 @@ module.exports = {
         margin: "margin",
         allBorderWidth: "border-width",
       },
+      animation: {
+        "music-playing": "musicicon 1500ms ease-in-out infinite alternate",
+      },
+      keyframes: {
+        musicicon: {
+          "0%": { height: "4px" },
+          "100%": { height: "15px" },
+        },
+      },
     },
   },
   plugins: [],

@@ -8,6 +8,7 @@ import Backdrop from "./Backdrop"
 import PlyrHistory from "../components/player/PlyrHistory"
 import { Button } from "antd"
 import { RightOutlined } from "@ant-design/icons"
+import PlyrCurrentlyPlayedPlaylist from "../components/player/PlyrCurrentlyPlayedPlaylist"
 
 const PlayerLayout = () => {
   const [historyOpen, setHistoryOpen] = useRecoilState(historyOpenState)
@@ -32,7 +33,7 @@ const PlayerLayout = () => {
           <div
             className={`px-4 py-2 transition-dimension duration-500 ${
               historyOpen ? "w-96" : "w-56"
-            }`}
+            } flex justify-between flex-col`}
             id="PlayerSpacerLeft"
           >
             <Button
@@ -42,6 +43,7 @@ const PlayerLayout = () => {
             >
               Wiedergabeverlauf
             </Button>
+            <PlyrCurrentlyPlayedPlaylist />
           </div>
           <PlyrPlayer />
           <PlyrPlaylistAdd />

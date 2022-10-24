@@ -9,6 +9,7 @@ import {
   listeningHistoryState,
   playerState,
   toggleDeleted,
+  fullJoinPlaylistState,
 } from "../../recoil"
 import { ArrowRightCircle, CheckCircle, Music, PlusCircle } from "react-feather"
 
@@ -61,6 +62,7 @@ const PlyrPlaylistAdd = () => {
   const joinPlaylist = useRecoilValue(joinPlaylistState)
   const outputPlaylists = useRecoilValue(fullOutputPlaylistState)
   const setListeningHistory = useSetRecoilState(listeningHistoryState)
+  const decreaseJoinTrackTotal = useSetRecoilState(fullJoinPlaylistState)
   const [existingTracks, setExistingTracks] = useState([])
   const [trackSaved, setTrackSaved] = useState(false)
 
@@ -68,7 +70,9 @@ const PlyrPlaylistAdd = () => {
     if (!player || !player.item) return
     if (player.item.uri === lastTrack) return
     if (trackSaved && deleteTrack) {
-      api.playlist.removeTracks(joinPlaylist, [lastTrack])
+      api.playlist
+        .removeTracks(joinPlaylist, [lastTrack])
+        .then(decreaseJoinTrackTotal)
       setTrackSaved(false)
       setListeningHistory((history) => toggleDeleted(history, lastTrack))
     }
@@ -96,7 +100,9 @@ const PlyrPlaylistAdd = () => {
 
   const handleSubmit = () => {
     if (deleteTrack) {
-      api.playlist.removeTracks(joinPlaylist, [player.item.uri])
+      api.playlist
+        .removeTracks(joinPlaylist, [player.item.uri])
+        .then(decreaseJoinTrackTotal)
       setListeningHistory((history) => toggleDeleted(history, lastTrack))
     }
     api.player.nextTrack()

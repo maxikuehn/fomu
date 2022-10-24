@@ -7,6 +7,7 @@ export {
   currentUserOwnedPlaylistState,
   currentUserOwnedSelectedPlaylistState,
   fullOutputPlaylistState,
+  fullJoinPlaylistState,
 } from "./currentUserPlaylistsState"
 export { currentUserState } from "./currentUserState"
 export { deleteTracksState } from "./deleteTracksState"
