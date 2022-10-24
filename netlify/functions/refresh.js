@@ -12,6 +12,7 @@ const handler = async function (event) {
       qs.stringify({
         grant_type: "refresh_token",
         refresh_token: body.refresh_token,
+        client_id,
       }),
       {
         headers: {

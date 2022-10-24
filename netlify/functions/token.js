@@ -13,6 +13,8 @@ const handler = async function (event) {
         grant_type: "authorization_code",
         code: body.code,
         redirect_uri: body.href,
+        client_id,
+        code_verifier: body.code_verifier,
       }),
       {
         headers: {

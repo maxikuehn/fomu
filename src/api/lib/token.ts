@@ -29,10 +29,12 @@ export const refresh = async (failedRequest: any) => {
 
 export const get = async (code: string) => {
   if (!code || code === "") return
+  const code_verifier = window.localStorage.getItem("code_verifier")
   return netlifyFetcher
     .post("token", {
       href: REDIRECT_URI,
       code,
+      code_verifier,
     })
     .then((resp) => {
       return resp.data
@@ -43,7 +45,7 @@ export const get = async (code: string) => {
     })
 }
 
-export const authorizeUri = () => {
+export const requestAuthorization = async () => {
   const generateRandomString = (length: number) => {
     let text = ""
     const possible =
@@ -54,13 +56,32 @@ export const authorizeUri = () => {
     return text
   }
 
-  const _url = new URL("https://accounts.spotify.com/authorize")
-  _url.searchParams.append("client_id", CLIENT_ID)
-  _url.searchParams.append("response_type", "code")
-  _url.searchParams.append("redirect_uri", REDIRECT_URI)
-  _url.searchParams.append("state", generateRandomString(16))
-  _url.searchParams.append("scope", scopes.join(" "))
-  _url.searchParams.append("show_dialog", "false")
+  async function generateCodeChallenge(codeVerifier: string) {
+    const digest = await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder().encode(codeVerifier)
+    )
+    return window
+      .btoa(String.fromCharCode(...new Uint8Array(digest)))
+      .replace(/=/g, "")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+  }
 
-  return _url.toString()
+  const codeVerifier = generateRandomString(128)
+  const code_challenge = await generateCodeChallenge(codeVerifier)
+  window.localStorage.setItem("code_verifier", codeVerifier)
+
+  const _url = new URL("https://accounts.spotify.com/authorize")
+  _url.search = new URLSearchParams({
+    client_id: CLIENT_ID,
+    response_type: "code",
+    redirect_uri: REDIRECT_URI,
+    state: generateRandomString(16),
+    scope: scopes.join(" "),
+    show_dialog: "true",
+    code_challenge_method: "S256",
+    code_challenge,
+  }).toString()
+  window.location.href = _url.toString()
 }

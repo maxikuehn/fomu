@@ -2,10 +2,7 @@ import { Button } from "antd"
 import api from "../api"
 
 const SpotifyLogin = () => {
-  const handleClick = () => {
-    const redirectUri = api.token.authorizeUri()
-    window.location.href = redirectUri
-  }
+  const handleClick = () => api.token.requestAuthorization()
 
   return (
     <div className="flex items-center justify-center w-full h-full">
