@@ -33,7 +33,7 @@ const PlayerLayout = () => {
           <div
             className={`px-4 py-2 transition-dimension duration-500 ${
               historyOpen ? "w-96" : "w-56"
-            } flex justify-between flex-col`}
+            } flex justify-between flex-col items-start`}
             id="PlayerSpacerLeft"
           >
             <Button

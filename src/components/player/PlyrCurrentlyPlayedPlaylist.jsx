@@ -23,7 +23,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
 
   return (
     <div
-      className="flex flex-row space-x-1 items-baseline w-fit hover:cursor-pointer"
+      className="flex flex-row space-x-1 items-baseline hover:cursor-pointer"
       onClick={() => window.open(uri, "_self")}
     >
       <div className="relative w-5">
