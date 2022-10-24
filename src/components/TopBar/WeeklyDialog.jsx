@@ -1,12 +1,12 @@
 import { Modal, Select, Typography } from "antd"
 import React, { useState, useEffect, memo } from "react"
 import { useRecoilValue } from "recoil"
-import api from "../api"
-import { useNotification } from "../Hooks/Notification"
+import api from "../../api"
+import { useNotification } from "../../Hooks/Notification"
 import {
   currentUserOwnedPlaylistState,
   currentUserPlaylistsState,
-} from "../recoil"
+} from "../../recoil"
 const { OptGroup } = Select
 const { Text } = Typography
 

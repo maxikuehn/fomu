@@ -1,8 +1,8 @@
 import { Button, Divider, Modal, Typography } from "antd"
 import React, { useState, useEffect, memo } from "react"
 import { ExternalLink } from "react-feather"
-import { useNotification } from "../Hooks/Notification"
-import { resetStates } from "../recoil"
+import { useNotification } from "../../Hooks/Notification"
+import { resetStates } from "../../recoil"
 
 const { Text } = Typography
 const dev = import.meta.env.DEV

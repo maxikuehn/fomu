@@ -1,7 +1,7 @@
 import SpotifyLogin from "./components/SpotifyLogin"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import { lazy, Suspense, useEffect } from "react"
-import TopBar from "./components/TopBar"
+import { TopBar } from "./components/TopBar"
 import LoadingPage from "./views/LoadingPage"
 import { EAppState } from "./types"
 import {
