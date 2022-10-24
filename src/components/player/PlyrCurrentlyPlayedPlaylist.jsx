@@ -1,11 +1,11 @@
 import { Typography } from "antd"
 import { useRecoilValue } from "recoil"
-import { fullJoinPlaylistState } from "../../recoil"
+import { fullJoinPlaylistState, playerState } from "../../recoil"
 const { Text } = Typography
 
 const StyledItem = ({ position, isPlaying }) => (
   <div
-    className={`absolute rounded-t-full bottom-0 w-[3px] bg-spotify-green animate-music-playing`}
+    className={`absolute rounded-t-full bottom-0 w-[3px] animate-music-playing shadow-inner shadow-spotify-green`}
     style={{
       left: `${position * 5}px`,
       animationDelay: `${position * -934}ms`,
@@ -13,8 +13,10 @@ const StyledItem = ({ position, isPlaying }) => (
     }}
   />
 )
+
 const PlyrCurrentlyPlayedPlaylist = () => {
   const fullJoinPlaylist = useRecoilValue(fullJoinPlaylistState)
+  const player = useRecoilValue(playerState)
 
   if (!fullJoinPlaylist) return null
   const { name, tracks, uri } = fullJoinPlaylist
@@ -26,7 +28,11 @@ const PlyrCurrentlyPlayedPlaylist = () => {
     >
       <div className="relative w-5">
         {Array.from({ length: 4 }).map((_, pos) => (
-          <StyledItem key={pos} position={pos} isPlaying={true} />
+          <StyledItem
+            key={pos}
+            position={pos}
+            isPlaying={!!player.is_playing}
+          />
         ))}
       </div>
       <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[150px]">
