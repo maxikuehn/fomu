@@ -38,7 +38,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
       <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[150px]">
         {name}
       </div>
-      <Text keyboard type="secondary" className="whitespace-nowrap">
+      <Text keyboard className="whitespace-nowrap opacity-80">
         {tracks.total} {`Track${tracks.total !== 1 ? "s" : ""}`}
       </Text>
     </div>
