@@ -1,7 +1,7 @@
 {
-  "name": "spotinderfy",
+  "name": "fomu",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "netlify dev": "netlify dev",
     "build": "vite build",
