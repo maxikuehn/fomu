@@ -79,9 +79,9 @@ export const requestAuthorization = async () => {
     redirect_uri: REDIRECT_URI,
     state: generateRandomString(16),
     scope: scopes.join(" "),
-    show_dialog: "true",
+    show_dialog: "false",
     code_challenge_method: "S256",
     code_challenge,
   }).toString()
-  window.location.href = _url.toString()
+  window.location.assign(_url.toString())
 }
