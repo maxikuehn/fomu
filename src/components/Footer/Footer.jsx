@@ -8,7 +8,6 @@ const Footer = () => {
       <div className="flex items-end space-x-2 h-8">
         <PlyrCurrentlyPlayedPlaylist />
         <div className="flex-1" />
-        {/* <span className="self-end text-slate-600 ">all rights reserved to</span> */}
         <Image
           src={SpotifyLogo}
           alt="Spotify Logo"
