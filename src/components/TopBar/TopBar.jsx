@@ -1,4 +1,4 @@
-import { DownOutlined, LeftOutlined } from "@ant-design/icons"
+import { DownOutlined, LeftOutlined, UserOutlined } from "@ant-design/icons"
 import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
@@ -85,8 +85,10 @@ const TopBar = () => {
               <Avatar
                 size={50}
                 src={currentUserProfile.images[0]?.url}
+                icon={<UserOutlined />}
                 alt="Spotify Account Profile Picture"
                 className="shadow-lg shadow-black"
+                style={{ backgroundColor: "grey" }}
               />
               <Text strong underline className="pl-4 pr-2">
                 {currentUserProfile.display_name}
