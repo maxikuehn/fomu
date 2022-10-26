@@ -39,18 +39,17 @@ const scopesList = {
 }
 
 const scopes = (() => [
-  scopesList.userReadCurrentlyPlaying,
-  scopesList.playlistReadPrivate,
-  scopesList.playlistModifyPrivate,
-  scopesList.playlistModifyPublic,
-  scopesList.userLibraryRead,
-  scopesList.userLibraryModify,
-  scopesList.userReadPrivate,
-  scopesList.userReadEmail,
   scopesList.userReadPlaybackState,
   scopesList.userModifyPlaybackState,
+  scopesList.userReadCurrentlyPlaying,
+  scopesList.playlistModifyPublic,
+  scopesList.playlistModifyPrivate,
+  scopesList.playlistReadPrivate,
   scopesList.playlistReadCollaborative,
-  scopesList.streaming,
+  scopesList.userLibraryModify,
+  scopesList.userLibraryRead,
+  scopesList.userReadEmail,
+  scopesList.userReadPrivate,
 ])()
 
 export default scopes
