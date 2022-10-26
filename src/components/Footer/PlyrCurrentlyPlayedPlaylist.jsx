@@ -18,7 +18,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
   const fullJoinPlaylist = useRecoilValue(fullJoinPlaylistState)
   const player = useRecoilValue(playerState)
 
-  if (!fullJoinPlaylist) return null
+  if (!fullJoinPlaylist || !player) return null
   const { name, tracks, uri } = fullJoinPlaylist
 
   return (
