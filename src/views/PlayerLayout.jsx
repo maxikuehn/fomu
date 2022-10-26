@@ -8,7 +8,6 @@ import Backdrop from "./Backdrop"
 import PlyrHistory from "../components/player/PlyrHistory"
 import { Button } from "antd"
 import { RightOutlined } from "@ant-design/icons"
-import PlyrCurrentlyPlayedPlaylist from "../components/player/PlyrCurrentlyPlayedPlaylist"
 
 const PlayerLayout = () => {
   const [historyOpen, setHistoryOpen] = useRecoilState(historyOpenState)
@@ -43,7 +42,6 @@ const PlayerLayout = () => {
             >
               Wiedergabeverlauf
             </Button>
-            <PlyrCurrentlyPlayedPlaylist />
           </div>
           <PlyrPlayer />
           <PlyrPlaylistAdd />

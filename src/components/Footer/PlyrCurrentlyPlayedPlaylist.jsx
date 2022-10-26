@@ -8,7 +8,7 @@ const StyledItem = ({ position, isPlaying }) => (
     className={`absolute rounded-t-full bottom-0 w-[3px] animate-music-playing shadow-inner shadow-spotify-green`}
     style={{
       left: `${position * 5}px`,
-      animationDelay: `${position * -934}ms`,
+      animationDelay: `${position * -777}ms`,
       animationPlayState: `${isPlaying ? "running" : "paused"}`,
     }}
   />
@@ -23,10 +23,10 @@ const PlyrCurrentlyPlayedPlaylist = () => {
 
   return (
     <div
-      className="flex flex-row space-x-1 items-baseline hover:cursor-pointer"
+      className="flex flex-row space-x-1 items-center hover:cursor-pointer"
       onClick={() => window.open(uri, "_self")}
     >
-      <div className="relative w-5">
+      <div id="PlayAnimationContainer" className="relative w-5 h-5">
         {Array.from({ length: 4 }).map((_, pos) => (
           <StyledItem
             key={pos}
@@ -35,7 +35,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
           />
         ))}
       </div>
-      <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[150px]">
+      <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]">
         {name}
       </div>
       <Text keyboard className="whitespace-nowrap opacity-80">
