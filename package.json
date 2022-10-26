@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "netlify dev": "netlify dev",
+    "netlify dev live": "netlify dev --live",
     "build": "vite build",
     "preview": "vite preview --port=3001"
   },
