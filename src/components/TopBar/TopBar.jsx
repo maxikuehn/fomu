@@ -23,7 +23,7 @@ const TopBar = () => {
 
   const items = [
     {
-      label: "Impressum",
+      label: "Über diese App",
       onClick: () => setOpenInfo(true),
       key: "info",
     },
