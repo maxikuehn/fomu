@@ -13,7 +13,7 @@ module.exports = {
         },
         background: "#0d1117",
         borderGrey: "#434343",
-        "spotify-green": "#1fdf64",
+        "spotify-green": "#1db954",
       },
       transitionProperty: {
         dimension: "width, height",
@@ -21,12 +21,12 @@ module.exports = {
         allBorderWidth: "border-width",
       },
       animation: {
-        "music-playing": "musicicon 1500ms ease-in-out infinite alternate",
+        "music-playing": "musicicon 2000ms ease-in-out infinite alternate",
       },
       keyframes: {
         musicicon: {
-          "0%": { height: "4px" },
-          "100%": { height: "15px" },
+          "0%": { height: "20%" },
+          "100%": { height: "100%" },
         },
       },
     },
