@@ -39,7 +39,7 @@ const InformationDialog = ({ open, handleClose: handleClose }) => {
           76131 Karlsruhe, Deutschland
           <br />
           <strong className="text-base">E-Mail: </strong>
-          <a href="mailto:fomu@maxikuehn.de">fomu@maxikuehn.de</a>
+          <a href="mailto:mail@fomu.app">mail@fomu.app</a>
         </p>
       </div>
     </Modal>
