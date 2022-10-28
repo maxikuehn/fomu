@@ -31,7 +31,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
           <StyledItem
             key={pos}
             position={pos}
-            isPlaying={!!player.is_playing}
+            isPlaying={!!player.is_playing && player.context?.uri === uri}
           />
         ))}
       </div>
