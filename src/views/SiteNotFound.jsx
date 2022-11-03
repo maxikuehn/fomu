@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 const SiteNotFound = () => {
   let navigate = useNavigate()
   return (
-    <div className="w-screen h-screen bg-background flex items-center justify-center">
+    <div className="flex h-screen w-screen items-center justify-center bg-background">
       <Result
         status="404"
         title="404"

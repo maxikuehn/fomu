@@ -3,9 +3,9 @@ import { Badge, Tooltip } from "antd"
 
 const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
   return (
-    <div className="max-h-[calc(100vh-151px)] max-w-[400px] flex-1 flex flex-col select-none">
-      <div className="px-4 py-2 flex items-center flex-nowrap">
-        <span className="text-2xl font-semibold whitespace-nowrap">
+    <div className="flex max-h-[calc(100vh-151px)] max-w-[400px] flex-1 select-none flex-col">
+      <div className="flex flex-nowrap items-center px-4 py-2">
+        <span className="whitespace-nowrap text-2xl font-semibold">
           {title}
         </span>
         {tooltip && (
@@ -20,7 +20,7 @@ const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
         />
       </div>
-      <div className="p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
+      <div className="custom-scrollbar flex flex-col gap-1 overflow-auto rounded border-2 border-primary-400 p-2">
         {children}
       </div>
     </div>

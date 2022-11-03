@@ -53,12 +53,12 @@ const App = () => {
   }
 
   return (
-    <div className="w-screen h-screen bg-background">
+    <div className="h-screen w-screen bg-background">
       {loggedIn ? (
         appLoading ? (
           <LoadingPage />
         ) : currentUserProfile?.product === "premium" ? (
-          <div className="flex flex-col h-full">
+          <div className="flex h-full flex-col">
             <TopBar />
             <div className="h-full">
               <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>

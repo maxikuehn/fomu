@@ -17,7 +17,7 @@ import api from "../../api"
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <div className="h-auto border border-borderGrey w-full py-1 px-2 rounded-sm flex gap-2">
+    <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey py-1 px-2">
       {images.length > 0 ? (
         <Image
           src={images[images.length - 1].url}
@@ -27,11 +27,11 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
           alt="PlaylistCoverImage"
         />
       ) : (
-        <div className="w-[52px] h-[52px] bg-primary-600 flex items-center justify-center">
+        <div className="flex h-[52px] w-[52px] items-center justify-center bg-primary-600">
           <Music size={45} strokeWidth={1} className="stroke-primary-0" />
         </div>
       )}
-      <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[250px] text-lg flex-1">
+      <div className="max-w-[250px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg">
         {name}
       </div>
       {trackContained ? (
@@ -44,7 +44,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
         </div>
       ) : (
         <div
-          className="self-center rounded-full cursor-pointer stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+          className="cursor-pointer self-center rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
           onClick={() => handleClick(id, index)}
         >
           <PlusCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
@@ -112,14 +112,14 @@ const PlyrPlaylistAdd = () => {
 
   return (
     <div
-      className="basis-96 max-h-[calc(100vh-135px)] p-5 flex items-center"
+      className="flex max-h-[calc(100vh-135px)] basis-96 items-center p-5"
       id="PlayerPlaylistAdd"
     >
-      <div className="flex flex-col flex-1 gap-2 items-center">
-        <span className="text-2xl font-semibold self-start px-4">
+      <div className="flex flex-1 flex-col items-center gap-2">
+        <span className="self-start px-4 text-2xl font-semibold">
           Track speichern
         </span>
-        <div className="max-h-[50vh] w-full p-2 border-2 border-primary-400 rounded overflow-auto custom-scrollbar flex flex-col gap-1">
+        <div className="custom-scrollbar flex max-h-[50vh] w-full flex-col gap-1 overflow-auto rounded border-2 border-primary-400 p-2">
           {outputPlaylists.map((p, i) => (
             <Playlist
               index={i}
@@ -137,11 +137,11 @@ const PlyrPlaylistAdd = () => {
             onClick={handleSubmit}
             size={"60%"}
             strokeWidth={0.3}
-            className="stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 cursor-pointer rounded-full"
+            className="cursor-pointer rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
           />
           <p
             onClick={handleSubmit}
-            className="text-primary-400 text-2xl font-semibold select-none cursor-pointer"
+            className="cursor-pointer select-none text-2xl font-semibold text-primary-400"
           >
             {deleteTrack ? "Löschen" : "Weiter"}
           </p>

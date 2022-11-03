@@ -62,7 +62,7 @@ const TopBar = () => {
       />
       <div
         id="topbar"
-        className="p-4 w-full flex justify-between items-center z-10"
+        className="z-10 flex w-full items-center justify-between p-4"
       >
         {app === EAppState.Player && (
           <Button
@@ -78,7 +78,7 @@ const TopBar = () => {
           onOpenChange={setOpen}
           trigger="click"
           placement="bottomRight"
-          className="bg-primary-400 rounded-full select-none cursor-pointer h-11 translate-y-[3px]"
+          className="h-11 translate-y-[3px] cursor-pointer select-none rounded-full bg-primary-400"
         >
           <div>
             <div className="-translate-y-[3px]">

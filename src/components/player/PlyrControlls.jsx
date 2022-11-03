@@ -151,7 +151,7 @@ const PlyrControlls = ({
   }
 
   return (
-    <div className=" w-full flex flex-col px-2" id="container">
+    <div className=" flex w-full flex-col px-2" id="container">
       <Space className=" justify-center" size={40} align="center">
         <Badge
           count={
@@ -206,7 +206,7 @@ const PlyrControlls = ({
         </Dropdown>
       </Space>
       <div className="flex gap-1" direction="horizontal">
-        <span className="w-10 text-primary-300 text-right">
+        <span className="w-10 text-right text-primary-300">
           {formatMinute(progress)}
         </span>
         <Progress

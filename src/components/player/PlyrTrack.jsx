@@ -40,15 +40,15 @@ const PlyrTrack = ({ track }) => {
           alt="CurrentTrackCoverImage"
         />
       ) : (
-        <div className="w-[60vh] h-[60vh] flex justify-center items-center">
+        <div className="flex h-[60vh] w-[60vh] items-center justify-center">
           <Mic size={"50%"} strokeWidth={0.3} className="stroke-primary-600" />
         </div>
       )}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Space direction="vertical" size={0}>
           <span
             onClick={() => window.open(track.uri, "_self")}
-            className="cursor-pointer font-semibold text-base underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+            className="cursor-pointer text-base font-semibold underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
           >
             {name}
           </span>
@@ -57,7 +57,7 @@ const PlyrTrack = ({ track }) => {
               .map((a, i) => (
                 <span
                   onClick={() => window.open(a.uri, "_self")}
-                  className="cursor-pointer underline text-sm decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+                  className="cursor-pointer text-sm underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
                   key={i}
                 >
                   {a.name}

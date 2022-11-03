@@ -81,8 +81,8 @@ function PlyrPlayer() {
   const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
 
   return (
-    <div className="flex-auto flex justify-center" id="Player">
-      <div className="flex flex-col justify-center gap-10 w-[60vh]">
+    <div className="flex flex-auto justify-center" id="Player">
+      <div className="flex w-[60vh] flex-col justify-center gap-10">
         <PlyrTrack track={item || {}} />
         <PlyrControlls
           isPlaying={is_playing}

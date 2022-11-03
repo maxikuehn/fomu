@@ -26,8 +26,8 @@ const PlyrHistoryEntry = ({
   return (
     <div
       id="PlayerHistoryEntry"
-      className={`flex gap-1 w-full px-1 overflow-hidden border rounded border-borderGrey transition-all duration-500 ${
-        show ? "h-[54px] py-1 mb-1" : "h-0 mb-[-2px] opacity-0"
+      className={`flex w-full gap-1 overflow-hidden rounded border border-borderGrey px-1 transition-all duration-500 ${
+        show ? "mb-1 h-[54px] py-1" : "mb-[-2px] h-0 opacity-0"
       }`}
     >
       <Image
@@ -36,12 +36,12 @@ const PlyrHistoryEntry = ({
         preview={false}
         alt="ListeningHistoryEntryImage"
       />
-      <div className="flex flex-col flex-1 w-0">
+      <div className="flex w-0 flex-1 flex-col">
         <span
           onClick={() => window.open(uri, "_self")}
           className={
             spanClass +
-            "cursor-pointer underline decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+            "cursor-pointer underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
           }
         >
           {name}
@@ -51,7 +51,7 @@ const PlyrHistoryEntry = ({
             .map((a, i) => (
               <span
                 onClick={() => window.open(a.uri, "_self")}
-                className="cursor-pointer underline text-sm decoration-transparent hover:decoration-primary-300 hover:text-primary-300 transition-all duration-300"
+                className="cursor-pointer text-sm underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
                 key={i}
               >
                 {a.name}
@@ -65,7 +65,7 @@ const PlyrHistoryEntry = ({
           <PlayCircle
             size={22}
             strokeWidth={1.2}
-            className="self-center stroke-primary-300 cursor-pointer"
+            className="cursor-pointer self-center stroke-primary-300"
             onClick={() =>
               api.player.playTrack({ position: 0, context_uri: context })
             }
@@ -74,7 +74,7 @@ const PlyrHistoryEntry = ({
         <PlusSquare
           size={22}
           strokeWidth={1.2}
-          className="self-center stroke-primary-300 cursor-pointer"
+          className="cursor-pointer self-center stroke-primary-300"
           onClick={() => api.player.addToQueue(uri, true)}
         />
         <Trash

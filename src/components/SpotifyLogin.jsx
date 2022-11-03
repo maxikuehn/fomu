@@ -5,15 +5,15 @@ const SpotifyLogin = () => {
   const handleClick = () => api.token.requestAuthorization()
 
   return (
-    <div className="flex items-center justify-center w-full h-full">
+    <div className="flex h-full w-full items-center justify-center">
       <div
         id="login-button"
         onClick={handleClick}
-        className="bg-white transition ease-[cubic-bezier(0.7,0,0.32,1.7)] duration-500 rounded-full
-        hover:shadow-spotify-green hover:shadow-[inset_0_0_0_10px,0px_10px_70px_-5px] p-8 cursor-pointer flex items-center space-x-4"
+        className="flex cursor-pointer items-center space-x-4 rounded-full bg-white p-8 transition duration-500
+        ease-[cubic-bezier(0.7,0,0.32,1.7)] hover:shadow-[inset_0_0_0_10px,0px_10px_70px_-5px] hover:shadow-spotify-green"
       >
         <img src={SpotifyIcon} alt="Spotify Logo" className="h-20" />
-        <span className="text-black font-metro font-medium text-4xl">
+        <span className="font-metro text-4xl font-medium text-black">
           Mit Spotify verbinden
         </span>
       </div>

@@ -63,7 +63,7 @@ const AccountDialog = ({ open, handleClose: propsHandleClose }) => {
               window.open("https://www.spotify.com/us/account/apps/", "_blank")
             }
           >
-            <div className="flex justify-center items-center space-x-2">
+            <div className="flex items-center justify-center space-x-2">
               <span>Verbindung trennen</span>
               <ExternalLink size={16} />
             </div>

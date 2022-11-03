@@ -52,7 +52,7 @@ const WeeklyDialog = ({ open, handleClose }) => {
 
   const Option = ({ id, name, owner }) => (
     <Select.Option value={id} key={id} label={name}>
-      <div className=" flex justify-between absolute w-[calc(100%_-_55px)]">
+      <div className=" absolute flex w-[calc(100%_-_55px)] justify-between">
         <Text>{name}</Text>
         <Text keyboard>{owner.display_name}</Text>
       </div>

@@ -34,7 +34,7 @@ const Backdrop = ({ context }) => {
       block
       onClick={() => setCurrentDevice(id)}
     >
-      <div className="flex gap-2 py-1 items-center">
+      <div className="flex items-center gap-2 py-1">
         {(() => {
           switch (type) {
             case "Computer":
@@ -46,7 +46,7 @@ const Backdrop = ({ context }) => {
           }
         })()}
         <Space direction="vertical" className="flex-1 text-left ">
-          <div className="text-ellipsis overflow-hidden max-w-xs text-lg">
+          <div className="max-w-xs overflow-hidden text-ellipsis text-lg">
             {name}
           </div>
         </Space>
@@ -61,10 +61,10 @@ const Backdrop = ({ context }) => {
 
   return (
     <div
-      className="bg-opacity-90 absolute inset-0 bg-slate-900 flex flex-col justify-center items-center gap-8"
+      className="absolute inset-0 flex flex-col items-center justify-center gap-8 bg-slate-900 bg-opacity-90"
       id="Backdrop"
     >
-      <div className="flex flex-col gap-2 p-4 border-2 border-primary-400 rounded-lg min-w-[300px]">
+      <div className="flex min-w-[300px] flex-col gap-2 rounded-lg border-2 border-primary-400 p-4">
         {devices.length > 0 ? (
           <>
             <p className="m-0 px-2">Gerät auswählen:</p>
@@ -72,7 +72,7 @@ const Backdrop = ({ context }) => {
           </>
         ) : (
           <Tooltip
-            className="px-2 flex"
+            className="flex px-2"
             placement="rightBottom"
             title="Öffne Spotify auf einem beliebigen Gerät, damit es hier erscheint."
           >
@@ -82,12 +82,12 @@ const Backdrop = ({ context }) => {
         )}
       </div>
       <div
-        className="p-4 rounded-t-full flex flex-col justify-center items-center gap-2 h-min 
-        text-primary-400 hover:text-primary-500 active:text-primary-700 cursor-pointer text-opacity-100"
+        className="flex h-min cursor-pointer flex-col items-center justify-center gap-2 rounded-t-full 
+        p-4 text-primary-400 text-opacity-100 hover:text-primary-500 active:text-primary-700"
         onClick={handleClickStart}
       >
         <PlayCircle size={250} strokeWidth={0.7} className="text-inherit" />
-        <p className="text-4xl text-inherit font-semibold m-0 select-none">
+        <p className="m-0 select-none text-4xl font-semibold text-inherit">
           Session starten
         </p>
       </div>

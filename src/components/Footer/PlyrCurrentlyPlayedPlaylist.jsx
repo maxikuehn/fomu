@@ -5,7 +5,7 @@ const { Text } = Typography
 
 const StyledItem = ({ position, isPlaying }) => (
   <div
-    className={`absolute rounded-t-full bottom-0 w-[3px] animate-music-playing shadow-inner shadow-spotify-green`}
+    className={`absolute bottom-0 w-[3px] animate-music-playing rounded-t-full shadow-inner shadow-spotify-green`}
     style={{
       left: `${position * 5}px`,
       animationDelay: `${position * -777}ms`,
@@ -23,10 +23,10 @@ const PlyrCurrentlyPlayedPlaylist = () => {
 
   return (
     <div
-      className="flex flex-row space-x-1 items-center hover:cursor-pointer"
+      className="flex flex-row items-center space-x-1 hover:cursor-pointer"
       onClick={() => window.open(uri, "_self")}
     >
-      <div id="PlayAnimationContainer" className="relative w-5 h-5">
+      <div id="PlayAnimationContainer" className="relative h-5 w-5">
         {Array.from({ length: 4 }).map((_, pos) => (
           <StyledItem
             key={pos}
@@ -35,7 +35,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
           />
         ))}
       </div>
-      <div className="text-ellipsis overflow-hidden whitespace-nowrap max-w-[200px]">
+      <div className="max-w-[200px] overflow-hidden text-ellipsis whitespace-nowrap">
         {name}
       </div>
       <Text keyboard className="whitespace-nowrap opacity-80">

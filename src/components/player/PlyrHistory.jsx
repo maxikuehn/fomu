@@ -20,20 +20,20 @@ const PlyrHistory = () => {
   return (
     <div
       id="PlayerHistory"
-      className={`h-[calc(100vh-77px-40px)] fixed z-10 left-0 transition-dimension duration-300 ${
+      className={`fixed left-0 z-10 h-[calc(100vh-77px-40px)] transition-dimension duration-300 ${
         historyOpen ? "w-96" : "w-0"
       } overflow-hidden bg-background`}
     >
-      <div id="sidebar" className="flex flex-col px-4 gap-2 h-full w-full p-2">
-        <div className="flex mr-[10px]">
+      <div id="sidebar" className="flex h-full w-full flex-col gap-2 p-2 px-4">
+        <div className="mr-[10px] flex">
           <Button
             size="small"
             icon={<LeftOutlined />}
             onClick={() => setHistoryOpen(false)}
-            className="flex-1 text-left mr-8"
+            className="mr-8 flex-1 text-left"
           ></Button>
           <span
-            className="pr-2 text-right whitespace-nowrap text-ellipsis overflow-hidden cursor-pointer"
+            className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap pr-2 text-right"
             onClick={() => setShowDeleted(!showDeleted)}
           >
             gelöschte Tracks anzeigen
@@ -43,7 +43,7 @@ const PlyrHistory = () => {
             onChange={(e) => setShowDeleted(e.target.checked)}
           />
         </div>
-        <div className="overflow-y-scroll overflow-x-hidden custom-scrollbar h-full pr-1 relative">
+        <div className="custom-scrollbar relative h-full overflow-x-hidden overflow-y-scroll pr-1">
           <FlipMove>
             {listeningHistory.map((props) => (
               <FunctionalPlyrHistoryEntry

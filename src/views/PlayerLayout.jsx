@@ -24,7 +24,7 @@ const PlayerLayout = () => {
   return (
     <>
       <div
-        className={`w-full h-full ${visible && "grayscale blur-sm"}`}
+        className={`h-full w-full ${visible && "blur-sm grayscale"}`}
         id="PlayerLayout"
       >
         <PlyrHistory />
@@ -32,7 +32,7 @@ const PlayerLayout = () => {
           <div
             className={`px-4 py-2 transition-dimension duration-500 ${
               historyOpen ? "w-96" : "w-56"
-            } flex justify-between flex-col items-start`}
+            } flex flex-col items-start justify-between`}
             id="PlayerSpacerLeft"
           >
             <Button

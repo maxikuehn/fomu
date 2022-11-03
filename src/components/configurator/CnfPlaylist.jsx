@@ -23,7 +23,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
       style={{ height: "auto" }}
       onClick={handleClickPlaylist}
     >
-      <div className="flex gap-2 py-1 flex-nowrap">
+      <div className="flex flex-nowrap gap-2 py-1">
         {images.length > 0 ? (
           <Image
             src={images[images.length - 1].url}
@@ -31,10 +31,10 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
             height={52}
             preview={false}
             alt="PlaylistCover"
-            className="w-[52px] h-[52px] flex-1"
+            className="h-[52px] w-[52px] flex-1"
           />
         ) : (
-          <div className="w-[52px] h-[52px] bg-primary-600 flex items-center justify-center">
+          <div className="flex h-[52px] w-[52px] items-center justify-center bg-primary-600">
             <Music size={45} strokeWidth={1} className="stroke-primary-0" />
           </div>
         )}
@@ -44,7 +44,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
           className="text-left"
           style={{ maxWidth: "calc(100% - 60px)" }}
         >
-          <div className="text-ellipsis overflow-hidden">{name}</div>
+          <div className="overflow-hidden text-ellipsis">{name}</div>
           <Space>
             <Text keyboard>
               {tracks.total} {`Track${tracks.total !== 1 ? "s" : ""}`}
