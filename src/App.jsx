@@ -15,6 +15,7 @@ import {
 import { checkVersion } from "./services/AppVersion"
 import api from "./api"
 import Footer from "./components/Footer/Footer"
+import SpotifyPremiumHandler from "./components/SpotifyPremiumHandler"
 
 const PlayerLayout = lazy(() => import("./views/PlayerLayout"))
 const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
@@ -23,7 +24,8 @@ const App = () => {
   const [appLoading, setAppLoading] = useRecoilState(appLoadingState)
   const app = useRecoilValue(appState)
   const setCurrentUserPlaylists = useSetRecoilState(currentUserPlaylistsState)
-  const setCurrentUserProfile = useSetRecoilState(currentUserState)
+  const [currentUserProfile, setCurrentUserProfile] =
+    useRecoilState(currentUserState)
   const setPlayer = useSetRecoilState(playerState)
   let loggedIn = !!useRecoilValue(spotifyAuthState)
 
@@ -55,7 +57,7 @@ const App = () => {
       {loggedIn ? (
         appLoading ? (
           <LoadingPage />
-        ) : (
+        ) : currentUserProfile?.product === "premium" ? (
           <div className="flex flex-col h-full">
             <TopBar />
             <div className="h-full">
@@ -63,6 +65,8 @@ const App = () => {
             </div>
             <Footer />
           </div>
+        ) : (
+          <SpotifyPremiumHandler />
         )
       ) : (
         <SpotifyLogin />
