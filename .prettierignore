@@ -1,0 +1,7 @@
+.idea
+.netlify
+.vscode
+dist
+coverage
+public
+
