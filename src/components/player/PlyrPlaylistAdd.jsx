@@ -111,7 +111,10 @@ const PlyrPlaylistAdd = () => {
   if (outputPlaylists.length === 0 || !player) return null
 
   return (
-    <div className="basis-96 p-5 flex items-center" id="PlayerPlaylistAdd">
+    <div
+      className="basis-96 max-h-[calc(100vh-135px)] p-5 flex items-center"
+      id="PlayerPlaylistAdd"
+    >
       <div className="flex flex-col flex-1 gap-2 items-center">
         <span className="text-2xl font-semibold self-start px-4">
           Track speichern
