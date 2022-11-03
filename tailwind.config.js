@@ -1,7 +1,12 @@
+const defaultTheme = require("tailwindcss/defaultTheme")
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        metro: ["Metropolis", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         primary: {
           0: "#156DC4",
