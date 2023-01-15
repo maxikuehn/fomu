@@ -1,7 +1,7 @@
 import { getRecoil, setRecoil } from "recoil-nexus"
-import { spotifyAuthState } from "../../recoil"
+import { currentUserState, spotifyAuthState } from "../../recoil"
 import scopes from "../../services/Scopes"
-import netlifyFetcher from "../netlifyFetcher"
+import firebaseFetcher from "../firebaseFetcher.js"
 
 const BASE_URL = window.location.origin
 const REDIRECT_URI = BASE_URL + "/callback"
@@ -9,10 +9,10 @@ const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
 export const refresh = async (failedRequest: any) => {
   console.log("refreshing token..")
-  const refresh_token = getRecoil(spotifyAuthState)?.refresh_token
-  if (!refresh_token) return
+  const user_id = getRecoil(currentUserState)?.id
+  if (!user_id) return
 
-  return netlifyFetcher.post("refresh", { refresh_token }).then((resp) => {
+  return firebaseFetcher.post("refreshToken", { user_id }).then((resp) => {
     setRecoil(
       spotifyAuthState,
       Object.assign({}, getRecoil(spotifyAuthState), resp.data)
@@ -21,7 +21,6 @@ export const refresh = async (failedRequest: any) => {
       failedRequest.response.config.headers[
         "Authorization"
       ] = `Bearer ${resp.data.access_token}`
-      console.log("failedRequest", failedRequest.response)
     }
     return Promise.resolve()
   })
@@ -30,8 +29,8 @@ export const refresh = async (failedRequest: any) => {
 export const get = async (code: string) => {
   if (!code || code === "") return
   const code_verifier = window.localStorage.getItem("code_verifier")
-  return netlifyFetcher
-    .post("token", {
+  return firebaseFetcher
+    .post("getToken", {
       href: REDIRECT_URI,
       code,
       code_verifier,
