@@ -1,4 +1,4 @@
-import { getRecoil, setRecoil } from "recoil-nexus"
+import { getRecoil, setRecoil, resetRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../../recoil"
 import scopes from "../../services/Scopes"
 import netlifyFetcher from "../netlifyFetcher"
@@ -12,19 +12,24 @@ export const refresh = async (failedRequest: any) => {
   const refresh_token = getRecoil(spotifyAuthState)?.refresh_token
   if (!refresh_token) return
 
-  return netlifyFetcher.post("refresh", { refresh_token }).then((resp) => {
-    setRecoil(
-      spotifyAuthState,
-      Object.assign({}, getRecoil(spotifyAuthState), resp.data)
-    )
-    if (failedRequest) {
-      failedRequest.response.config.headers[
-        "Authorization"
-      ] = `Bearer ${resp.data.access_token}`
-      console.log("failedRequest", failedRequest.response)
-    }
-    return Promise.resolve()
-  })
+  return netlifyFetcher
+    .post("refresh", { refresh_token })
+    .then((resp) => {
+      setRecoil(
+        spotifyAuthState,
+        Object.assign({}, getRecoil(spotifyAuthState), resp.data)
+      )
+      if (failedRequest) {
+        failedRequest.response.config.headers[
+          "Authorization"
+        ] = `Bearer ${resp.data.access_token}`
+        console.log("failedRequest", failedRequest.response)
+      }
+      return Promise.resolve()
+    })
+    .catch(() => {
+      return resetRecoil(spotifyAuthState)
+    })
 }
 
 export const get = async (code: string) => {
