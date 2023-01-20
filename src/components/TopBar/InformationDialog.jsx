@@ -11,9 +11,9 @@ const InformationDialog = ({ open, handleClose: handleClose }) => {
       footer={null}
     >
       <div className="leading- whitespace-pre-line">
-        <p>
+        <div>
           <Title level={1}>F O M U</Title>the fear of missing music
-        </p>
+        </div>
         <br />
         <p>
           Sämtliche Daten, welche in dieser Web-App angezeigt werden, werden von
@@ -30,17 +30,14 @@ const InformationDialog = ({ open, handleClose: handleClose }) => {
           nicht kommerziell.
         </p>
         <br />
-        <p>
+        <div>
           <span>Angaben gemäß § 5 TMG</span>
           <Title level={1}>Impressum</Title>
           <strong className="text-base">Seiteninhaber:</strong> Maximilian Kühn
           <br />
-          <strong className="text-base">Adresse:</strong> Sternbergstraße 7,
-          76131 Karlsruhe, Deutschland
-          <br />
           <strong className="text-base">E-Mail: </strong>
           <a href="mailto:mail@fomu.app">mail@fomu.app</a>
-        </p>
+        </div>
       </div>
     </Modal>
   )
