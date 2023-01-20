@@ -36,15 +36,8 @@ const TopBar = () => {
     { label: "Account", onClick: () => setOpenAccount(true), key: "account" },
     { label: "Logout", onClick: logout, key: "logout2" },
   ]
-
-  const ProfileMenu = () => (
-    <Menu
-      className="rounded-full"
-      items={items
-        .filter((p) => dev || !p.onlydev)
-        .map(({ label, onClick, key }) => ({ label, onClick, key }))}
-    />
-  )
+    .filter((p) => dev || !p.onlydev)
+    .map(({ label, onClick, key }) => ({ label, onClick, key }))
 
   return (
     <>
@@ -74,7 +67,7 @@ const TopBar = () => {
         )}
         <div />
         <Dropdown
-          overlay={<ProfileMenu />}
+          menu={{ items }}
           onOpenChange={setOpen}
           trigger="click"
           placement="bottomRight"

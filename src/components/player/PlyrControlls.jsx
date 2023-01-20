@@ -19,51 +19,31 @@ import { useRecoilState } from "recoil"
 import { deviceListState } from "../../recoil"
 import api from "../../api"
 
-const Device = ({ id, name, type }, handleClickDevice, selectedDevice) => ({
-  label: name,
-  key: id,
-  icon: (() => {
-    switch (type) {
-      case "Computer":
-        return <Monitor size={15} />
-      case "Smartphone":
-        return <Smartphone size={15} />
-      case "Speaker":
-        return <Speaker size={15} />
-    }
-  })(),
-  onClick: () => handleClickDevice(id),
-  className: `${id === selectedDevice && "bg-primary-600"}`,
-})
-
-const DeviceList = memo(
-  ({ devices, handleClickDevice, selectedDevice }) => {
-    return (
-      <Menu
-        items={
-          devices.length === 0
-            ? [
-                {
-                  label: "Keine Geräte verfügbar",
-                  key: "nodevice",
-                  className: "text-center",
-                },
-              ]
-            : devices.map((d) => Device(d, handleClickDevice, selectedDevice))
-        }
-      />
-    )
-  },
-  (prevProps, nextProps) => {
-    if (prevProps.devices.length !== nextProps.devices.length) {
-      return false
-    }
-    if (prevProps.selectedDevice !== nextProps.selectedDevice) {
-      return false
-    }
-    return true
-  }
-)
+const deviceList = ({ devices, selectedDevice, handleClickDevice }) =>
+  devices.length === 0
+    ? [
+        {
+          label: "Keine Geräte verfügbar",
+          key: "nodevice",
+          className: "text-center",
+        },
+      ]
+    : devices.map(({ id, name, type }) => ({
+        label: name,
+        key: id,
+        icon: (() => {
+          switch (type) {
+            case "Computer":
+              return <Monitor size={15} />
+            case "Smartphone":
+              return <Smartphone size={15} />
+            case "Speaker":
+              return <Speaker size={15} />
+          }
+        })(),
+        onClick: () => handleClickDevice(id),
+        className: `${id === selectedDevice && "bg-primary-600"}`,
+      }))
 
 const PlyrControlls = ({
   isPlaying,
@@ -191,13 +171,9 @@ const PlyrControlls = ({
         </Badge>
         <Dropdown
           trigger={["click"]}
-          overlay={
-            <DeviceList
-              devices={devices}
-              selectedDevice={selectedDevice}
-              handleClickDevice={handleClickDevice}
-            />
-          }
+          menu={{
+            items: deviceList({ devices, selectedDevice, handleClickDevice }),
+          }}
           placement="topLeft"
           onOpenChange={(open) => setDeviceMenuVisible(open)}
           open={deviceMenuVisible}
