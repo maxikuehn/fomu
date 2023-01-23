@@ -82,7 +82,7 @@ function PlyrPlayer() {
 
   return (
     <div className="flex flex-auto justify-center" id="Player">
-      <div className="flex w-[60vh] flex-col justify-center gap-10">
+      <div className="flex w-[60vh] max-w-[640px] flex-col justify-center gap-10">
         <PlyrTrack track={item || {}} />
         <PlyrControlls
           isPlaying={is_playing}

@@ -35,8 +35,6 @@ const PlyrTrack = ({ track }) => {
         <Image
           src={album.images[0].url}
           preview={false}
-          width={"60vh"}
-          height={"60vh"}
           alt="CurrentTrackCoverImage"
         />
       ) : (
