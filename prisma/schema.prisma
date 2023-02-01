@@ -1,0 +1,35 @@
+generator client {
+  provider      = "prisma-client-js"
+  // The following is needed when using deploying to netlify using `netlify deploy` locally
+  // It can be removed if the deployment is configured on netlify to automatically deploy for each commit
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            String  @id
+  name          String?
+  email         String?
+  refresh_token String
+  weekly        weekly?
+}
+
+model weekly {
+  user_id            String             @unique
+  user               users              @relation(fields: [user_id], references: [id])
+  output_playlist_id output_playlists[]
+
+  @@index([user_id], map: "weekly_user_id")
+}
+
+model output_playlists {
+  id              String   @id @default(uuid())
+  playlist_id     String
+  input_playlists String[]
+  weekly          weekly   @relation(fields: [weekly_user_id], references: [user_id])
+  weekly_user_id  String
+}
