@@ -5,6 +5,7 @@ import api from "../../api"
 import {
   contextIdState,
   contextState,
+  fullJoinPlaylistState,
   listeningHistoryState,
   toggleDeleted,
 } from "../../recoil"
@@ -20,6 +21,7 @@ const PlyrHistoryEntry = ({
   const setListeningHistory = useSetRecoilState(listeningHistoryState)
   const contextId = useRecoilValue(contextIdState)
   const context = useRecoilValue(contextState)
+  const decreaseJoinTrackTotal = useSetRecoilState(fullJoinPlaylistState)
 
   const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden "
   let show = !deleted || showDeleted
@@ -86,6 +88,7 @@ const PlyrHistoryEntry = ({
           onClick={() => {
             api.playlist
               .removeTracks(contextId, [uri])
+              .then(decreaseJoinTrackTotal)
               .then(() =>
                 setListeningHistory((history) => toggleDeleted(history, uri))
               )
