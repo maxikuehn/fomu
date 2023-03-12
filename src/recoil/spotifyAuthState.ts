@@ -3,10 +3,7 @@ import localStorageEffect from "./localSorageEffect"
 
 interface AuthState {
   access_token: string
-  refresh_token: string
-  expires_in: number
-  scope: string
-  token_type: string
+  name: string
 }
 
 export const spotifyAuthState = atom<AuthState | undefined>({

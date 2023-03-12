@@ -1,5 +1,5 @@
 import { getRecoil, setRecoil, resetRecoil } from "recoil-nexus"
-import { spotifyAuthState } from "../../recoil"
+import { currentUserState, spotifyAuthState } from "../../recoil"
 import scopes from "../../services/Scopes"
 import netlifyFetcher from "../netlifyFetcher"
 
@@ -9,15 +9,17 @@ const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
 export const refresh = async (failedRequest: any) => {
   console.log("refreshing token..")
-  const refresh_token = getRecoil(spotifyAuthState)?.refresh_token
-  if (!refresh_token) return
+  const user_id = getRecoil(currentUserState)?.id
+  if (!user_id) return
 
   return netlifyFetcher
-    .post("refresh", { refresh_token })
+    .post("refresh", { user_id })
     .then((resp) => {
       setRecoil(
         spotifyAuthState,
-        Object.assign({}, getRecoil(spotifyAuthState), resp.data)
+        Object.assign({}, getRecoil(spotifyAuthState), {
+          access_token: resp.data,
+        })
       )
       if (failedRequest) {
         failedRequest.response.config.headers[

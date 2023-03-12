@@ -1,17 +1,25 @@
+const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const qs = require("qs")
 
 const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
   process.env
 
+const prisma = new PrismaClient()
+
 const handler = async function (event) {
   const body = JSON.parse(event.body)
+  var refresh_token = await prisma.users
+    .findUnique({
+      where: { id: body.user_id },
+    })
+    .then((user) => user.refresh_token)
   return axios
     .post(
       "https://accounts.spotify.com/api/token",
       qs.stringify({
         grant_type: "refresh_token",
-        refresh_token: body.refresh_token,
+        refresh_token,
         client_id,
       }),
       {
@@ -23,10 +31,16 @@ const handler = async function (event) {
         },
       }
     )
-    .then((resp) => {
+    .then(async (resp) => {
+      await prisma.users.update({
+        where: { id: body.user_id },
+        data: {
+          refresh_token: resp.data.refresh_token,
+        },
+      })
       return {
         statusCode: 200,
-        body: JSON.stringify(resp.data),
+        body: JSON.stringify(resp.data.access_token),
       }
     })
     .catch((error) => {
