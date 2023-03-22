@@ -1,17 +1,11 @@
-import firebaseFetcher from "../firebaseFetcher.js"
-import { getRecoil, setRecoil } from "recoil-nexus"
-import { currentUserState, spotifyAuthState } from "../../recoil"
-
-interface IOutputPlaylist {
-  id: string
-  input_playlist: string[]
-}
+import { getRecoil } from "recoil-nexus"
+import { currentUserState } from "../../recoil"
+import netlifyFetcher from "../netlifyFetcher"
 
 interface IRegisterData {
-  refresh_token: string
   spotify_user_id: string
-  spotify_user_name: string
-  output_playlist: IOutputPlaylist[]
+  id: string
+  input_playlists: string[]
 }
 
 export const register = async ({
@@ -21,23 +15,16 @@ export const register = async ({
   inputSelect: string[]
   outputSelect: string
 }) => {
-  const refresh_token = getRecoil(spotifyAuthState)?.refresh_token
   const spotify_user = getRecoil(currentUserState)
-  if (!refresh_token || !spotify_user) return
+  if (!spotify_user) return
 
   const data: IRegisterData = {
-    refresh_token,
     spotify_user_id: spotify_user.id,
-    spotify_user_name: spotify_user.display_name,
-    output_playlist: [
-      {
-        id: outputSelect,
-        input_playlist: inputSelect,
-      },
-    ],
+    id: outputSelect,
+    input_playlists: inputSelect,
   }
 
-  return firebaseFetcher.post("addUser", data).then((response) => {
+  return netlifyFetcher.post("registerWeekly", data).then((response) => {
     return response.data
   })
 }
