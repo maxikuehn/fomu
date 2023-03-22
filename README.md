@@ -48,6 +48,7 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 ## Contact
 
-Project Link: [https://github.com/maxikuehn/fomu](https://github.com/maxikuehn/fomu)
+Project Link: [github.com/maxikuehn/fomu](https://github.com/maxikuehn/fomu)  
+Email Contact: [mail@fomu.app](mailto:mail@fomu.app)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
