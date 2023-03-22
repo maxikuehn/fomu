@@ -45,6 +45,7 @@ const handler = async function (event) {
         where: { id: sp_user.data.id },
         update: {
           refresh_token: resp.data.refresh_token,
+          email: sp_user.data.email,
         },
         create: {
           id: sp_user.data.id,
