@@ -11,25 +11,18 @@ datasource db {
 }
 
 model users {
-  id            String  @id
+  id            String   @id
   name          String?
   email         String?
   refresh_token String
-  weekly        weekly?
+  weekly        weekly[]
 }
 
 model weekly {
-  user_id            String             @unique
-  user               users              @relation(fields: [user_id], references: [id])
-  output_playlist_id output_playlists[]
+  user_id            String
+  user               users    @relation(fields: [user_id], references: [id])
+  output_playlist_id String
+  input_playlist_id  String[]
 
-  @@index([user_id], map: "weekly_user_id")
-}
-
-model output_playlists {
-  id              String   @id @default(uuid())
-  playlist_id     String
-  input_playlists String[]
-  weekly          weekly   @relation(fields: [weekly_user_id], references: [user_id])
-  weekly_user_id  String
+  @@id([user_id, output_playlist_id])
 }
