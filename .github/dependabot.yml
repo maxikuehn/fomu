@@ -3,19 +3,18 @@
 # Please see the documentation for all configuration options:
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
-name: 🤖 Dependabot Update Check
 version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'daily'
-      time: '14:50'
+      time: '6:00'
       timezone: 'Europe/Berlin'
 
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
       interval: 'daily'
-      time: '14:50'
+      time: '6:00'
       timezone: 'Europe/Berlin'
