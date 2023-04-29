@@ -6,6 +6,7 @@
     "netlify dev": "netlify dev",
     "netlify dev live": "netlify dev --live",
     "build": "vite build",
+    "postinstall": "prisma generate",
     "preview": "vite preview --port=3001"
   },
   "browserslist": [
