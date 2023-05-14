@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const qs = require("qs")
-const { subtle } = globalThis.crypto
+const { subtle } = require("node:crypto").webcrypto
 
 const {
   VITE_SP_CLIENT_SECRET: client_secret,
