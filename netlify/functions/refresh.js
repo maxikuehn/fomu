@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const qs = require("qs")
-var crypto = require("crypto")
+const { subtle } = globalThis.crypto
 
 const {
   VITE_SP_CLIENT_SECRET: client_secret,
@@ -12,14 +12,14 @@ const {
 const prisma = new PrismaClient()
 
 const decrypt = async (cipher, iv) => {
-  const key = await crypto.subtle.importKey(
+  const key = await subtle.importKey(
     "raw",
     Buffer.from(sym_key),
     "AES-GCM",
     true,
     ["decrypt", "encrypt"]
   )
-  const encoded = await crypto.subtle.decrypt(
+  const encoded = await subtle.decrypt(
     {
       name: "AES-GCM",
       iv: iv,
