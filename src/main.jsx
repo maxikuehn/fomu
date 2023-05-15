@@ -12,8 +12,6 @@ import SiteNotFound from "./views/SiteNotFound"
 
 const App = lazy(() => import("./App"))
 
-if (import.meta.env.PROD) console.log = () => {}
-
 const container = document.getElementById("app")
 const root = createRoot(container)
 
