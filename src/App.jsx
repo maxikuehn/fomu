@@ -16,6 +16,7 @@ import { checkVersion } from "./services/AppVersion"
 import api from "./api"
 import Footer from "./components/Footer/Footer"
 import SpotifyPremiumHandler from "./components/SpotifyPremiumHandler"
+import { printWelcomeMessage } from "./services/welcomeMessage"
 
 const PlayerLayout = lazy(() => import("./views/PlayerLayout"))
 const ConfiguratorLayout = lazy(() => import("./views/ConfiguratorLayout"))
@@ -36,6 +37,8 @@ const App = () => {
     setPlayer(await api.player.get())
     setAppLoading(false)
   }
+
+  useEffect(() => printWelcomeMessage(), [])
 
   useEffect(() => {
     if (!loggedIn) return
