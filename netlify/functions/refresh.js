@@ -31,7 +31,7 @@ const decrypt = async (cipher, iv) => {
 }
 
 const handler = async function (event) {
-  const { cipher, iv } = JSON.parse(event.body)
+  const { data: cipher, hash: iv } = JSON.parse(event.body)
   if (!cipher || !iv) {
     return {
       statusCode: 400,

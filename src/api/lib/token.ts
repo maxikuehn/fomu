@@ -55,8 +55,8 @@ export const refresh = async (failedRequest: any) => {
     .post(
       "refresh",
       JSON.stringify({
-        cipher: pack(cipher),
-        iv: pack(iv),
+        data: pack(cipher),
+        hash: pack(iv),
       })
     )
     .then((resp) => {
