@@ -1,17 +1,50 @@
 const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const qs = require("qs")
+const { subtle } = require("crypto").webcrypto
 
-const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
-  process.env
+const {
+  VITE_SP_CLIENT_SECRET: client_secret,
+  VITE_SP_CLIENT_ID: client_id,
+  VITE_SYM_KEY: sym_key,
+} = process.env
 
 const prisma = new PrismaClient()
 
+const decrypt = async (cipher, iv) => {
+  const key = await subtle.importKey(
+    "raw",
+    Buffer.from(sym_key),
+    "AES-GCM",
+    true,
+    ["decrypt", "encrypt"]
+  )
+  const encoded = await subtle.decrypt(
+    {
+      name: "AES-GCM",
+      iv: iv,
+    },
+    key,
+    cipher
+  )
+  return new TextDecoder().decode(encoded)
+}
+
 const handler = async function (event) {
-  const body = JSON.parse(event.body)
+  const { cipher, iv } = JSON.parse(event.body)
+  if (!cipher || !iv) {
+    return {
+      statusCode: 400,
+      body: "Wrong body format",
+    }
+  }
+  const user_id = await decrypt(
+    Buffer.from(cipher, "base64"),
+    Buffer.from(iv, "base64")
+  )
   var refresh_token = await prisma.users
     .findUnique({
-      where: { id: body.user_id },
+      where: { id: user_id },
     })
     .then((user) => user.refresh_token)
   return axios
@@ -33,7 +66,7 @@ const handler = async function (event) {
     )
     .then(async (resp) => {
       await prisma.users.update({
-        where: { id: body.user_id },
+        where: { id: user_id },
         data: {
           refresh_token: resp.data.refresh_token,
         },
