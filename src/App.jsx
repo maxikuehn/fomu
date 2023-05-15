@@ -38,7 +38,9 @@ const App = () => {
     setAppLoading(false)
   }
 
-  useEffect(() => printWelcomeMessage(), [])
+  useEffect(() => {
+    printWelcomeMessage()
+  }, [])
 
   useEffect(() => {
     if (!loggedIn) return
