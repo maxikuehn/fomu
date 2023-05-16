@@ -6,7 +6,7 @@ const setVersion = (version) => {
   localStorage.setItem("version", version)
 }
 
-const getVersion = () => {
+export const getVersion = () => {
   return localStorage.getItem("version")
 }
 
