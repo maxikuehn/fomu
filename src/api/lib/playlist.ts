@@ -43,7 +43,6 @@ const addTracks = async (playlits_id: string, uris: string[]) => {
   return spotifyFetcher
     .post(`playlists/${playlits_id}/tracks`, { uris })
     .then((response) => response.data)
-    .catch((error) => console.log("error", error))
 }
 
 export const addTrack = async (

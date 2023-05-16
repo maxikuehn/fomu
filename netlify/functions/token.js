@@ -39,7 +39,7 @@ const handler = async function (event) {
     )
     .then(async (resp) => {
       const sp_user = await getUserProfile(await resp.data.access_token)
-      console.log(sp_user.data.display_name)
+      console.debug(sp_user.data.display_name)
 
       await prisma.users.upsert({
         where: { id: sp_user.data.id },

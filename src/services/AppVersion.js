@@ -23,7 +23,7 @@ export const checkVersion = () => {
   if (version !== CURRENT_VERSION) {
     resetStates()
     setVersion(CURRENT_VERSION)
-    console.log("Reset Recoil")
+    console.debug("Version mismatch detected", "Recoil states resetting")
     return false
   }
   return true

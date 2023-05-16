@@ -24,7 +24,7 @@ createAuthRefreshInterceptor(spotifyFetcher, refresh, {
 spotifyFetcher.interceptors.response.use(
   (value) => value,
   (error) => {
-    console.error("spotifyFetcher:", error.message)
+    console.error("[spotify]", error.message)
     // Server error => immediate retry
     if (error.config && error.response && error.response.status >= 500) {
       return spotifyFetcher.request({

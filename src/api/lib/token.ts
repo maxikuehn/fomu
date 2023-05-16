@@ -45,7 +45,7 @@ const pack = (buffer) =>
   window.btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
 
 export const refresh = async (failedRequest: any) => {
-  console.log("refreshing token..")
+  console.debug("refreshing token..")
   const user_id = getRecoil(currentUserState)?.id
   if (!user_id) return
 
@@ -70,7 +70,11 @@ export const refresh = async (failedRequest: any) => {
         failedRequest.response.config.headers[
           "Authorization"
         ] = `Bearer ${resp.data.access_token}`
-        console.log("failedRequest", failedRequest.response)
+        console.error(
+          "[spotify]",
+          "failed to authenticate",
+          failedRequest.response
+        )
       }
       return Promise.resolve()
     })
@@ -92,7 +96,7 @@ export const get = async (code: string) => {
       return resp.data
     })
     .catch((error) => {
-      console.error(error)
+      console.error("[spotify]", "failed to fetch token", error)
       return undefined
     })
 }

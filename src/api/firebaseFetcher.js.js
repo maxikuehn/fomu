@@ -11,7 +11,7 @@ const firebaseFetcher = axios.create({
 firebaseFetcher.interceptors.response.use(
   (value) => value,
   (error) => {
-    console.error("firebaseFetcher:", error.message)
+    console.error("[firebase]", error.message)
     return Promise.reject(error)
   }
 )
