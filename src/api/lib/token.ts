@@ -70,9 +70,9 @@ export const refresh = async (failedRequest: any) => {
         failedRequest.response.config.headers[
           "Authorization"
         ] = `Bearer ${resp.data.access_token}`
-        console.error(
+        console.debug(
           "[spotify]",
-          "failed to authenticate",
+          "repeating failed request with new token",
           failedRequest.response
         )
       }
