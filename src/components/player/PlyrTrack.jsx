@@ -17,9 +17,13 @@ const PlyrTrack = ({ track }) => {
   )
 
   const handleClickLike = () => {
-    if (liked) api.track.saveTrack(id)
-    else api.track.removeTrack(id)
-    setLiked(!liked)
+    if (liked) {
+      api.track.removeTrack(id)
+      setLiked(false)
+    } else {
+      api.track.saveTrack(id)
+      setLiked(true)
+    }
   }
 
   const {
