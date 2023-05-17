@@ -2,62 +2,23 @@ import { getRecoil, setRecoil, resetRecoil } from "recoil-nexus"
 import { currentUserState, spotifyAuthState } from "../../recoil"
 import scopes from "../../services/Scopes"
 import netlifyFetcher from "../netlifyFetcher"
+import { encrypt } from "../../services/encryption"
 
 const BASE_URL = window.location.origin
 const REDIRECT_URI = BASE_URL + "/callback"
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
-const SYM_KEY = import.meta.env.VITE_SYM_KEY
-
-function str2ab(str) {
-  const buf = new ArrayBuffer(str.length)
-  const bufView = new Uint8Array(buf)
-  for (let i = 0, strLen = str.length; i < strLen; i++) {
-    bufView[i] = str.charCodeAt(i)
-  }
-  return buf
-}
-
-const encrypt = async (data) => {
-  const key = await window.crypto.subtle.importKey(
-    "raw",
-    str2ab(SYM_KEY),
-    "AES-GCM",
-    true,
-    ["decrypt", "encrypt"]
-  )
-  const encoded = new TextEncoder().encode(data)
-  const iv = crypto.getRandomValues(new Uint8Array(12))
-  const cipher = await crypto.subtle.encrypt(
-    {
-      name: "AES-GCM",
-      iv,
-    },
-    key,
-    encoded
-  )
-  return {
-    cipher,
-    iv,
-  }
-}
-
-const pack = (buffer) =>
-  window.btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
 
 export const refresh = async (failedRequest: any) => {
   console.debug("refreshing token..")
   const user_id = getRecoil(currentUserState)?.id
   if (!user_id) return
 
-  const { cipher, iv } = await encrypt(user_id)
-
+  const publicKeyData = (await netlifyFetcher.get("public")).data
+  const cipher = await encrypt(user_id, publicKeyData)
   return netlifyFetcher
     .post(
       "refresh",
-      JSON.stringify({
-        data: pack(cipher),
-        hash: pack(iv),
-      })
+      cipher
     )
     .then((resp) => {
       setRecoil(
