@@ -17,7 +17,7 @@ import api from "../../api"
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey py-1 px-2">
+    <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey px-2 py-1">
       {images.length > 0 ? (
         <Image
           src={images[images.length - 1].url}

@@ -46,4 +46,3 @@ export async function encrypt(data, keyData) {
   )
   return window.btoa(String.fromCharCode.apply(null, new Uint8Array(buffer)))
 }
-

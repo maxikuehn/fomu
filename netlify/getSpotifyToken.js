@@ -2,15 +2,12 @@ const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const qs = require("qs")
 
-const {
-  VITE_SP_CLIENT_SECRET: client_secret,
-  VITE_SP_CLIENT_ID: client_id,
-} = process.env
+const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
+  process.env
 
 const prisma = new PrismaClient()
 
 const getSpotifyToken = async function (user_id) {
-
   var refresh_token = await prisma.users
     .findUnique({
       where: { id: user_id },

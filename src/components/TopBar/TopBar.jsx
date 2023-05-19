@@ -3,7 +3,12 @@ import { Avatar, Button, Dropdown, Menu } from "antd"
 import Text from "antd/lib/typography/Text"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
-import { appState, currentUserState, logout, spotifyAuthState } from "../../recoil"
+import {
+  appState,
+  currentUserState,
+  logout,
+  spotifyAuthState,
+} from "../../recoil"
 import { EAppState } from "../../types"
 import AccountDialog from "./AccountDialog"
 import InformationDialog from "./InformationDialog"
@@ -18,7 +23,7 @@ const TopBar = () => {
   const [openWeekly, setOpenWeekly] = useState(false)
   const [openAccount, setOpenAccount] = useState(false)
   const [openInfo, setOpenInfo] = useState(false)
-  const setAuth = useSetRecoilState(spotifyAuthState);
+  const setAuth = useSetRecoilState(spotifyAuthState)
 
   if (!currentUserProfile) return <div />
 
@@ -68,14 +73,17 @@ const TopBar = () => {
         )}
         <div />
         {dev && (
-          <Button onClick={() => {
-            setAuth(state => ({
-              access_token: "reset",
-              name: state.name
-            })
-            )
-            window.location.reload();
-          }}>trigger auth refresh</Button>
+          <Button
+            onClick={() => {
+              setAuth((state) => ({
+                access_token: "reset",
+                name: state.name,
+              }))
+              window.location.reload()
+            }}
+          >
+            trigger auth refresh
+          </Button>
         )}
         <Dropdown
           menu={{ items }}

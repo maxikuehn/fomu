@@ -8,13 +8,19 @@ async function importPrivateKey() {
     pemHeader.length,
     pem.length - pemFooter.length
   )
-  const binaryDer = Buffer.from(pemContents, 'base64')
-  const key = await subtle.importKey("pkcs8", binaryDer, {
-    name: 'RSA-OAEP',
-    hash: "SHA-256",
-  }, true, ['decrypt']);
+  const binaryDer = Buffer.from(pemContents, "base64")
+  const key = await subtle.importKey(
+    "pkcs8",
+    binaryDer,
+    {
+      name: "RSA-OAEP",
+      hash: "SHA-256",
+    },
+    true,
+    ["decrypt"]
+  )
 
-  return key;
+  return key
 }
 
 async function decrypt(ciphertext) {
@@ -23,8 +29,8 @@ async function decrypt(ciphertext) {
     { name: "RSA-OAEP" },
     privateKey,
     ciphertext
-  );
-  return new TextDecoder().decode(decrypted);
+  )
+  return new TextDecoder().decode(decrypted)
 }
 
 module.exports = { decrypt }

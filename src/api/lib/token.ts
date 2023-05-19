@@ -16,10 +16,7 @@ export const refresh = async (failedRequest: any) => {
   const publicKeyData = (await netlifyFetcher.get("public")).data
   const cipher = await encrypt(user_id, publicKeyData)
   return netlifyFetcher
-    .post(
-      "refresh",
-      cipher
-    )
+    .post("refresh", cipher)
     .then((resp) => {
       setRecoil(
         spotifyAuthState,

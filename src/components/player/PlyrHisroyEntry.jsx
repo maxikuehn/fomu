@@ -86,7 +86,7 @@ const PlyrHistoryEntry = ({
             deleted ? "grayscale" : "cursor-pointer"
           }`}
           onClick={() => {
-            if(deleted) return
+            if (deleted) return
             api.playlist
               .removeTracks(contextId, [uri])
               .then(decreaseJoinTrackTotal)
