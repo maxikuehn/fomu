@@ -1,7 +1,7 @@
-const { schedule } = require("@netlify/functions");
-const { PrismaClient } = require("@prisma/client");
+const { schedule } = require("@netlify/functions")
+const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
-const { getSpotifyToken } = require("../getSpotifyToken");
+const { getSpotifyToken } = require("../getSpotifyToken")
 const _pullAll = require("lodash/pullAll")
 const _uniq = require("lodash/uniq")
 
@@ -19,21 +19,21 @@ const handler = async function (_, _) {
       input_playlist_id: true,
       output_playlist_id: true,
     },
-  });
+  })
 
-  weeklyUsers.forEach(handleUser);
+  weeklyUsers.forEach(handleUser)
 
   return {
     statusCode: 200,
-  };
-};
+  }
+}
 
 const handleUser = async (user) => {
-  const { user_id, input_playlist_id, output_playlist_id } = user;
-  const tokenrequest = await getSpotifyToken(user_id);
+  const { user_id, input_playlist_id, output_playlist_id } = user
+  const tokenrequest = await getSpotifyToken(user_id)
   if (tokenrequest.statusCode !== 200) return
 
-  const access_token = JSON.parse((tokenrequest).body);
+  const access_token = JSON.parse(tokenrequest.body)
 
   spotifyFetcher.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${access_token}`
@@ -87,5 +87,5 @@ const addTracks = async (playlits_id, uris) => {
     .then((response) => response.data)
 }
 
-exports.handler = schedule("* * * * *", handler);
+exports.handler = schedule("* * * * *", handler)
 // exports.handler = schedule("20 4 * * MON", handler);
