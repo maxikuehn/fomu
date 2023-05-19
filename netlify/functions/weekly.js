@@ -1,9 +1,9 @@
-const { schedule } = require("@netlify/functions")
 const { PrismaClient } = require("@prisma/client")
 const axios = require("axios")
 const { getSpotifyToken } = require("../getSpotifyToken")
 const _pullAll = require("lodash/pullAll")
 const _uniq = require("lodash/uniq")
+const { schedule } = require("@netlify/functions")
 
 const prisma = new PrismaClient()
 
@@ -12,7 +12,7 @@ const spotifyFetcher = axios.create({
   timeout: 3000,
 })
 
-const handler = async function (_, _) {
+const weekly = async function (_, _) {
   const weeklyUsers = await prisma.weekly.findMany({
     select: {
       user_id: true,
@@ -87,5 +87,5 @@ const addTracks = async (playlits_id, uris) => {
     .then((response) => response.data)
 }
 
-exports.handler = schedule("* * * * *", handler)
+exports.handler = schedule("@hourly", weekly)
 // exports.handler = schedule("20 4 * * MON", handler);
