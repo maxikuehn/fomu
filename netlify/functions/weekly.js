@@ -13,6 +13,7 @@ const spotifyFetcher = axios.create({
 })
 
 const weekly = async function (_, _) {
+  console.log("Running weekly");
   const weeklyUsers = await prisma.weekly.findMany({
     select: {
       user_id: true,
