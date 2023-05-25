@@ -24,8 +24,11 @@ const handler = async function (event, context) {
 
   console.log('weeklyUsers', weeklyUsers)
 
-  weeklyUsers.forEach(handleUser)
+  const promises = weeklyUsers.map(handleUser)
+  await Promise.all(promises)
 
+  console.log("finished weekly");
+  await prisma.$disconnect()
   return {
     statusCode: 200,
   }
