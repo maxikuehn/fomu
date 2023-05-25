@@ -22,6 +22,8 @@ const handler = async function (event, context) {
     },
   })
 
+  console.log('weeklyUsers', weeklyUsers)
+
   weeklyUsers.forEach(handleUser)
 
   return {
@@ -31,8 +33,13 @@ const handler = async function (event, context) {
 
 const handleUser = async (user) => {
   const { user_id, input_playlist_id, output_playlist_id } = user
+  console.log("handleUser", user_id)
   const tokenrequest = await getSpotifyToken(user_id)
-  if (tokenrequest.statusCode !== 200) return
+
+  if (tokenrequest.statusCode !== 200) {
+    console.error("failed to load token")
+    return
+  }
 
   const access_token = JSON.parse(tokenrequest.body)
 
@@ -45,6 +52,7 @@ const handleUser = async (user) => {
 }
 
 const combine = async (destinationId, sourceId) => {
+  console.log("combine", destinationId, sourceId);
   const tracks = _uniq(
     (await Promise.all(sourceId.map((playlist) => itemUris(playlist)))).flat()
   )
@@ -88,5 +96,5 @@ const addTracks = async (playlits_id, uris) => {
     .then((response) => response.data)
 }
 
-exports.handler = schedule("@hourly", handler)
+exports.handler = schedule("* * * * *", handler)
 // exports.handler = schedule("20 4 * * MON", handler);
