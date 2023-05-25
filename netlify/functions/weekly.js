@@ -95,4 +95,5 @@ const addTracks = async (playlits_id, uris) => {
     .then((response) => response.data)
 }
 
-exports.handler = schedule("20 4 * * MON", handler);
+exports.handler = schedule("* * * * *", handler);
+//exports.handler = schedule("20 4 * * MON", handler);
