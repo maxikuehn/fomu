@@ -34,7 +34,7 @@ const TopBar = () => {
       key: "info",
     },
     {
-      onlydev: true,
+      onlydev: false,
       label: "Mix der Woche",
       onClick: () => setOpenWeekly(true),
       key: "weekly",

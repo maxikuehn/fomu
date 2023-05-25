@@ -32,22 +32,14 @@ const AccountDialog = ({ open, handleClose: propsHandleClose }) => {
       footer={null}
     >
       <div className="flex flex-col space-y-12">
-        {dev && (
-          <>
-            <div className="flex flex-col space-y-2">
-              <Text className="text-2xl font-semibold">
-                Weekly deaktivieren
-              </Text>
-              <Text>
-                Es werden keine Playlists mehr automatisch gespeichert.
-              </Text>
-              <Button type="primary" onClick={gehtnochnicht}>
-                Weekly deaktivieren
-              </Button>
-            </div>
-            <Divider />
-          </>
-        )}
+        <div className="flex flex-col space-y-2">
+          <Text className="text-2xl font-semibold">Weekly deaktivieren</Text>
+          <Text>Es werden keine Playlists mehr automatisch gespeichert.</Text>
+          <Button type="primary" onClick={gehtnochnicht}>
+            Weekly deaktivieren
+          </Button>
+        </div>
+        <Divider />
 
         <div className="flex flex-col space-y-2">
           <Text className="text-2xl font-semibold">
