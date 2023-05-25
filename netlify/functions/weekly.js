@@ -24,8 +24,7 @@ const handler = async function (event, context) {
 
   console.log('weeklyUsers', weeklyUsers)
 
-  const promises = weeklyUsers.map(handleUser)
-  await Promise.all(promises)
+  await Promise.all(weeklyUsers.map(handleUser))
 
   console.log("finished weekly");
   await prisma.$disconnect()
@@ -36,7 +35,6 @@ const handler = async function (event, context) {
 
 const handleUser = async (user) => {
   const { user_id, input_playlist_id, output_playlist_id } = user
-  console.log("handleUser", user_id)
   const tokenrequest = await getSpotifyToken(user_id)
 
   if (tokenrequest.statusCode !== 200) {
@@ -51,23 +49,18 @@ const handleUser = async (user) => {
     return config
   })
 
-  return await combine(output_playlist_id, input_playlist_id)
+  return combine(output_playlist_id, input_playlist_id)
 }
 
 const combine = async (destinationId, sourceId) => {
-  console.log("combine", destinationId, sourceId);
   const tracks = _uniq(
     (await Promise.all(sourceId.map(itemUris))).flat()
   )
-  console.log("new tracks", tracks.length);
-
   const existingTracks = await itemUris(destinationId)
-  console.log("existing tracks", existingTracks.length);
-
   _pullAll(tracks, existingTracks)
 
   let chunks = chunk(tracks, 100)
-  return await Promise.all(chunks.map((tr) => addTracks(destinationId, tr)))
+  return Promise.all(chunks.map((tr) => addTracks(destinationId, tr)))
 }
 
 const itemUris = async (playlits_id, offset = 0) => {
@@ -97,11 +90,9 @@ const chunk = (arr, chunkSize = 1) => {
 }
 
 const addTracks = async (playlits_id, uris) => {
-  console.log("adding tracks to playlist", playlits_id, uris);
   return spotifyFetcher
     .post(`playlists/${playlits_id}/tracks`, { uris })
     .then((response) => response.data)
 }
 
-exports.handler = schedule("* * * * *", handler)
-// exports.handler = schedule("20 4 * * MON", handler);
+exports.handler = schedule("20 4 * * MON", handler);
