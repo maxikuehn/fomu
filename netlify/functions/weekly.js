@@ -57,10 +57,13 @@ const handleUser = async (user) => {
 const combine = async (destinationId, sourceId) => {
   console.log("combine", destinationId, sourceId);
   const tracks = _uniq(
-    (await Promise.all(sourceId.map((playlist) => itemUris(playlist)))).flat()
+    (await Promise.all(sourceId.map(itemUris))).flat()
   )
+  console.log("new tracks", tracks.length);
 
   const existingTracks = await itemUris(destinationId)
+  console.log("existing tracks", existingTracks.length);
+
   _pullAll(tracks, existingTracks)
 
   let chunks = chunk(tracks, 100)
@@ -94,6 +97,7 @@ const chunk = (arr, chunkSize = 1) => {
 }
 
 const addTracks = async (playlits_id, uris) => {
+  console.log("adding tracks to playlist", playlits_id, uris);
   return spotifyFetcher
     .post(`playlists/${playlits_id}/tracks`, { uris })
     .then((response) => response.data)
