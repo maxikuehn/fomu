@@ -51,7 +51,7 @@ const handleUser = async (user) => {
     return config
   })
 
-  combine(output_playlist_id, input_playlist_id)
+  return await combine(output_playlist_id, input_playlist_id)
 }
 
 const combine = async (destinationId, sourceId) => {
