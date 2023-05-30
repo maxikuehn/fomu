@@ -1,6 +1,6 @@
 import { resetStates } from "../recoil"
 
-const CURRENT_VERSION = "1.0.0"
+const CURRENT_VERSION = "1.0.1"
 
 const setVersion = (version) => {
   localStorage.setItem("version", version)
