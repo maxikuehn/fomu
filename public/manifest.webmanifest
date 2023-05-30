@@ -4,6 +4,7 @@
   "start_url": ".",
   "display": "standalone",
   "background_color": "#ff0000",
+  "theme_color": "#ff0000",
   "description": "FOMU4",
   "icons": [
     {
