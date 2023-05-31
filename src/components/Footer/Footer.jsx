@@ -16,7 +16,6 @@ const Footer = () => {
         className="cursor-pointer"
         onClick={() => window.open("https://spotify.com/", "_blank")}
       />
-      {/* </div> */}
     </div>
   )
 }
