@@ -19,11 +19,10 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
     <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey px-2 py-1">
       {images.length > 0 ? (
-        <Image
+        <img
           src={images[images.length - 1].url}
           width={52}
           height={52}
-          preview={false}
           alt="PlaylistCoverImage"
         />
       ) : (
@@ -31,7 +30,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
           <Music size={45} strokeWidth={1} className="stroke-primary-0" />
         </div>
       )}
-      <div className="max-w-[250px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg">
+      <div className="md:max-w-[250px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg">
         {name}
       </div>
       {trackContained ? (
@@ -80,7 +79,7 @@ const PlyrPlaylistAdd = () => {
   }, [player])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       let _existingTracks = await Promise.all(
         outputPlaylists.map((p) => api.playlist.itemUris(p.id))
       )
@@ -112,14 +111,14 @@ const PlyrPlaylistAdd = () => {
 
   return (
     <div
-      className="flex max-h-[calc(100vh-135px)] basis-96 items-center p-5"
+      className="flex flex-1 md:flex-initial md:max-h-[calc(100vh-135px)] items-center p-2 md:order-last"
       id="PlayerPlaylistAdd"
     >
-      <div className="flex flex-1 flex-col items-center gap-2">
-        <span className="self-start px-4 text-2xl font-semibold">
+      <div className="flex flex-1 flex-col max-h-[calc(100vh-280px)] items-center gap-2 w-full h-full md:w-fit md:px-4">
+        <span className="self-start px-4 text-2xl font-semibold hidden md:block">
           Track speichern
         </span>
-        <div className="custom-scrollbar flex max-h-[50vh] w-full flex-col gap-1 overflow-auto rounded border-2 border-primary-400 p-2">
+        <div className="custom-scrollbar flex md:max-h-[50vh] w-full flex-col gap-1 overflow-y-auto rounded border-2 border-primary-400 p-2">
           {outputPlaylists.map((p, i) => (
             <Playlist
               index={i}
@@ -132,12 +131,12 @@ const PlyrPlaylistAdd = () => {
             />
           ))}
         </div>
-        <div className="mt-6 flex flex-col items-center self-center">
+        <div className="mt-2 md:mt-6 flex flex-col items-center self-center">
           <ArrowRightCircle
             onClick={handleSubmit}
             size={"60%"}
             strokeWidth={0.3}
-            className="cursor-pointer rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+            className="cursor-pointer rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 hidden md:block"
           />
           <p
             onClick={handleSubmit}

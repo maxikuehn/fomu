@@ -72,7 +72,7 @@ const TopBar = () => {
           </Button>
         )}
         <div />
-        {dev && (
+        {false && (
           <Button
             onClick={() => {
               setAuth((state) => ({

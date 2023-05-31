@@ -9,6 +9,7 @@ import {
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 import api from "../../api"
+import PlyrTrackInfo from "./PlyrTrackInfo"
 
 let lastTrack = ""
 
@@ -61,15 +62,15 @@ function PlyrPlayer() {
         index > -1
           ? history.splice(index, 1)[0]
           : {
-              uri: item.uri,
-              name: item.name,
-              artists: item.artists.map((artist) => ({
-                uri: artist.uri,
-                name: artist.name,
-              })),
-              image: item.album.images[item.album.images.length - 1].url,
-              deleted: false,
-            }
+            uri: item.uri,
+            name: item.name,
+            artists: item.artists.map((artist) => ({
+              uri: artist.uri,
+              name: artist.name,
+            })),
+            image: item.album.images[item.album.images.length - 1].url,
+            deleted: false,
+          }
       return [element, ...history]
     })
   }, [player?.item])
@@ -81,17 +82,18 @@ function PlyrPlayer() {
   const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
 
   return (
-    <div className="flex flex-auto justify-center" id="Player">
-      <div className="flex w-[60vh] max-w-[640px] flex-col justify-center gap-10">
+    <div className="flex px-4 md:max-w-[640px] flex-col justify-center gap-2 md:gap-10">
+      <div className="flex md:flex-col gap-2">
         <PlyrTrack track={item || {}} />
-        <PlyrControlls
-          isPlaying={is_playing}
-          progress={progress_ms}
-          duration={item?.duration_ms}
-          repeatState={repeat_state}
-          shuffleState={shuffle_state}
-        />
+        <PlyrTrackInfo track={item || {}} />
       </div>
+      <PlyrControlls
+        isPlaying={is_playing}
+        progress={progress_ms}
+        duration={item?.duration_ms}
+        repeatState={repeat_state}
+        shuffleState={shuffle_state}
+      />
     </div>
   )
 }
