@@ -13,7 +13,7 @@ const Footer = () => {
         height={24}
         preview={false}
         draggable={false}
-        className="cursor-pointer"
+        className="cursor-pointer hidden md:block"
         onClick={() => window.open("https://spotify.com/", "_blank")}
       />
     </div>
