@@ -131,8 +131,8 @@ const PlyrControlls = ({
   }
 
   return (
-    <div className=" flex w-full flex-col px-2" id="container">
-      <Space className=" justify-center" size={40} align="center">
+    <div className="align-center flex w-full flex-col" id="container">
+      <div className="mx-8 hidden justify-around gap-2 md:flex">
         <Badge
           count={
             shuffleState ? (
@@ -180,8 +180,8 @@ const PlyrControlls = ({
         >
           <Cast {...iconProps} />
         </Dropdown>
-      </Space>
-      <div className="flex gap-1" direction="horizontal">
+      </div>
+      <div className="flex gap-1">
         <span className="w-10 text-right text-primary-300">
           {formatMinute(progress)}
         </span>

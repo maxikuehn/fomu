@@ -9,6 +9,7 @@ import {
 import PlyrControlls from "./PlyrControlls"
 import PlyrTrack from "./PlyrTrack"
 import api from "../../api"
+import PlyrTrackInfo from "./PlyrTrackInfo"
 
 let lastTrack = ""
 
@@ -81,17 +82,18 @@ function PlyrPlayer() {
   const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
 
   return (
-    <div className="flex flex-auto justify-center" id="Player">
-      <div className="flex w-[60vh] max-w-[640px] flex-col justify-center gap-10">
+    <div className="flex flex-col justify-center gap-2 px-4 md:max-w-[640px] md:gap-10">
+      <div className="flex gap-2 md:flex-col">
         <PlyrTrack track={item || {}} />
-        <PlyrControlls
-          isPlaying={is_playing}
-          progress={progress_ms}
-          duration={item?.duration_ms}
-          repeatState={repeat_state}
-          shuffleState={shuffle_state}
-        />
+        <PlyrTrackInfo track={item || {}} />
       </div>
+      <PlyrControlls
+        isPlaying={is_playing}
+        progress={progress_ms}
+        duration={item?.duration_ms}
+        repeatState={repeat_state}
+        shuffleState={shuffle_state}
+      />
     </div>
   )
 }

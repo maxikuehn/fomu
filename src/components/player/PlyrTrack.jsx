@@ -33,52 +33,16 @@ const PlyrTrack = ({ track }) => {
     id = "podcast",
   } = track
 
-  return (
-    <Space direction="vertical">
-      {album ? (
-        <Image
-          src={album.images[0].url}
-          preview={false}
-          alt="CurrentTrackCoverImage"
-        />
-      ) : (
-        <div className="flex h-[60vh] w-[60vh] items-center justify-center">
-          <Mic size={"50%"} strokeWidth={0.3} className="stroke-primary-600" />
-        </div>
-      )}
-      <div className="flex items-center justify-between">
-        <Space direction="vertical" size={0}>
-          <span
-            onClick={() => window.open(track.uri, "_self")}
-            className="cursor-pointer text-base font-semibold underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
-          >
-            {name}
-          </span>
-          <div>
-            {artists
-              .map((a, i) => (
-                <span
-                  onClick={() => window.open(a.uri, "_self")}
-                  className="cursor-pointer text-sm underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
-                  key={i}
-                >
-                  {a.name}
-                </span>
-              ))
-              .reduce((prev, curr) => [prev, ", ", curr])}
-          </div>
-        </Space>
-        <Image
-          alt="likeHeart"
-          height={35}
-          width={35}
-          className="cursor-pointer hover:brightness-90 active:brightness-75"
-          src={liked ? heartActive : heartInactive}
-          onClick={handleClickLike}
-          preview={false}
-        />
-      </div>
-    </Space>
+  return album ? (
+    <img
+      src={album.images[0].url}
+      alt="CurrentTrackCoverImage"
+      className="aspect-square h-16 md:h-fit"
+    />
+  ) : (
+    <div className="flex h-[60vh] w-[60vh] items-center justify-center">
+      <Mic size={"50%"} strokeWidth={0.3} className="stroke-primary-600" />
+    </div>
   )
 }
 

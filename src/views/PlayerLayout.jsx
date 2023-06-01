@@ -28,10 +28,13 @@ const PlayerLayout = () => {
         id="PlayerLayout"
       >
         <PlyrHistory />
-        <div className={`flex h-full justify-around`} id="PlayerContainer">
+        <div
+          className={`flex h-full flex-col justify-around md:flex-row`}
+          id="PlayerContainer"
+        >
           <div
             className={`px-4 py-2 transition-dimension duration-500 ${
-              historyOpen ? "w-96" : "w-56"
+              historyOpen ? "md:w-96" : "w-56"
             } flex flex-col items-start justify-between`}
             id="PlayerSpacerLeft"
           >
@@ -43,8 +46,8 @@ const PlayerLayout = () => {
               Wiedergabeverlauf
             </Button>
           </div>
-          <PlyrPlayer />
           <PlyrPlaylistAdd />
+          <PlyrPlayer />
           <div
             id="PlayerSpacerRight"
             className={`transition-dimension duration-500 ${
