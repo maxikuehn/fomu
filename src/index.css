@@ -30,6 +30,10 @@ body {
   width: 100%;
 }
 
+.ant-btn-primary{
+  background-color: #156DC4;
+}
+
 @font-face {
   font-family: "Metropolis";
   src: url("./assets/fonts/Metropolis/WOFF2/Metropolis-Thin.woff2")
