@@ -65,7 +65,7 @@ const App = () => {
   }
 
   return (
-    <div className="h-full bg-background">
+    <div className="h-[100svh] bg-background">
       {loggedIn ? (
         appLoading ? (
           <LoadingPage />
