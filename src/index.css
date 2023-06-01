@@ -7,21 +7,25 @@
 
 html {
   color: #ffffffd9;
-  height: 100lvh;
-  background-color: #285e94;
+  background-color: #0d1117;
   overflow: hidden;
+  /* position: fixed; */
+  height: 100lvh;
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  /* border: 5px solid green; */
 }
 
 body {
-  border: 1px solid red;
-  height: 100svh;
-  width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+  /* border: 5px solid red; */
 }
 
-#app {
-  border: 1px solid blue;
+#app, .ant-app {
   height: 100%;
   width: 100%;
 }
