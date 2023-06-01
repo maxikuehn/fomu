@@ -1,13 +1,12 @@
+import "./index.css"
 import React, { lazy, Suspense } from "react"
 import { createRoot } from "react-dom/client"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { RecoilRoot } from "recoil"
 import RecoilNexus from "recoil-nexus"
-import "./index.css"
-import "antd/dist/antd.dark.css"
 import LoadingPage from "./views/LoadingPage"
-import { ConfigProvider } from "antd"
-import de_DE from "antd/lib/locale/de_DE"
+import { ConfigProvider, theme, App as AntdApp } from "antd"
+import de_DE from "antd/locale/de_DE"
 import SiteNotFound from "./views/SiteNotFound"
 
 const App = lazy(() => import("./App"))
@@ -17,24 +16,31 @@ const root = createRoot(container)
 
 root.render(
   <React.StrictMode>
-    <ConfigProvider locale={de_DE}>
-      <RecoilRoot>
-        <RecoilNexus />
-        <BrowserRouter>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Suspense fallback={<LoadingPage />}>
-                  <App />
-                </Suspense>
-              }
-            />
-            <Route path="callback" element={<LoadingPage />} />
-            <Route path="*" element={<SiteNotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </RecoilRoot>
+    <ConfigProvider
+      locale={de_DE}
+      theme={{
+        algorithm: theme.darkAlgorithm,
+      }}
+    >
+      <AntdApp>
+        <RecoilRoot>
+          <RecoilNexus />
+          <BrowserRouter>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Suspense fallback={<LoadingPage />}>
+                    <App />
+                  </Suspense>
+                }
+              />
+              <Route path="callback" element={<LoadingPage />} />
+              <Route path="*" element={<SiteNotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </RecoilRoot>
+      </AntdApp>
     </ConfigProvider>
   </React.StrictMode>
 )

@@ -1,9 +1,10 @@
-import { Button, Image, Space } from "antd"
-import Text from "antd/lib/typography/Text"
+import { Button, Image, Space, Typography } from "antd"
 import { useState } from "react"
 import { Music } from "react-feather"
 import { useRecoilState } from "recoil"
 import { inputPlaylistState, outputPlaylistState } from "../../recoil"
+
+const { Text } = Typography
 
 const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
   const [playlists, setPlaylists] = useRecoilState(
@@ -21,6 +22,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
     <Button
       type={selected ? "primary" : "default"}
       style={{ height: "auto" }}
+      className={selected ? "bg-primary-0" : "bg-transparent"}
       onClick={handleClickPlaylist}
     >
       <div className="flex flex-nowrap gap-2 py-1">
