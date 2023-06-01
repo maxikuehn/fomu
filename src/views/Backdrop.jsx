@@ -11,7 +11,7 @@ const Backdrop = ({ context }) => {
   const [currentDevice, setCurrentDevice] = useRecoilState(currentDeviceState)
 
   useEffect(() => {
-    ;async () => {
+    ; async () => {
       let deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setCurrentDevice(_find(deviceList, "is_active")?.id)
@@ -61,7 +61,7 @@ const Backdrop = ({ context }) => {
 
   return (
     <div
-      className="absolute inset-0 flex flex-col items-center justify-center gap-8 bg-slate-900 bg-opacity-90"
+      className="fixed inset-0 flex flex-col items-center justify-center gap-8 bg-slate-900 bg-opacity-90"
       id="Backdrop"
     >
       <div className="flex min-w-[300px] flex-col gap-2 rounded-lg border-2 border-primary-400 p-4">

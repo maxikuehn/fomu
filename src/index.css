@@ -9,7 +9,7 @@ html {
   color: #ffffffd9;
   background-color: #0d1117;
   overflow: hidden;
-  /* position: fixed; */
+  position: fixed;
   height: 100lvh;
   padding-top: env(safe-area-inset-top);
   padding-right: env(safe-area-inset-right);
@@ -21,7 +21,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* border: 5px solid red; */
 }
 
