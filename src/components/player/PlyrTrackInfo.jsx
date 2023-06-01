@@ -32,7 +32,7 @@ const PlyrTrackInfo = ({ track }) => {
   } = track
 
   return (
-    <div className="flex items-center justify-between flex-1">
+    <div className="flex flex-1 items-center justify-between">
       <Space direction="vertical" size={0}>
         <span
           onClick={() => window.open(track.uri, "_self")}

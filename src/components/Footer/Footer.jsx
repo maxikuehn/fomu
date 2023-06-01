@@ -4,7 +4,7 @@ import SpotifyLogo from "../../assets/images/Spotify_Logo_RGB_White.png"
 
 const Footer = () => {
   return (
-    <div className="z-10 w-full px-4 py-3 flex h-12 items-end space-x-2">
+    <div className="z-10 flex h-12 w-full items-end space-x-2 px-4 py-3">
       <PlyrCurrentlyPlayedPlaylist />
       <div className="flex-1" />
       <Image
@@ -13,7 +13,7 @@ const Footer = () => {
         height={24}
         preview={false}
         draggable={false}
-        className="cursor-pointer hidden md:block"
+        className="hidden cursor-pointer md:block"
         onClick={() => window.open("https://spotify.com/", "_blank")}
       />
     </div>

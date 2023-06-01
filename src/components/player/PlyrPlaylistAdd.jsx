@@ -30,7 +30,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
           <Music size={45} strokeWidth={1} className="stroke-primary-0" />
         </div>
       )}
-      <div className="md:max-w-[250px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg">
+      <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg md:max-w-[250px]">
         {name}
       </div>
       {trackContained ? (
@@ -79,7 +79,7 @@ const PlyrPlaylistAdd = () => {
   }, [player])
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       let _existingTracks = await Promise.all(
         outputPlaylists.map((p) => api.playlist.itemUris(p.id))
       )
@@ -111,14 +111,14 @@ const PlyrPlaylistAdd = () => {
 
   return (
     <div
-      className="flex flex-1 md:flex-initial md:max-h-[calc(100vh-135px)] items-center p-2 md:order-last"
+      className="flex flex-1 items-center p-2 md:order-last md:max-h-[calc(100vh-135px)] md:flex-initial"
       id="PlayerPlaylistAdd"
     >
-      <div className="flex flex-1 flex-col max-h-[calc(100vh-280px)] items-center gap-2 w-full h-full md:w-fit md:px-4">
-        <span className="self-start px-4 text-2xl font-semibold hidden md:block">
+      <div className="flex h-full max-h-[calc(100vh-280px)] w-full flex-1 flex-col items-center gap-2 md:w-fit md:px-4">
+        <span className="hidden self-start px-4 text-2xl font-semibold md:block">
           Track speichern
         </span>
-        <div className="custom-scrollbar flex md:max-h-[50vh] w-full flex-col gap-1 overflow-y-auto rounded border-2 border-primary-400 p-2">
+        <div className="custom-scrollbar flex w-full flex-col gap-1 overflow-y-auto rounded border-2 border-primary-400 p-2 md:max-h-[50vh]">
           {outputPlaylists.map((p, i) => (
             <Playlist
               index={i}
@@ -131,12 +131,12 @@ const PlyrPlaylistAdd = () => {
             />
           ))}
         </div>
-        <div className="mt-2 md:mt-6 flex flex-col items-center self-center">
+        <div className="mt-2 flex flex-col items-center self-center md:mt-6">
           <ArrowRightCircle
             onClick={handleSubmit}
             size={"60%"}
             strokeWidth={0.3}
-            className="cursor-pointer rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 hidden md:block"
+            className="hidden cursor-pointer rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600 md:block"
           />
           <p
             onClick={handleSubmit}

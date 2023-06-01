@@ -62,15 +62,15 @@ function PlyrPlayer() {
         index > -1
           ? history.splice(index, 1)[0]
           : {
-            uri: item.uri,
-            name: item.name,
-            artists: item.artists.map((artist) => ({
-              uri: artist.uri,
-              name: artist.name,
-            })),
-            image: item.album.images[item.album.images.length - 1].url,
-            deleted: false,
-          }
+              uri: item.uri,
+              name: item.name,
+              artists: item.artists.map((artist) => ({
+                uri: artist.uri,
+                name: artist.name,
+              })),
+              image: item.album.images[item.album.images.length - 1].url,
+              deleted: false,
+            }
       return [element, ...history]
     })
   }, [player?.item])
@@ -82,8 +82,8 @@ function PlyrPlayer() {
   const { item, is_playing, progress_ms, repeat_state, shuffle_state } = player
 
   return (
-    <div className="flex px-4 md:max-w-[640px] flex-col justify-center gap-2 md:gap-10">
-      <div className="flex md:flex-col gap-2">
+    <div className="flex flex-col justify-center gap-2 px-4 md:max-w-[640px] md:gap-10">
+      <div className="flex gap-2 md:flex-col">
         <PlyrTrack track={item || {}} />
         <PlyrTrackInfo track={item || {}} />
       </div>

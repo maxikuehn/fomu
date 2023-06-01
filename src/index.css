@@ -5,7 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body {
+html,
+body {
   border: 1px solid red;
   height: 100lvh;
   width: 100%;

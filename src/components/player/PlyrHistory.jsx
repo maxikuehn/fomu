@@ -20,8 +20,9 @@ const PlyrHistory = () => {
   return (
     <div
       id="PlayerHistory"
-      className={`fixed left-0 z-10 h-[calc(100vh-77px-40px)] transition-dimension duration-300 ${historyOpen ? "w-full md:w-96" : "w-0"
-        } overflow-hidden bg-background`}
+      className={`fixed left-0 z-10 h-[calc(100vh-77px-40px)] transition-dimension duration-300 ${
+        historyOpen ? "w-full md:w-96" : "w-0"
+      } overflow-hidden bg-background`}
     >
       <div id="sidebar" className="flex h-full w-full flex-col gap-2 p-2 px-4">
         <div className="mr-[10px] flex">
