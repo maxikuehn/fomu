@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons"
-import { Button, Input } from "antd"
+import { Button, Input, Space } from "antd"
 import { useState } from "react"
 import { useRecoilValue } from "recoil"
 import {
@@ -23,7 +23,7 @@ const CnfDestination = () => {
 
   return (
     <CnfContainer title="Ziel Playlists" badgeCount={outputPlaylists.length}>
-      <Input.Group compact className="w-full">
+      <Space.Compact className="w-full">
         <Input
           placeholder="neue Playlist"
           style={{ width: "calc(100% - 32px)" }}
@@ -33,7 +33,7 @@ const CnfDestination = () => {
           onPressEnter={handleAddPlaylist}
         />
         <Button icon={<PlusOutlined />} onClick={handleAddPlaylist} />
-      </Input.Group>
+      </Space.Compact>
       {ownedPlaylists.map((p) => (
         <CnfPlaylist key={p.id} {...p} input={false} />
       ))}

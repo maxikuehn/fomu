@@ -1,6 +1,5 @@
 import { DownOutlined, LeftOutlined, UserOutlined } from "@ant-design/icons"
-import { Avatar, Button, Dropdown, Menu } from "antd"
-import Text from "antd/lib/typography/Text"
+import { Avatar, Button, Dropdown, Typography } from "antd"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
 import {
@@ -15,6 +14,7 @@ import InformationDialog from "./InformationDialog"
 import WeeklyDialog from "./WeeklyDialog"
 
 const dev = import.meta.env.DEV
+const { Text } = Typography
 
 const TopBar = () => {
   const currentUserProfile = useRecoilValue(currentUserState)
@@ -100,7 +100,7 @@ const TopBar = () => {
                 icon={<UserOutlined />}
                 alt="Spotify Account Profile Picture"
                 className="shadow-lg shadow-black"
-                style={{ backgroundColor: "grey" }}
+                style={{ backgroundColor: "grey", border: "none" }}
               />
               <Text strong underline className="pl-4 pr-2">
                 {currentUserProfile.display_name}
