@@ -1,9 +1,6 @@
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
-import { getThemeVariables } from "antd/dist/theme"
 import vitePluginImp from "vite-plugin-imp"
-
-// const { getThemeVariables } = require("antd/dist/theme")
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,7 +13,9 @@ export default defineConfig({
         {
           libName: "antd",
           libDirectory: "es",
-          style: (name) => `antd/es/${name}/style`,
+          style: (name) => {
+            if (name !== "theme") return `antd/es/${name}/style`
+          },
         },
       ],
     }),
@@ -47,14 +46,6 @@ export default defineConfig({
     },
     preprocessorOptions: {
       less: {
-        modifyVars: {
-          ...getThemeVariables({
-            dark: true,
-            // compact: true,
-          }),
-          // "@primary-color": "#285e94",
-          // "@text-color": "#0F0",
-        },
         javascriptEnabled: true,
       },
     },

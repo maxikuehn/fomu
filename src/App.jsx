@@ -40,6 +40,15 @@ const App = () => {
 
   useEffect(printWelcomeMessage, [])
 
+  // workaround for tailwindcss overriding antd styles
+  useEffect(() => {
+    const head = document.querySelector("head")
+    const tailWindStyleTag = [...head.querySelectorAll("style")].find((style) =>
+      style.innerHTML.includes("tailwind")
+    )
+    head.insertAdjacentElement("afterbegin", tailWindStyleTag)
+  }, [])
+
   useEffect(() => {
     if (!loggedIn) return
     initFetch()

@@ -17,7 +17,7 @@ const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
         <div className="flex-auto" />
         <Badge
           count={badgeCount}
-          style={{ backgroundColor: "rgb(25 64 110 / 1)" }}
+          style={{ backgroundColor: "rgb(25 64 110 / 1)", color: "whitesmoke" }}
         />
       </div>
       <div className="custom-scrollbar flex flex-col gap-1 overflow-auto rounded border-2 border-primary-400 p-2">
