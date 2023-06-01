@@ -86,7 +86,7 @@ const TopBar = () => {
           </Button>
         )}
         <Dropdown
-          menu={{ items }}
+          menu={{ items, onClick: () => setOpen(false) }}
           onOpenChange={setOpen}
           trigger="click"
           placement="bottomRight"
@@ -106,9 +106,7 @@ const TopBar = () => {
                 {currentUserProfile.display_name}
               </Text>
               <DownOutlined
-                size={"lg"}
-                rotate={open ? 180 : 0}
-                className="p-2"
+                className={`mr-2 bordser transition-all ${open && "rotate-180"}`}
               />
             </div>
           </div>
