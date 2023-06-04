@@ -44,17 +44,12 @@ const PlayerLayout = () => {
               Wiedergabeverlauf
             </Button>
           </div>
-          <div className="grow md:grow-0 relative md:order-last w-full md:max-w-md	">
+          <div className="grow md:grow-0 relative md:order-last w-full md:max-w-md">
             <div class="absolute top-0 bottom-0 right-0 left-0">
               <PlyrPlaylistAdd />
             </div>
           </div>
           <PlyrPlayer />
-          <div
-            id="PlayerSpacerRight"
-            className={`transition-dimension duration-500 ${historyOpen ? "w-0" : "lg:w-16"
-              }`}
-          />
         </div>
       </div >
       <Fade show={visible}>
