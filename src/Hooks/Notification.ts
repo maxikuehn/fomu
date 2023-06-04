@@ -20,6 +20,6 @@ export function useNotification({
     onClick: () => {
       message.destroy(key)
     },
-    className: "cursor-pointer",
+    className: "cursor-pointer mt-[env(safe-area-inset-top)]",
   })
 }
