@@ -64,7 +64,7 @@ const App = () => {
           <div className="flex flex-col h-full">
             <TopBar />
             <div className="flex-1 relative">
-              <div class="absolute top-0 bottom-0 right-0 left-0">
+              <div className="absolute top-0 bottom-0 right-0 left-0">
                 <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>
               </div>
             </div>
