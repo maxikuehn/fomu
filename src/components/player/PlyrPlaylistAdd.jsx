@@ -93,7 +93,6 @@ const PlyrPlaylistAdd = () => {
     })()
   }, [])
 
-  console.log('existingTracks', existingTracks)
 
   const handleClick = (id, index, contained) => {
     if (contained) {

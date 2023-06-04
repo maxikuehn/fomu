@@ -58,7 +58,9 @@ const App = () => {
   return (
     <div id="app-container" className="h-full bg-background">
       {loggedIn ? (
-        currentUserProfile?.product === "premium" ? (
+        appLoading ? (
+          <LoadingPage />
+        ) : currentUserProfile?.product === "premium" ? (
           <div className="flex flex-col h-full">
             <TopBar />
             <div className="flex-1 relative">
