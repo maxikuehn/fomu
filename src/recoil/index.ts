@@ -1,5 +1,6 @@
 export { appLoadingState } from "./appLoadingState"
 export { appState } from "./appState"
+export { mobileState } from "./mobileState"
 export { contextState, contextIdState } from "./contextState"
 export { currentDeviceState } from "./currentDeviceState"
 export {

@@ -3,7 +3,7 @@ import { Badge, Tooltip } from "antd"
 
 const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
   return (
-    <div className="flex max-h-[calc(100vh-151px)] max-w-[400px] flex-1 select-none flex-col">
+    <div className="flex max-h-full w-full flex-1 select-none flex-col md:max-w-[400px]">
       <div className="flex flex-nowrap items-center px-4 py-2">
         <span className="whitespace-nowrap text-2xl font-semibold">
           {title}
@@ -20,7 +20,7 @@ const CnfContainer = ({ title, badgeCount, tooltip, children }) => {
           style={{ backgroundColor: "rgb(25 64 110 / 1)", color: "whitesmoke" }}
         />
       </div>
-      <div className="custom-scrollbar flex flex-col gap-1 overflow-auto rounded border-2 border-primary-400 p-2">
+      <div className="custom-scrollbar flex flex-col gap-1 overflow-y-auto overflow-x-hidden rounded border-2 border-primary-400 p-2">
         {children}
       </div>
     </div>
