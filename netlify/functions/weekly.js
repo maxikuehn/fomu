@@ -22,11 +22,11 @@ const handler = async function (event, context) {
     },
   })
 
-  console.log('weeklyUsers', weeklyUsers)
+  console.log("weeklyUsers", weeklyUsers)
 
   await Promise.all(weeklyUsers.map(handleUser))
 
-  console.log("finished weekly");
+  console.log("finished weekly")
   await prisma.$disconnect()
   return {
     statusCode: 200,
@@ -53,9 +53,7 @@ const handleUser = async (user) => {
 }
 
 const combine = async (destinationId, sourceId) => {
-  const tracks = _uniq(
-    (await Promise.all(sourceId.map(itemUris))).flat()
-  )
+  const tracks = _uniq((await Promise.all(sourceId.map(itemUris))).flat())
   const existingTracks = await itemUris(destinationId)
   _pullAll(tracks, existingTracks)
 
@@ -95,4 +93,4 @@ const addTracks = async (playlits_id, uris) => {
     .then((response) => response.data)
 }
 
-exports.handler = schedule("20 4 * * MON", handler);
+exports.handler = schedule("20 4 * * MON", handler)

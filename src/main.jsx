@@ -22,7 +22,7 @@ root.render(
         algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: "#156DC4",
-        }
+        },
       }}
     >
       <AntdApp>

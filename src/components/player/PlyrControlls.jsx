@@ -22,28 +22,28 @@ import api from "../../api"
 const deviceList = ({ devices, selectedDevice, handleClickDevice }) =>
   devices.length === 0
     ? [
-      {
-        label: "Keine Geräte verfügbar",
-        key: "nodevice",
-        className: "text-center",
-      },
-    ]
+        {
+          label: "Keine Geräte verfügbar",
+          key: "nodevice",
+          className: "text-center",
+        },
+      ]
     : devices.map(({ id, name, type }) => ({
-      label: name,
-      key: id,
-      icon: (() => {
-        switch (type) {
-          case "Computer":
-            return <Monitor size={15} />
-          case "Smartphone":
-            return <Smartphone size={15} />
-          case "Speaker":
-            return <Speaker size={15} />
-        }
-      })(),
-      onClick: () => handleClickDevice(id),
-      className: `${id === selectedDevice && "bg-primary-600"}`,
-    }))
+        label: name,
+        key: id,
+        icon: (() => {
+          switch (type) {
+            case "Computer":
+              return <Monitor size={15} />
+            case "Smartphone":
+              return <Smartphone size={15} />
+            case "Speaker":
+              return <Speaker size={15} />
+          }
+        })(),
+        onClick: () => handleClickDevice(id),
+        className: `${id === selectedDevice && "bg-primary-600"}`,
+      }))
 
 const PlyrControlls = ({
   isPlaying,
@@ -59,7 +59,7 @@ const PlyrControlls = ({
   const dev = import.meta.env.MODE === "development"
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       let deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setSelectedDevice(_find(deviceList, "is_active")?.id)

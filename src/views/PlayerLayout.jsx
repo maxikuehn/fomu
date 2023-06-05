@@ -44,14 +44,14 @@ const PlayerLayout = () => {
               Wiedergabeverlauf
             </Button>
           </div>
-          <div className="grow md:grow-0 relative md:order-last w-full md:max-w-md">
-            <div className="absolute top-0 bottom-0 right-0 left-0">
+          <div className="relative w-full grow md:order-last md:max-w-md md:grow-0">
+            <div className="absolute bottom-0 left-0 right-0 top-0">
               <PlyrPlaylistAdd />
             </div>
           </div>
           <PlyrPlayer />
         </div>
-      </div >
+      </div>
       <Fade show={visible}>
         <Backdrop context={context} />
       </Fade>

@@ -25,13 +25,14 @@ body {
   /* border: 5px solid red; */
 }
 
-#app, .ant-app {
+#app,
+.ant-app {
   height: 100%;
   width: 100%;
 }
 
-.ant-btn-primary{
-  background-color: #156DC4;
+.ant-btn-primary {
+  background-color: #156dc4;
 }
 
 @font-face {

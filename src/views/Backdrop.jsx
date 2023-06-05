@@ -11,7 +11,7 @@ const Backdrop = ({ context }) => {
   const [currentDevice, setCurrentDevice] = useRecoilState(currentDeviceState)
 
   useEffect(() => {
-    ; async () => {
+    ;async () => {
       let deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setCurrentDevice(_find(deviceList, "is_active")?.id)
