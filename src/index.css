@@ -20,8 +20,12 @@ html {
 body {
   margin: 0;
   padding: 0;
-  /* overflow: hidden; */
-  /* border: 5px solid red; */
+}
+
+@media (min-width: 768px) {
+  body {
+    overflow: hidden;
+  }
 }
 
 #app,
