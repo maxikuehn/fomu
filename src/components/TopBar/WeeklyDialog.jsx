@@ -79,6 +79,9 @@ const WeeklyDialog = ({ open, handleClose }) => {
         onChange={setInputSelect}
         mode="multiple"
         optionLabelProp="label"
+        filterOption={(input, option) =>
+          (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+        }
       >
         {playlistRecommended.length > 0 ? (
           <>
