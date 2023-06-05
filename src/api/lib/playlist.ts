@@ -5,9 +5,9 @@ import { useNotification } from "../../Hooks/Notification"
 import { currentUserState } from "../../recoil"
 import spotifyFetcher from "../spotifyFetcher"
 
-const chunk = (arr: any[], chunkSize = 1) => {
+const chunk = <T>(arr: T[], chunkSize = 1) => {
   const tmp = [...arr]
-  const cache: any[] = []
+  const cache: T[][] = []
   if (chunkSize <= 0) return cache
   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
   return cache

@@ -8,6 +8,7 @@ const BASE_URL = window.location.origin
 const REDIRECT_URI = `${BASE_URL}/callback`
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
+// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const refresh = async (failedRequest: any) => {
   console.debug("refreshing token..")
   const user_id = getRecoil(currentUserState)?.id
