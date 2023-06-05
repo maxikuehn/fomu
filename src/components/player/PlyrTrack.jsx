@@ -1,37 +1,8 @@
-import React, { memo, useEffect, useState } from "react"
-import { Image, Space } from "antd"
-import heartInactive from "./../../assets/icons/heart-64.png"
-import heartActive from "./../../assets/icons/heart-64-active.png"
+import React, { memo } from "react"
 import { Mic } from "react-feather"
-import api from "../../api"
 
 const PlyrTrack = ({ track }) => {
-  const [liked, setLiked] = useState(false)
-
-  useEffect(
-    () => async () => {
-      if (!track.id) return
-      setLiked(await api.track.isSaved(track.id))
-    },
-    [track]
-  )
-
-  const handleClickLike = () => {
-    if (liked) {
-      api.track.removeTrack(id)
-      setLiked(false)
-    } else {
-      api.track.saveTrack(id)
-      setLiked(true)
-    }
-  }
-
-  const {
-    name = "podcast beste! aber funktioniert hier leider nicht..",
-    artists = [{ uri: "", name: "" }],
-    album,
-    id = "podcast",
-  } = track
+  const { album } = track
 
   return album ? (
     <img
