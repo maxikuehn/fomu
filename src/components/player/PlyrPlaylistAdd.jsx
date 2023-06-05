@@ -17,45 +17,39 @@ import api from "../../api"
 
 const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
   return (
-    <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey px-2 py-1"
-      onClick={() => handleClick(id, index, trackContained)
-      }
-    >
-      {
-        images.length > 0 ? (
-          <img
-            src={images[images.length - 1].url}
-            width={52}
-            height={52}
-            alt="PlaylistCoverImage"
-          />
-        ) : (
-          <div className="flex h-[52px] w-[52px] items-center justify-center bg-primary-600">
-            <Music size={45} strokeWidth={1} className="stroke-primary-0" />
-          </div>
-        )
-      }
-      < div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg md:max-w-[250px]" >
+    <div className="flex h-auto w-full gap-2 rounded-sm border border-borderGrey px-2 py-1">
+      {images.length > 0 ? (
+        <img
+          src={images[images.length - 1].url}
+          width={52}
+          height={52}
+          alt="PlaylistCoverImage"
+        />
+      ) : (
+        <div className="flex h-[52px] w-[52px] items-center justify-center bg-primary-600">
+          <Music size={45} strokeWidth={1} className="stroke-primary-0" />
+        </div>
+      )}
+      <div className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg md:max-w-[250px]">
         {name}
-      </div >
-      {
-        trackContained ? (
-          <div className="self-center" >
-            <CheckCircle
-              className="stroke-green-600"
-              size={40}
-              strokeWidth={1.2}
-            />
-          </div>
-        ) : (
-          <div
-            className="cursor-pointer self-center rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
-            onClick={() => handleClick(id, index, trackContained)}
-          >
-            <PlusCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
-          </div>
-        )}
-    </div >
+      </div>
+      {trackContained ? (
+        <div className="self-center">
+          <CheckCircle
+            className="stroke-green-600"
+            size={40}
+            strokeWidth={1.2}
+          />
+        </div>
+      ) : (
+        <div
+          className="cursor-pointer self-center rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
+          onClick={() => handleClick(id, index, trackContained)}
+        >
+          <PlusCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -85,7 +79,7 @@ const PlyrPlaylistAdd = () => {
   }, [player])
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       let _existingTracks = await Promise.all(
         outputPlaylists.map((p) => api.playlist.itemUris(p.id))
       )
@@ -93,18 +87,15 @@ const PlyrPlaylistAdd = () => {
     })()
   }, [])
 
-
   const handleClick = (id, index, contained) => {
     if (contained) {
       api.playlist.removeTracks(id, [player.item.uri]).then(
         setExistingTracks((v) => {
           v[index] = v[index].filter((t) => t !== player.item.uri)
           return v
-        }
-        )
+        })
       )
-    }
-    else {
+    } else {
       api.playlist.addTrack(id, player.item.uri, false).then(
         setExistingTracks((v) => {
           v[index] = v[index].concat(player.item.uri)
@@ -128,7 +119,6 @@ const PlyrPlaylistAdd = () => {
   if (outputPlaylists.length === 0 || !player) return null
 
   return (
-
     <div className="flex h-full flex-col items-center gap-2 px-4">
       <span className="hidden self-start px-4 text-2xl font-semibold md:block">
         Track speichern
