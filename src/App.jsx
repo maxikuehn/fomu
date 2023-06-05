@@ -9,6 +9,7 @@ import {
   appState,
   currentUserPlaylistsState,
   currentUserState,
+  mobileState,
   playerState,
   spotifyAuthState,
 } from "./recoil"
@@ -28,6 +29,7 @@ const App = () => {
   const [currentUserProfile, setCurrentUserProfile] =
     useRecoilState(currentUserState)
   const setPlayer = useSetRecoilState(playerState)
+  const setMobileState = useSetRecoilState(mobileState)
   let loggedIn = !!useRecoilValue(spotifyAuthState)
 
   const initFetch = async () => {
@@ -55,6 +57,18 @@ const App = () => {
     if (!checkVersion()) window.location.reload()
   }, [loggedIn, app])
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setMobileState(true)
+      else setMobileState(false)
+    }
+    window.addEventListener("resize", handleResize)
+    handleResize()
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
   const renderSwitch = () => {
     switch (app) {
       case EAppState.Configuration:
@@ -65,15 +79,17 @@ const App = () => {
   }
 
   return (
-    <div className="h-full bg-background">
+    <div id="app-container" className="h-full bg-background">
       {loggedIn ? (
         appLoading ? (
           <LoadingPage />
         ) : currentUserProfile?.product === "premium" ? (
           <div className="flex h-full flex-col">
             <TopBar />
-            <div className="h-full">
-              <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>
+            <div className="relative flex-1">
+              <div className="absolute bottom-0 left-0 right-0 top-0">
+                <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>
+              </div>
             </div>
             <Footer />
           </div>

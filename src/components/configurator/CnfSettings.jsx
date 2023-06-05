@@ -72,7 +72,7 @@ const CnfSettings = () => {
   }
 
   return (
-    <div className="flex h-min w-80 flex-col gap-2 self-center rounded border-2 border-primary-500 p-2">
+    <div className="flex max-h-full w-80 flex-col gap-2 self-center rounded border-2 border-primary-500 p-2">
       <div>
         <span>Joined Playlist:</span>
         <CustomTooltip

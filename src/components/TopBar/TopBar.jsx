@@ -1,4 +1,4 @@
-import { DownOutlined, LeftOutlined, UserOutlined } from "@ant-design/icons"
+import { DownOutlined, LeftOutlined, UserOutlined, RightOutlined } from "@ant-design/icons"
 import { Avatar, Button, Dropdown, Typography } from "antd"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
@@ -47,18 +47,6 @@ const TopBar = () => {
 
   return (
     <>
-      <InformationDialog
-        open={openInfo}
-        handleClose={() => setOpenInfo(false)}
-      />
-      <AccountDialog
-        open={openAccount}
-        handleClose={() => setOpenAccount(false)}
-      />
-      <WeeklyDialog
-        open={openWeekly}
-        handleClose={() => setOpenWeekly(false)}
-      />
       <div
         id="topbar"
         className="z-10 flex w-full items-center justify-between p-4"
@@ -69,6 +57,14 @@ const TopBar = () => {
             onClick={() => setApp(EAppState.Configuration)}
           >
             Einstellungen
+          </Button>
+        )}
+        {app === EAppState.Configuration && (
+          <Button
+            icon={<RightOutlined />}
+            onClick={() => setApp(EAppState.Player)}
+          >
+            Player
           </Button>
         )}
         <div />
@@ -86,7 +82,7 @@ const TopBar = () => {
           </Button>
         )}
         <Dropdown
-          menu={{ items }}
+          menu={{ items, onClick: () => setOpen(false) }}
           onOpenChange={setOpen}
           trigger="click"
           placement="bottomRight"
@@ -106,14 +102,24 @@ const TopBar = () => {
                 {currentUserProfile.display_name}
               </Text>
               <DownOutlined
-                size={"lg"}
-                rotate={open ? 180 : 0}
-                className="p-2"
+                className={`mr-2 bordser transition-all ${open && "rotate-180"}`}
               />
             </div>
           </div>
         </Dropdown>
       </div>
+      <InformationDialog
+        open={openInfo}
+        handleClose={() => setOpenInfo(false)}
+      />
+      <AccountDialog
+        open={openAccount}
+        handleClose={() => setOpenAccount(false)}
+      />
+      <WeeklyDialog
+        open={openWeekly}
+        handleClose={() => setOpenWeekly(false)}
+      />
     </>
   )
 }

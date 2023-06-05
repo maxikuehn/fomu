@@ -20,6 +20,9 @@ root.render(
       locale={de_DE}
       theme={{
         algorithm: theme.darkAlgorithm,
+        token: {
+          colorPrimary: "#156DC4",
+        }
       }}
     >
       <AntdApp>

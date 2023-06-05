@@ -24,18 +24,16 @@ const PlayerLayout = () => {
   return (
     <>
       <div
-        className={`h-full w-full ${visible && "blur-sm grayscale"}`}
+        className={`${visible && "blur-sm grayscale"} h-full`}
         id="PlayerLayout"
       >
         <PlyrHistory />
         <div
-          className={`flex h-full flex-col justify-around md:flex-row`}
+          className={`flex h-full flex-col justify-between md:flex-row`}
           id="PlayerContainer"
         >
           <div
-            className={`px-4 py-2 transition-dimension duration-500 ${
-              historyOpen ? "md:w-96" : "w-56"
-            } flex flex-col items-start justify-between`}
+            className={`px-4 py-2 transition-dimension duration-500 md:w-96`}
             id="PlayerSpacerLeft"
           >
             <Button
@@ -46,16 +44,14 @@ const PlayerLayout = () => {
               Wiedergabeverlauf
             </Button>
           </div>
-          <PlyrPlaylistAdd />
+          <div className="grow md:grow-0 relative md:order-last w-full md:max-w-md">
+            <div className="absolute top-0 bottom-0 right-0 left-0">
+              <PlyrPlaylistAdd />
+            </div>
+          </div>
           <PlyrPlayer />
-          <div
-            id="PlayerSpacerRight"
-            className={`transition-dimension duration-500 ${
-              historyOpen ? "w-0" : "lg:w-16"
-            }`}
-          />
         </div>
-      </div>
+      </div >
       <Fade show={visible}>
         <Backdrop context={context} />
       </Fade>
