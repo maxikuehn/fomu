@@ -2,7 +2,7 @@ import { Modal, Typography } from "antd"
 
 const { Text, Title, Paragraph } = Typography
 
-const InformationDialog = ({ open, handleClose: handleClose }) => {
+const InformationDialog = ({ open, handleClose }) => {
   return (
     <Modal
       title="Über diese App"
@@ -21,6 +21,7 @@ const InformationDialog = ({ open, handleClose: handleClose }) => {
           <a
             href="https://developer.spotify.com/documentation/web-api/reference/#/"
             target={"_blank"}
+            rel="noreferrer"
           >
             Spotify Web API
           </a>{" "}

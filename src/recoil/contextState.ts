@@ -10,7 +10,7 @@ export const contextState = atom<string>({
 export const contextIdState = selector({
   key: "contextIdState",
   get: ({ get }) => {
-    let state = get(contextState).split(":")
+    const state = get(contextState).split(":")
     return state[state.length - 1]
   },
 })

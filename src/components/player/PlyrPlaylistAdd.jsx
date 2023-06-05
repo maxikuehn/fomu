@@ -79,8 +79,9 @@ const PlyrPlaylistAdd = () => {
   }, [player])
 
   useEffect(() => {
+    // rome-ignore lint/complexity/noExtraSemicolon: not unnecessary
     ;(async () => {
-      let _existingTracks = await Promise.all(
+      const _existingTracks = await Promise.all(
         outputPlaylists.map((p) => api.playlist.itemUris(p.id))
       )
       setExistingTracks(_existingTracks)

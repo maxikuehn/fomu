@@ -5,7 +5,7 @@ import netlifyFetcher from "../netlifyFetcher"
 import { encrypt } from "../../services/encryption"
 
 const BASE_URL = window.location.origin
-const REDIRECT_URI = BASE_URL + "/callback"
+const REDIRECT_URI = `${BASE_URL}/callback`
 const CLIENT_ID = import.meta.env.VITE_SP_CLIENT_ID
 
 export const refresh = async (failedRequest: any) => {

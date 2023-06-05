@@ -57,23 +57,23 @@ const combine = async (destinationId, sourceId) => {
   const existingTracks = await itemUris(destinationId)
   _pullAll(tracks, existingTracks)
 
-  let chunks = chunk(tracks, 100)
+  const chunks = chunk(tracks, 100)
   return Promise.all(chunks.map((tr) => addTracks(destinationId, tr)))
 }
 
 const itemUris = async (playlits_id, offset = 0) => {
   const limit = 50
-  var request = await spotifyFetcher
+  const request = await spotifyFetcher
     .get(`playlists/${playlits_id}/tracks`, { params: { limit, offset } })
     .then((response) => response.data)
 
   if (request.total === 0) return []
-  let tracks = request.items.map((t) => t.track.uri)
+  const tracks = request.items.map((t) => t.track.uri)
   if (offset > 0) return tracks
 
-  let tracksLeft = request.total - (limit + offset)
-  let length = Math.ceil(tracksLeft / 50)
-  let promises = Array(length)
+  const tracksLeft = request.total - (limit + offset)
+  const length = Math.ceil(tracksLeft / 50)
+  const promises = Array(length)
     .fill(0)
     .map((_, i) => itemUris(playlits_id, (i + 1) * limit))
   return tracks.concat((await Promise.all(promises)).flat())
@@ -81,7 +81,7 @@ const itemUris = async (playlits_id, offset = 0) => {
 
 const chunk = (arr, chunkSize = 1) => {
   const tmp = [...arr]
-  let cache = []
+  const cache = []
   if (chunkSize <= 0) return cache
   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
   return cache

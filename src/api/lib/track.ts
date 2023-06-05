@@ -7,7 +7,7 @@ import spotifyFetcher from "../spotifyFetcher"
 export const userSaved = async () => {
   let likedTracks: string[] = []
   let offset = 0
-  let limit = 50
+  const limit = 50
   while (true) {
     const response = await spotifyFetcher.get("me/tracks", {
       params: { limit, offset },

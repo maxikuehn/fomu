@@ -10,7 +10,7 @@ const prisma = new PrismaClient()
 function getUserProfile(access_token) {
   return axios.get("https://api.spotify.com/v1/me", {
     headers: {
-      Authorization: "Bearer " + access_token,
+      Authorization: `Bearer ${access_token}`,
       ContentType: "application/json",
     },
   })
@@ -30,9 +30,9 @@ const handler = async function (event) {
       }),
       {
         headers: {
-          Authorization:
-            "Basic " +
-            Buffer.from(client_id + ":" + client_secret).toString("base64"),
+          Authorization: `Basic ${Buffer.from(
+            `${client_id}:${client_secret}`
+          ).toString("base64")}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
       }

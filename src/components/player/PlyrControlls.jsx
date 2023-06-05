@@ -59,8 +59,9 @@ const PlyrControlls = ({
   const dev = import.meta.env.MODE === "development"
 
   useEffect(() => {
+    // rome-ignore lint/complexity/noExtraSemicolon: not unnecessary
     ;(async () => {
-      let deviceList = await api.player.availableDevices()
+      const deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setSelectedDevice(_find(deviceList, "is_active")?.id)
     })()
@@ -119,7 +120,7 @@ const PlyrControlls = ({
 
   const handleSeek = (e) => {
     const width = document.getElementById("plyr-progress").offsetWidth
-    var pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
+    const pos = e.clientX - e.target.getBoundingClientRect().left //x position within the element.
     const seekMs = _clamp(Math.floor((pos / width) * duration), 0, duration)
     api.player.seekPosition(seekMs)
   }

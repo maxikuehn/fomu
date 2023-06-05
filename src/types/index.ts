@@ -1,8 +1,8 @@
 export enum EAppState {
-  Unauthenticated,
-  Loading,
-  Configuration,
-  Player,
+  Unauthenticated = 0,
+  Loading = 1,
+  Configuration = 2,
+  Player = 3,
 }
 
 export interface sp_image {
@@ -77,4 +77,4 @@ export interface sp_playlist {
   uri: string
 }
 
-export interface sp_track {}
+export type sp_track = {}

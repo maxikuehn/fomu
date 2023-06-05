@@ -5,7 +5,9 @@ const { Text } = Typography
 
 const StyledItem = ({ position, isPlaying }) => (
   <div
-    className={`absolute bottom-0 w-[3px] animate-music-playing rounded-t-full shadow-inner shadow-spotify-green`}
+    className={
+      "absolute bottom-0 w-[3px] animate-music-playing rounded-t-full shadow-inner shadow-spotify-green"
+    }
     style={{
       left: `${position * 5}px`,
       animationDelay: `${position * -777}ms`,

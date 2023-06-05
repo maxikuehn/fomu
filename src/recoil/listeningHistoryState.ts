@@ -19,7 +19,7 @@ export const toggleDeleted = (
 ) => {
   const index = history.findIndex((track) => track.uri === uri)
   if (index === -1) return history
-  let newEntry = { ...history[index] }
+  const newEntry = { ...history[index] }
   newEntry.deleted = !newEntry.deleted
   return [...history.slice(0, index), newEntry, ...history.slice(index + 1)]
 }

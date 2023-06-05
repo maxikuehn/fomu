@@ -31,7 +31,7 @@ const PlyrHistory = () => {
             icon={<LeftOutlined />}
             onClick={() => setHistoryOpen(false)}
             className="mr-8 flex-1 text-left"
-          ></Button>
+          />
           <span
             className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap pr-2 text-right"
             onClick={() => setShowDeleted(!showDeleted)}

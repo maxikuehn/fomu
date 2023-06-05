@@ -8,7 +8,7 @@ const { VITE_SP_CLIENT_SECRET: client_secret, VITE_SP_CLIENT_ID: client_id } =
 const prisma = new PrismaClient()
 
 const getSpotifyToken = async function (user_id) {
-  var refresh_token = await prisma.users
+  const refresh_token = await prisma.users
     .findUnique({
       where: { id: user_id },
     })
@@ -23,9 +23,9 @@ const getSpotifyToken = async function (user_id) {
       }),
       {
         headers: {
-          Authorization:
-            "Basic " +
-            Buffer.from(client_id + ":" + client_secret).toString("base64"),
+          Authorization: `Basic ${Buffer.from(
+            `${client_id}:${client_secret}`
+          ).toString("base64")}`,
           "Content-Type": "application/x-www-form-urlencoded",
         },
       }

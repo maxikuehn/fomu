@@ -21,7 +21,7 @@ async function exportPublicCryptoKey(key) {
 }
 
 export const generateKey = async () => {
-  let key = await window.crypto.subtle.generateKey(
+  const key = await window.crypto.subtle.generateKey(
     {
       name: "RSA-OAEP",
       modulusLength: 4096,

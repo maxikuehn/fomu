@@ -7,7 +7,7 @@ import api from "../api"
 import { spotifyAuthState } from "../recoil"
 
 const LoadingPage = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   const setAuthState = useSetRecoilState(spotifyAuthState)
 
   useEffect(() => {

@@ -29,11 +29,11 @@ const PlayerLayout = () => {
       >
         <PlyrHistory />
         <div
-          className={`flex h-full flex-col justify-between md:flex-row`}
+          className={"flex h-full flex-col justify-between md:flex-row"}
           id="PlayerContainer"
         >
           <div
-            className={`px-4 py-2 transition-dimension duration-500 md:w-96`}
+            className={"px-4 py-2 transition-dimension duration-500 md:w-96"}
             id="PlayerSpacerLeft"
           >
             <Button

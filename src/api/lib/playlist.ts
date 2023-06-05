@@ -7,7 +7,7 @@ import spotifyFetcher from "../spotifyFetcher"
 
 const chunk = (arr: any[], chunkSize = 1) => {
   const tmp = [...arr]
-  let cache: any[] = []
+  const cache: any[] = []
   if (chunkSize <= 0) return cache
   while (tmp.length) cache.push(tmp.splice(0, chunkSize))
   return cache
@@ -23,17 +23,17 @@ export const currentUser = async () => {
 
 export const itemUris = async (playlits_id: string, offset = 0) => {
   const limit = 50
-  var request = await spotifyFetcher
+  const request = await spotifyFetcher
     .get(`playlists/${playlits_id}/tracks`, { params: { limit, offset } })
     .then((response) => response.data)
 
   if (request.total === 0) return []
-  let tracks = request.items.map((t) => t.track.uri)
+  const tracks = request.items.map((t) => t.track.uri)
   if (offset > 0) return tracks
 
-  let tracksLeft = request.total - (limit + offset)
-  let length = Math.ceil(tracksLeft / 50)
-  let promises = Array(length)
+  const tracksLeft = request.total - (limit + offset)
+  const length = Math.ceil(tracksLeft / 50)
+  const promises = Array(length)
     .fill(0)
     .map((_, i) => itemUris(playlits_id, (i + 1) * limit))
   return tracks.concat((await Promise.all(promises)).flat())
@@ -69,7 +69,7 @@ export const combine = async (destinationId: string, sourceId: string[]) => {
   const existingTracks = await itemUris(destinationId)
   _pullAll(tracks, existingTracks)
 
-  let chunks = chunk(tracks, 100)
+  const chunks = chunk(tracks, 100)
   return await Promise.all(chunks.map((tr) => addTracks(destinationId, tr)))
 }
 
@@ -88,7 +88,7 @@ export const removeTracks = async (playlist_id: string, tracks: string[]) => {
 
 export const addCover = async (
   playlist_id: string,
-  image: string = "/playlist-cover.jpeg"
+  image = "/playlist-cover.jpeg"
 ) => {
   const blob = await fetch(image).then((response) => response.blob())
   const fileReader = new FileReader()
@@ -102,7 +102,7 @@ export const addCover = async (
   fileReader.readAsDataURL(blob)
 }
 
-export const create = async (name: string = "F O M U") => {
+export const create = async (name = "F O M U") => {
   const userId = getRecoil(currentUserState)?.id
   return spotifyFetcher
     .post(`users/${userId}/playlists`, {

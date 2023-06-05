@@ -23,8 +23,8 @@ const PlyrHistoryEntry = ({
   const context = useRecoilValue(contextState)
   const decreaseJoinTrackTotal = useSetRecoilState(fullJoinPlaylistState)
 
-  const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden "
-  let show = !deleted || showDeleted
+  const spanClass = "whitespace-nowrap text-ellipsis overflow-hidden"
+  const show = !deleted || showDeleted
   return (
     <div
       id="PlayerHistoryEntry"
@@ -41,10 +41,7 @@ const PlyrHistoryEntry = ({
       <div className="flex w-0 flex-1 flex-col">
         <span
           onClick={() => window.open(uri, "_self")}
-          className={
-            spanClass +
-            "cursor-pointer underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
-          }
+          className={`${spanClass} cursor-pointer underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300`}
         >
           {name}
         </span>

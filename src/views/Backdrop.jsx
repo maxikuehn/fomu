@@ -11,8 +11,9 @@ const Backdrop = ({ context }) => {
   const [currentDevice, setCurrentDevice] = useRecoilState(currentDeviceState)
 
   useEffect(() => {
+    // rome-ignore lint/complexity/noExtraSemicolon: <explanation>
     ;async () => {
-      let deviceList = await api.player.availableDevices()
+      const deviceList = await api.player.availableDevices()
       setDevices(deviceList)
       setCurrentDevice(_find(deviceList, "is_active")?.id)
     }

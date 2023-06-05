@@ -2,7 +2,7 @@ import { Button, Result } from "antd"
 import { useNavigate } from "react-router-dom"
 
 const SiteNotFound = () => {
-  let navigate = useNavigate()
+  const navigate = useNavigate()
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-background">
       <Result
