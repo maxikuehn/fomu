@@ -86,6 +86,7 @@ const Backdrop = ({ context }) => {
         className="flex h-min cursor-pointer flex-col items-center justify-center gap-2 rounded-t-full 
         p-4 text-primary-400 text-opacity-100 hover:text-primary-500 active:text-primary-700"
         onClick={handleClickStart}
+        onKeyDown={handleClickStart}
       >
         <PlayCircle size={250} strokeWidth={0.7} className="text-inherit" />
         <p className="m-0 select-none text-4xl font-semibold text-inherit">

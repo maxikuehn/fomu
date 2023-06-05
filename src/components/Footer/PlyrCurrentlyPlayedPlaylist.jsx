@@ -27,10 +27,12 @@ const PlyrCurrentlyPlayedPlaylist = () => {
     <div
       className="flex flex-row items-center space-x-1 hover:cursor-pointer"
       onClick={() => window.open(uri, "_self")}
+      onKeyDown={() => window.open(uri, "_self")}
     >
       <div id="PlayAnimationContainer" className="relative h-5 w-5">
         {Array.from({ length: 4 }).map((_, pos) => (
           <StyledItem
+            // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={pos}
             position={pos}
             isPlaying={!!player.is_playing && player.context?.uri === uri}

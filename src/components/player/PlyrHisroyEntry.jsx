@@ -41,6 +41,7 @@ const PlyrHistoryEntry = ({
       <div className="flex w-0 flex-1 flex-col">
         <span
           onClick={() => window.open(uri, "_self")}
+          onKeyDown={() => window.open(uri, "_self")}
           className={`${spanClass} cursor-pointer underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300`}
         >
           {name}
@@ -50,8 +51,9 @@ const PlyrHistoryEntry = ({
             .map((a, i) => (
               <span
                 onClick={() => window.open(a.uri, "_self")}
+                onKeyDown={() => window.open(a.uri, "_self")}
                 className="cursor-pointer text-sm underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
-                key={i}
+                key={a.uri}
               >
                 {a.name}
               </span>

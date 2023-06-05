@@ -36,6 +36,7 @@ const PlyrTrackInfo = ({ track }) => {
       <Space direction="vertical" size={0}>
         <span
           onClick={() => window.open(track.uri, "_self")}
+          onKeyDown={() => window.open(track.uri, "_self")}
           className="cursor-pointer text-base font-semibold underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
         >
           {name}
@@ -45,8 +46,9 @@ const PlyrTrackInfo = ({ track }) => {
             .map((a, i) => (
               <span
                 onClick={() => window.open(a.uri, "_self")}
+                onKeyDown={() => window.open(a.uri, "_self")}
                 className="cursor-pointer text-sm underline decoration-transparent transition-all duration-300 hover:text-primary-300 hover:decoration-primary-300"
-                key={i}
+                key={a.uri}
               >
                 {a.name}
               </span>

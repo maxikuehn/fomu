@@ -45,6 +45,7 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
         <div
           className="cursor-pointer self-center rounded-full stroke-primary-400 hover:stroke-primary-500 active:stroke-primary-600"
           onClick={() => handleClick(id, index, trackContained)}
+          onKeyDown={() => handleClick(id, index, trackContained)}
         >
           <PlusCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
         </div>
@@ -146,6 +147,7 @@ const PlyrPlaylistAdd = () => {
         />
         <p
           onClick={handleSubmit}
+          onKeyDown={handleSubmit}
           className="cursor-pointer select-none text-2xl font-semibold text-primary-400"
         >
           {deleteTrack ? "Löschen" : "Weiter"}
