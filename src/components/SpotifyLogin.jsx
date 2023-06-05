@@ -5,7 +5,7 @@ const SpotifyLogin = () => {
   const handleClick = () => api.token.requestAuthorization()
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center p-3">
       <div
         id="login-button"
         onClick={handleClick}
