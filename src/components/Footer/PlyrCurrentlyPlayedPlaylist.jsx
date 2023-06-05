@@ -25,7 +25,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
 
   return (
     <div
-      className="flex flex-row items-center space-x-1 hover:cursor-pointer"
+      className="flex flex-row items-center space-x-1 cursor-pointer"
       onClick={() => window.open(uri, "_self")}
       onKeyDown={() => window.open(uri, "_self")}
     >

@@ -56,14 +56,14 @@ const PlyrTrackInfo = ({ track }) => {
             .reduce((prev, curr) => [prev, ", ", curr])}
         </div>
       </Space>
-      <Image
+      <img
         alt="likeHeart"
         height={35}
         width={35}
         className="cursor-pointer hover:brightness-90 active:brightness-75"
         src={liked ? heartActive : heartInactive}
         onClick={handleClickLike}
-        preview={false}
+        onKeyDown={handleClickLike}
       />
     </div>
   )
