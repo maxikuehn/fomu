@@ -50,6 +50,7 @@ const scopes = (() => [
   scopesList.userLibraryRead,
   scopesList.userReadEmail,
   scopesList.userReadPrivate,
+  // scopesList.ugcImageUpload
 ])()
 
 export default scopes

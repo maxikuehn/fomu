@@ -86,6 +86,20 @@ export const removeTracks = async (playlist_id: string, tracks: string[]) => {
     })
 }
 
+export const addCover = async (playlist_id: string, image: string = "/playlist-cover.jpeg") => {
+  const blob = await fetch(image).then((response) => response.blob())
+  const fileReader = new FileReader()
+  fileReader.onloadend = async () => {
+    const base64String = fileReader.result
+    console.log(base64String)
+    return spotifyFetcher
+      .put(`playlists/${playlist_id}/images`, base64String,
+      )
+      .then((response) => response.data)
+  }
+  fileReader.readAsDataURL(blob)
+}
+
 export const create = async (name: string = "F O M U") => {
   const userId = getRecoil(currentUserState)?.id
   return spotifyFetcher
@@ -94,5 +108,8 @@ export const create = async (name: string = "F O M U") => {
       description: "Created by fomu.app :)",
       public: true,
     })
-    .then((response) => response.data)
+    .then((response) => {
+      // addCover(response.data.id)
+      return response.data
+    })
 }
