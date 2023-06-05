@@ -1,4 +1,4 @@
-import { DownOutlined, LeftOutlined, UserOutlined, RightOutlined } from "@ant-design/icons"
+import { DownOutlined, LeftOutlined, UserOutlined } from "@ant-design/icons"
 import { Avatar, Button, Dropdown, Typography } from "antd"
 import { useState } from "react"
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil"
@@ -59,14 +59,6 @@ const TopBar = () => {
             Einstellungen
           </Button>
         )}
-        {app === EAppState.Configuration && (
-          <Button
-            icon={<RightOutlined />}
-            onClick={() => setApp(EAppState.Player)}
-          >
-            Player
-          </Button>
-        )}
         <div />
         {false && (
           <Button
@@ -102,7 +94,9 @@ const TopBar = () => {
                 {currentUserProfile.display_name}
               </Text>
               <DownOutlined
-                className={`mr-2 bordser transition-all ${open && "rotate-180"}`}
+                className={`bordser mr-2 transition-all ${
+                  open && "rotate-180"
+                }`}
               />
             </div>
           </div>
