@@ -70,25 +70,23 @@ const App = () => {
   }
 
   return (
-    <div id="app-container" className="h-full bg-background">
-      {loggedIn ? (
-        appLoading ? (
-          <LoadingPage />
-        ) : currentUserProfile?.product === "premium" ? (
-          <div className="flex h-full flex-col">
-            <TopBar />
-            <div className="relative flex-1">
-              <div className="absolute bottom-0 left-0 right-0 top-0">
-                <Suspense fallback={<LoadingPage />}>{renderSwitch()}</Suspense>
-              </div>
-            </div>
-            <Footer />
-          </div>
-        ) : (
-          <SpotifyPremiumHandler />
-        )
-      ) : (
+    <div id="app-container" className="h-[100dvh] bg-background">
+      {appLoading ? (
+        <LoadingPage />
+      ) : !loggedIn ? (
         <SpotifyLogin />
+      ) : currentUserProfile?.product !== "premium" ? (
+        <SpotifyPremiumHandler />
+      ) : (
+        <div className="flex h-full flex-col">
+          <TopBar />
+          <div className="relative flex-1">
+            <div className="absolute bottom-0 left-0 right-0 top-0">
+              {renderSwitch()}
+            </div>
+          </div>
+          <Footer />
+        </div>
       )}
     </div>
   )

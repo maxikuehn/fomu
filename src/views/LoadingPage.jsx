@@ -4,17 +4,18 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useSetRecoilState } from "recoil"
 import api from "../api"
-import { spotifyAuthState } from "../recoil"
+import { appLoadingState, spotifyAuthState } from "../recoil"
 
 const LoadingPage = () => {
   const navigate = useNavigate()
   const setAuthState = useSetRecoilState(spotifyAuthState)
+  const setAppLoading = useSetRecoilState(appLoadingState)
 
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get("code")
     navigate("/")
     if (!code) return
-    setAuthState({ state: "loading" })
+    setAppLoading(true)
     api.token.get(code).then((data) => {
       if (data !== undefined) setAuthState(data)
     })

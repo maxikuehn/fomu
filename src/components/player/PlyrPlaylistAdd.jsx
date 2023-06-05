@@ -34,12 +34,12 @@ const Playlist = ({ index, name, id, images, handleClick, trackContained }) => {
         {name}
       </div>
       {trackContained ? (
-        <div className="self-center">
-          <CheckCircle
-            className="stroke-green-600"
-            size={40}
-            strokeWidth={1.2}
-          />
+        <div
+          className="cursor-pointer self-center rounded-full stroke-green-600 hover:stroke-green-700 active:stroke-green-800"
+          onClick={() => handleClick(id, index, trackContained)}
+          onKeyDown={() => handleClick(id, index, trackContained)}
+        >
+          <CheckCircle className="stroke-inherit" size={40} strokeWidth={1.2} />
         </div>
       ) : (
         <div
