@@ -14,6 +14,7 @@ const LoadingPage = () => {
     const code = new URL(window.location.href).searchParams.get("code")
     navigate("/")
     if (!code) return
+    setAuthState({ state: "loading" })
     api.token.get(code).then((data) => {
       if (data !== undefined) setAuthState(data)
     })
