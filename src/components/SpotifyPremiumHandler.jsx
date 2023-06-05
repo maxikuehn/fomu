@@ -7,7 +7,7 @@ const SpotifyPremiumHandler = () => {
       <div className="flex flex-col space-y-5 p-4">
         <div className="flex items-start">
           <Image
-            src="src\assets\images\Spotify_Logo_RGB_Green.png"
+            src="srcassetsimagesSpotify_Logo_RGB_Green.png"
             preview={false}
             height={55}
             className="mt-[7px] hover:cursor-pointer"
