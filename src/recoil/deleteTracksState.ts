@@ -3,6 +3,6 @@ import localStorageEffect from "./localSorageEffect"
 
 export const deleteTracksState = atom<boolean>({
   key: "deleteTracksState",
-  default: false,
+  default: true,
   effects: [localStorageEffect("deleteTracksState")],
 })

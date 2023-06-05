@@ -43,8 +43,12 @@ const CnfSettings = () => {
   }, [])
 
   useEffect(() => {
+    console.log("joinPlaylist>", joinPlaylist, "<")
     if (joinPlaylist === "new") return
-    if (!inputPlaylists.includes(joinPlaylist)) setJoinPlaylist(null)
+    if (joinPlaylist === null) {
+      setJoinPlaylist(ownedSelectdPlaylists[0]?.id || null)
+    } else if (!inputPlaylists.includes(joinPlaylist))
+      setJoinPlaylist(ownedSelectdPlaylists[0]?.id || null)
   }, [inputPlaylists])
 
   const handleClickGooo = async () => {
@@ -113,6 +117,7 @@ const CnfSettings = () => {
         type="primary"
         disabled={
           joinPlaylist === null ||
+          joinPlaylist === "" ||
           inputPlaylists.length === 0 ||
           outputPlaylists.length === 0
         }
