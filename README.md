@@ -1,5 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2af211c4-3e94-4376-b8e3-a7b2feee9ae0/deploy-status)](https://app.netlify.com/sites/fomu/deploys)
-![react](https://img.shields.io/badge/React.js-18.x-blue)
+![react](https://img.shields.io/badge/React.js-18.2-blue)
 ![Lines of code](https://img.shields.io/tokei/lines/github/maxikuehn/fomu)
 
 <div id="top"></div>
@@ -7,11 +7,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/maxikuehn/fomu">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
-
-<h2 align="center">F O M U</h3>
+  <a href="https://github.com/maxikuehn/fomu">
+    <img src="fomu-icon.png" alt="Logo" width="80" height="80">
+  </a>
 
   <p align="center">
     <a href="https://fomu.app">View Demo</a>
@@ -27,11 +25,11 @@
 
 A Spotify Player with smart Playlist-Features.
 
-![](src/assets/images/player.png)
+![](player.png)
 
 ### Built With
 
-- [React.js](https://reactjs.org/)
+- [React.js](https://react.dev/)
 - [Ant Design](https://ant.design/)
 - [Recoil](https://recoiljs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
