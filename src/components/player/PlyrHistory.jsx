@@ -28,10 +28,12 @@ const PlyrHistory = () => {
         <div className="mr-[10px] flex">
           <Button
             size="small"
-            icon={<LeftOutlined />}
             onClick={() => setHistoryOpen(false)}
-            className="mr-8 flex-1 text-left"
-          />
+            icon={<LeftOutlined />}
+            className="mr-auto"
+          >
+            schließen
+          </Button>
           <span
             className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap pr-2 text-right"
             onClick={(del) => setShowDeleted(!del)}
