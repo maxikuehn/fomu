@@ -33,6 +33,7 @@ A Spotify Player with smart Playlist-Features.
 - [Ant Design](https://ant.design/)
 - [Recoil](https://recoiljs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
+- [Rome](https://rome.tools/)
 
 ## Contributing
 
