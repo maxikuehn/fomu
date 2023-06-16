@@ -29,11 +29,12 @@ A Spotify Player with smart Playlist-Features.
 
 ### Built With
 
+- [Vite](https://vitejs.dev/)
 - [React.js](https://react.dev/)
 - [Ant Design](https://ant.design/)
-- [Recoil](https://recoiljs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Rome](https://rome.tools/)
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api/)
+- [Netlify](https://www.netlify.com/)
 
 ## Contributing
 
