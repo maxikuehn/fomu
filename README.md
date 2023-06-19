@@ -1,4 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/2af211c4-3e94-4376-b8e3-a7b2feee9ae0/deploy-status)](https://app.netlify.com/sites/fomu/deploys)
+![Uptime Robot ratio (30 days)](https://img.shields.io/uptimerobot/ratio/m794604327-60d31267e37394fdffb4e09c)
 ![react](https://img.shields.io/badge/React.js-18.2-blue)
 ![Lines of code](https://img.shields.io/tokei/lines/github/maxikuehn/fomu)
 
