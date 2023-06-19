@@ -36,8 +36,8 @@ const PlyrHistory = () => {
           </Button>
           <span
             className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap pr-2 text-right"
-            onClick={(del) => setShowDeleted(!del)}
-            onKeyDown={(del) => setShowDeleted(!del)}
+            onClick={() => setShowDeleted(del => !del)}
+            onKeyDown={() => setShowDeleted(del => !del)}
           >
             gelöschte Tracks anzeigen
           </span>
