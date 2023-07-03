@@ -102,12 +102,12 @@ export const addCover = async (
   fileReader.readAsDataURL(blob)
 }
 
-export const create = async (name = "F O M U") => {
+export const create = async (name = "FOMU") => {
   const userId = getRecoil(currentUserState)?.id
   return spotifyFetcher
     .post(`users/${userId}/playlists`, {
       name,
-      description: "Created by fomu.app :)",
+      description: "created by fomu.app ♥",
       public: true,
     })
     .then((response) => {
