@@ -94,9 +94,13 @@ export const addCover = async (
   const fileReader = new FileReader()
   fileReader.onloadend = async () => {
     const base64String = fileReader.result
-    console.log(base64String)
+      ?.toString()
+      .replace("data:", "")
+      .replace(/^.+,/, "")
     return spotifyFetcher
-      .put(`playlists/${playlist_id}/images`, base64String)
+      .put(`playlists/${playlist_id}/images`, base64String, {
+        headers: { "Content-Type": "image/jpeg" },
+      })
       .then((response) => response.data)
   }
   fileReader.readAsDataURL(blob)
@@ -104,14 +108,11 @@ export const addCover = async (
 
 export const create = async (name = "FOMU") => {
   const userId = getRecoil(currentUserState)?.id
-  return spotifyFetcher
-    .post(`users/${userId}/playlists`, {
-      name,
-      description: "created by fomu.app ♥",
-      public: true,
-    })
-    .then((response) => {
-      // addCover(response.data.id)
-      return response.data
-    })
+  const response = await spotifyFetcher.post(`users/${userId}/playlists`, {
+    name,
+    description: "created by fomu.app ♥",
+    public: true,
+  })
+  await addCover(response.data.id)
+  return response.data
 }

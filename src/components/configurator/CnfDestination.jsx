@@ -1,9 +1,10 @@
 import { PlusOutlined } from "@ant-design/icons"
 import { Button, Input, Space } from "antd"
 import { useState } from "react"
-import { useRecoilValue } from "recoil"
+import { useRecoilValue, useSetRecoilState } from "recoil"
 import {
   currentUserOwnedPlaylistState,
+  currentUserPlaylistsState,
   outputPlaylistState,
 } from "../../recoil"
 import CnfPlaylist from "./CnfPlaylist"
@@ -11,14 +12,20 @@ import CnfContainer from "./CnfContainer"
 import api from "../../api"
 
 const CnfDestination = () => {
+  const setCurrentUserPlaylists = useSetRecoilState(currentUserPlaylistsState)
   const ownedPlaylists = useRecoilValue(currentUserOwnedPlaylistState)
   const outputPlaylists = useRecoilValue(outputPlaylistState)
   const [newPlaylistName, setNewPlaylistName] = useState("")
 
   const handleAddPlaylist = async () => {
     if (!newPlaylistName || newPlaylistName === "") return
-    await api.playlist.create(newPlaylistName)
-    location.reload()
+    const newPlaylist = await api.playlist.create(newPlaylistName)
+    newPlaylist.images.push({
+      url: "/playlist-cover.jpeg",
+      height: null,
+      width: null,
+    })
+    setCurrentUserPlaylists([newPlaylist, ...ownedPlaylists])
   }
 
   return (
