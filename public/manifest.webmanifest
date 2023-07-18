@@ -3,6 +3,7 @@
   "background_color": "#0d1117",
   "display": "standalone",
   "scope": "/",
+  "id": "/",
   "start_url": "/",
   "name": "FOMU",
   "short_name": "FOMU",
