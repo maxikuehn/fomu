@@ -38,6 +38,8 @@ const InformationDialog = ({ open, handleClose }) => {
           <br />
           <strong className="text-base">E-Mail: </strong>
           <a href="mailto:mail@fomu.app">mail@fomu.app</a>
+          <br/>
+          <strong className="text-base">Adresse:</strong> Sternbergstr. 7, 76131 Karlsruhe
         </div>
       </div>
     </Modal>
