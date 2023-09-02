@@ -50,6 +50,6 @@ If you have a suggestion that would make this better, please fork the repo and c
 ## Contact
 
 Project Link: [github.com/maxikuehn/fomu](https://github.com/maxikuehn/fomu)  
-Email Contact: [mail@fomu.app](mailto:mail@fomu.app)
+Email Contact: [hello@fomu.app](mailto:hello@fomu.app)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
