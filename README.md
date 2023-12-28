@@ -13,7 +13,7 @@
   </a>
 
   <p align="center">
-    <a href="https://fomu.app">View Demo</a>
+    <a href="https://fomu.app">View App</a>
     ·
     <a href="https://github.com/maxikuehn/fomu/issues">Report Bug</a>
     ·
