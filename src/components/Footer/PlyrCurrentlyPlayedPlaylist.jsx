@@ -35,7 +35,7 @@ const PlyrCurrentlyPlayedPlaylist = () => {
             // rome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={pos}
             position={pos}
-            isPlaying={!!player.is_playing && player.context?.uri === uri}
+            isPlaying={Boolean(player.is_playing) && player.context?.uri === uri}
           />
         ))}
       </div>
