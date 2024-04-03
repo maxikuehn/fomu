@@ -30,7 +30,7 @@ const App = () => {
     useRecoilState(currentUserState)
   const setPlayer = useSetRecoilState(playerState)
   const setMobileState = useSetRecoilState(mobileState)
-  const loggedIn = !!useRecoilValue(spotifyAuthState)
+  const loggedIn = Boolean(useRecoilValue(spotifyAuthState))
 
   const initFetch = async () => {
     setAppLoading(true)
