@@ -44,7 +44,7 @@ export const playContext = async ({
       return response.data
     })
 }
-1
+
 export const play = () =>
   playContext({
     context_uri: undefined,
