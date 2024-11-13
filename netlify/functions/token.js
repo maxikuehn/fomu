@@ -16,7 +16,7 @@ function getUserProfile(access_token) {
   })
 }
 
-const handler = async function (event) {
+const handler = async (event) => {
   const body = JSON.parse(event.body)
   return axios
     .post(
