@@ -25,7 +25,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
       className={selected ? "bg-primary-0" : "bg-transparent"}
       onClick={handleClickPlaylist}
     >
-      <div className="flex flex-nowrap gap-2 py-1">
+      <div className="flex flex-nowrap gap-2 py-1 w-full">
         {images.length > 0 ? (
           <Image
             src={images[images.length - 1].url}
