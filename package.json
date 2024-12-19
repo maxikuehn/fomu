@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
-    "@netlify/functions": "^2.8.2",
+    "@netlify/functions": "^3.0.0",
     "@prisma/client": "^5.0.0",
     "antd": "^5.5.2",
     "axios": "^1.0.0",
