@@ -13,7 +13,7 @@
   </a>
 
   <p align="center">
-    <a href="https://fomu.app">View App</a>
+    <a href="https://fomu.maxikuehn.party">View App</a>
     ·
     <a href="https://github.com/maxikuehn/fomu/issues">Report Bug</a>
     ·
@@ -50,6 +50,6 @@ If you have a suggestion that would make this better, please fork the repo and c
 ## Contact
 
 Project Link: [github.com/maxikuehn/fomu](https://github.com/maxikuehn/fomu)  
-Email Contact: [hello@fomu.app](mailto:hello@fomu.app)
+Email Contact: [fomu@maxikuehn.party](mailto:fomu@maxikuehn.party)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
