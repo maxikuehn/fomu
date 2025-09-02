@@ -37,7 +37,7 @@ const InformationDialog = ({ open, handleClose }) => {
           <strong className="text-base">Seiteninhaber:</strong> Maximilian Kühn
           <br />
           <strong className="text-base">E-Mail: </strong>
-          <a href="mailto:mail@fomu.app">mail@fomu.app</a>
+          <a href="mailto:fomu@maxikuehn.party">fomu@maxikuehn.party</a>
           <br/>
           <strong className="text-base">Adresse:</strong> Sternbergstr. 7, 76131 Karlsruhe
         </div>
