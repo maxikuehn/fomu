@@ -17,7 +17,7 @@
     "node_modules"
   ],
   "dependencies": {
-    "@ant-design/icons": "^5.0.0",
+    "@ant-design/icons": "^6.0.0",
     "@netlify/functions": "^2.8.2",
     "@prisma/client": "^5.0.0",
     "antd": "^5.5.2",
