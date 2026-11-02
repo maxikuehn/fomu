@@ -1,5 +1,5 @@
 import axios from "axios"
-import createAuthRefreshInterceptor from "axios-auth-refresh"
+import createAuthRefresh from "axios-auth-refresh"
 import { delay as _delay } from "lodash"
 import { getRecoil } from "recoil-nexus"
 import { spotifyAuthState } from "../recoil"
@@ -16,9 +16,9 @@ spotifyFetcher.interceptors.request.use((config) => {
   return config
 })
 
-createAuthRefreshInterceptor(spotifyFetcher, refresh, {
+createAuthRefresh(spotifyFetcher, refresh, {
   statusCodes: [401],
-  pauseInstanceWhileRefreshing: true,
+  deduplicateRefresh: true,
 })
 
 spotifyFetcher.interceptors.response.use(

@@ -13,9 +13,7 @@ export default defineConfig({
         {
           libName: "antd",
           libDirectory: "es",
-          style: (name) => {
-            if (name !== "theme") return `antd/es/${name}/style`
-          },
+          style: (name) => (name !== "theme" ? `antd/es/${name}/style` : false),
         },
       ],
     }),

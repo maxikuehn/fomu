@@ -42,7 +42,7 @@ const CnfPlaylist = ({ name, id, tracks, images, owner, input }) => {
         )}
 
         <Space
-          direction="vertical"
+          orientation="vertical"
           className="text-left"
           style={{ maxWidth: "calc(100% - 60px)" }}
         >

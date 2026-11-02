@@ -46,7 +46,7 @@ const Backdrop = ({ context }) => {
               return <Speaker size={30} />
           }
         })()}
-        <Space direction="vertical" className="flex-1 text-left ">
+        <Space orientation="vertical" className="flex-1 text-left ">
           <div className="max-w-xs overflow-hidden text-ellipsis text-lg">
             {name}
           </div>
