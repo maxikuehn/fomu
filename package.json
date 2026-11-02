@@ -20,7 +20,7 @@
     "@ant-design/icons": "^6.3.4",
     "@netlify/functions": "^2.8.2",
     "@prisma/client": "^5.0.0",
-    "antd": "^5.29.3",
+    "antd": "^6.6.8",
     "axios": "^1.21.0",
     "axios-auth-refresh": "^5.0.2",
     "lodash": "^4.18.1",
