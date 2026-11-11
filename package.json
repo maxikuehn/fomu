@@ -22,7 +22,7 @@
     "@prisma/client": "^5.0.0",
     "antd": "^5.5.2",
     "axios": "^1.12.2",
-    "axios-auth-refresh": "^3.3.6",
+    "axios-auth-refresh": "^5.0.0",
     "lodash": "^4.17.21",
     "qs": "^6.14.0",
     "react": "^18.2.0",
